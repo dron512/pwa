@@ -2,6 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const dayjs = require('dayjs');
 
+// import fs from 'fs';
+// import {path} from 'path';
+// import dayjs from 'dayjs';
+
+
 // 시작 날짜 설정
 let startDate = dayjs('2025-01-06'); // 첫 주의 월요일
 const totalWeeks = 31; // 총 주차
