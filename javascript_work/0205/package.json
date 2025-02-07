@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "0205",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,7 +12,6 @@
     "vite": "^6.0.5"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/vite": "^4.0.3",
     "tailwindcss": "^4.0.3"
   }
