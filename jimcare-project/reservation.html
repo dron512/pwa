@@ -21,6 +21,13 @@
         * {
             font-family: 'Pretendard-Regular';
         }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in{
+            animation: fade-in 0.8s ease-in-out forwards;
+        }
     </style>
 
 </head>
@@ -55,11 +62,11 @@
     </div>
 </div>
 <div class="bg-amber-300 pt-10">
-    <div class="text-center py-20">
+    <div class="text-center pt-10 pb-5">
         <h1 class="text-7xl animate-bounce">예약하기</h1>
         <h5 class="text-3xl">reservation</h5>
     </div>
-    <div class="w-[1200px] bg-gray-50 mx-auto p-5 shadow-md rounded-md">
+    <div class="w-[1200px] bg-gray-50 mx-auto p-5 shadow-md rounded-md opacity-0 translate-y-10 animate-fade-in">
         <div class="flex my-3 h-15">
             <div class="bg-amber-300 text-white px-16 py-3 rounded w-[300px] h-full flex items-center justify-center">
                 <label>이름</label>
@@ -163,7 +170,7 @@
 
         <div class="text-center">
             <div class="mt-5 mb-10">
-                <input type="checkbox" name="agree" id="agree">개인정보제공에 동의합니다.
+                <input type="checkbox" name="agree" id="agree"> 개인정보제공에 동의합니다.
             </div>
             <div>
                 <button class="bg-amber-300 px-12 py-7 text-white cursor-pointer rounded">예약하기</button>
