@@ -83,7 +83,7 @@
             </div>
             <div class="p-1 border border-gray-300 rounded-lg shadow-sm ml-1" style="flex:1">
                 <input class="m-2 p-1 border border-gray-300 rounded-lg shadow-sm
-                            focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            focus:outline-none focus:ring-2 focus:ring-blue-500 w-[300px]"
                        type="text" name="name" id="phone" placeholder="구분자(-)를 제외한 숫자만 입력하세요">
             </div>
         </div>
@@ -105,8 +105,158 @@
                             <option value="jim-move">짐이동</option>
                         </select>
                     </div>
-                    <div id="etc" class="">
-                        <h1>etc</h1>
+                    <div id="etc1" class="hidden">
+                        <div class="p-5 m-3 bg-white shadow-md rounded-md border border-gray-200">
+                            <!-- 짐 맡길 시간 & 짐 찾을 시간 -->
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2">짐 맡길 시간</label>
+                                    <div class="flex gap-2">
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>시</option>
+                                            <option>00</option>
+                                            <option>01</option>
+                                            <option>02</option>
+                                        </select>
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>분</option>
+                                            <option>00</option>
+                                            <option>30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2">짐 찾을 시간</label>
+                                    <div class="flex gap-2">
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>시</option>
+                                            <option>00</option>
+                                            <option>01</option>
+                                        </select>
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>분</option>
+                                            <option>00</option>
+                                            <option>30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 짐 종류 및 가격 -->
+                            <div class="mb-4">
+                                <p class="text-orange-500 font-bold">쇼핑백/백팩 개당 3,000원</p>
+                                <input type="number" class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-blue-500 w-20" value="0">
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="text-orange-500 font-bold">캐리어 개당 4,000원</p>
+                                <input type="number" class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-blue-500 w-20" value="0">
+                            </div>
+
+                            <!-- 기타 물품 -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-1">
+                                    기타 물품 종류 및 수량 <span class="text-orange-500">비용 별도 문의</span>
+                                </label>
+                                <input type="text" placeholder="기타 짐 종류, 수량"
+                                       class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm
+                                                        focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                            </div>
+
+                            <!-- 안내문구 -->
+                            <p class="text-xs text-orange-500 mt-2">※ 보관 이용 요금은 1일 기준입니다.</p>
+                        </div>
+                    </div>
+                    <div id="etc2" class="hidden">
+                        <div class="p-5 m-3 bg-white shadow-md rounded-md border border-gray-200">
+                            <!-- 짐 맡길 시간 & 짐 찾을 시간 -->
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2">짐 맡길 시간</label>
+                                    <div class="flex gap-2">
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>시</option>
+                                            <option>00</option>
+                                            <option>01</option>
+                                            <option>02</option>
+                                        </select>
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>분</option>
+                                            <option>00</option>
+                                            <option>30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2">짐 찾을 시간</label>
+                                    <div class="flex gap-2">
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>시</option>
+                                            <option>00</option>
+                                            <option>01</option>
+                                        </select>
+                                        <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20">
+                                            <option>분</option>
+                                            <option>00</option>
+                                            <option>30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 짐 맡길 곳 & 짐 찾을 곳 -->
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2">짐 맡길 곳</label>
+                                    <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                                        <option>선택</option>
+                                        <option>역</option>
+                                        <option>공항</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-bold mb-2">짐 찾을 곳</label>
+                                    <select class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                                        <option>선택</option>
+                                        <option>역</option>
+                                        <option>공항</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- 짐 종류 및 가격 -->
+                            <div class="mb-4 flex items-center justify-between">
+                                <p class="text-orange-500 font-bold">쇼핑백/백팩 개당 10,000원</p>
+                                <input type="number" class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20" value="0">
+                            </div>
+
+                            <div class="mb-4 flex items-center justify-between">
+                                <p class="text-orange-500 font-bold">캐리어 20~23인치 (높이 60cm 미만) 개당 12,000원</p>
+                                <input type="number" class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20" value="0">
+                            </div>
+
+                            <div class="mb-4 flex items-center justify-between">
+                                <p class="text-orange-500 font-bold">캐리어 24인치 이상 (높이 60cm 이상) 개당 18,000원</p>
+                                <input type="number" class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-20" value="0">
+                            </div>
+
+                            <!-- 기타 물품 -->
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-1">
+                                    기타 물품 종류 및 수량 <span class="text-orange-500">비용 별도 문의</span>
+                                </label>
+                                <input type="text" placeholder="기타 짐 종류, 수량" class="m-2 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                            </div>
+
+                            <!-- 안내문구 -->
+                            <p class="text-xs text-orange-500 mt-2">※ 보관 이용 요금은 1일 기준입니다.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -222,12 +372,30 @@
     });
     var $type = document.querySelector('#type');
     var $divService = document.querySelector('#div-service');
-    var $etc = document.querySelector('#etc');
+    var $etc1 = document.querySelector('#etc1');
+    var $etc2 = document.querySelector('#etc2');
+
     var type_value;
     type.addEventListener('change', function (e) {
         type_value = e.target.value;
         console.log(type_value);
-        $divService.classList.remove('h-20');
-        $divService.classList.add('h-80');
+
+        if(type_value=== 'jim-keep'){
+            $divService.classList.remove('h-20');
+            $divService.classList.add('h-[530px]');
+            $etc1.classList.remove('hidden');
+            $etc2.classList.add('hidden');
+        }else if(type_value==='jim-move'){
+            $divService.classList.remove('h-20');
+            $divService.classList.add('h-[650px]');
+            $etc1.classList.add('hidden');
+            $etc2.classList.remove('hidden');
+        }else{
+            $divService.classList.remove('h-[530px]');
+            $divService.classList.remove('h-[650px]');
+            $divService.classList.add('h-20');
+            $etc1.classList.add('hidden');
+            $etc2.classList.add('hidden');
+        }
     });
 </script>
