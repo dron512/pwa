@@ -6,16 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>짐케어</title>
     <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- fontasome 가져오기 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         @font-face {
-            font-family: 'SBAggroB';
-            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
-            font-weight: normal;
+            font-family: 'Pretendard-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
             font-style: normal;
         }
 
         * {
-            font-family: 'SBAggroB';
+            font-family: 'Pretendard-Regular';
         }
     </style>
 
@@ -81,14 +85,18 @@
                 <label>이용날짜 및 선비스 선택</label>
             </div>
             <div class="p-1 border border-gray-300 rounded-lg shadow-sm ml-1" style="flex:1">
-                <input class="border p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                       type="date" name="name" id="date">
-                <select name="type" id="type" class="m-2 p-1 border border-gray-300 rounded-lg shadow-sm
+                <div class="flex h-full items-center gap-2">
+                    <input class="border p-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                           type="date" name="name" id="use-date">
+                    <i class="fa-regular fa-calendar-days fa-2x"></i>
+                    <select name="type" id="type"
+                            class="w-[250px] p-2 border border-gray-300 rounded-lg shadow-sm
                             focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">이용서비스선택</option>
-                    <option value="">짐보관(1일기준)</option>
-                    <option value="">짐이동</option>
-                </select>
+                        <option value="">이용서비스선택</option>
+                        <option value="">짐보관(1일기준)</option>
+                        <option value="">짐이동</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="flex my-3 h-32">
@@ -97,14 +105,16 @@
             </div>
             <div class="p-1 border border-gray-300 rounded-lg shadow-sm ml-1" style="flex:1">
                 <textarea class="p-1 border border-gray-300 rounded-lg shadow-sm w-full h-full resize-none
-                       focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="name" id="comment"></textarea>
+                       focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="name"
+                          id="comment"></textarea>
             </div>
         </div>
         <div class="flex my-3 h-30">
             <div class="bg-amber-300 text-white px-16 py-3 rounded w-[300px] h-full flex items-center justify-center">
                 <label>개인정보/<br/>취급방침</label>
             </div>
-            <div class="p-1 border border-gray-300 rounded-lg shadow-sm ml-1 h-30 overflow-auto" style="flex:1;">
+            <div class="p-1 border border-gray-300 rounded-lg shadow-sm ml-1 h-30 overflow-auto"
+                 style="flex:1;font-family: 'Pretendard-Regular';">
                 개인정보취급방침<br/>
                 “짐케어”(이하 “회사”라 함)은 통신비밀보호법, 전기통신사업법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 정보통신서비스제공자가 준수하여야 할 관련 법령상의 개인정보보호 규정을
                 준수하며, 관련 법령에 의거한 개인정보취급방침을 정하여 이용자 권익 보호에 최선을 다하고 있습니다.<br/>
@@ -163,13 +173,19 @@
     <div class="bg-gray-700 mt-20">
         <div class="w-[1200px] mx-auto text-white h-12 flex justify-between">
             <div class="flex items-center h-full gap-5">
-                <div>서비스</div> |
-                <div>바로예약</div> |
-                <div>예약확인</div> |
-                <div>고객지원</div> |
+                <div>서비스</div>
+                |
+                <div>바로예약</div>
+                |
+                <div>예약확인</div>
+                |
+                <div>고객지원</div>
+                |
                 <div>개인정보취급방침</div>
             </div>
-            <div class="flex items-center h-full cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">TOP⇧</div>
+            <div class="flex items-center h-full cursor-pointer bg-gray-900 px-3"
+                 onclick="window.scrollTo({top:0, behavior:'smooth'})">TOP⇧
+            </div>
         </div>
     </div>
     <div class="bg-gray-600">
@@ -185,3 +201,10 @@
 </div>
 </body>
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        flatpickr("#use-date", {
+            dateFormat: "Y-m-d"
+        });
+    });
+</script>
