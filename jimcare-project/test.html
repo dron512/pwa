@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<input type="text" id="comment" placeholder="Enter your comment">
+<input type="text" id="writer" placeholder="Enter your writer">
+<button id="insert">insert버튼</button>
+<button id="select">select버튼</button>
+<div id="result"></div><!-- $div.innnerHTML = ascd'qcwkejrn -->
+</body>
+</html>
+<script>
+    const $comment = document.querySelector('#comment');
+    const $writer = document.querySelector('#writer');
+    const $insert = document.querySelector('#insert');
+    const $select = document.querySelector('#select');
+    const $result = document.querySelector('#result');
+
+    var dbUrl = 'https://fsvilhpktvuyimkzgflu.supabase.co';
+    var dbPassword = 'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzdmlsaHBrdHZ1eWlta3pnZmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk0MjUwODgsImV4cCI6MjA1NTAwMTA4OH0.LU7A0fgqUj2eia-xunOWZYDuvfSvuM-a1_4V3TffXrI';
+
+    const supabase = window.supabase.createClient(dbUrl, dbPassword);
+
+    async function insertData(comment, writer) {
+        // insert into test (comment, writer) values ('test에서넣음', '박길동');
+        const response = await supabase.from('test').insert([{ comment, writer }]);
+        console.log(response);
+    }
+
+    async function selectData(){
+        const response = await supabase.from('test').select();
+        // console.log(response);
+        // console.log(response.data);
+        let result = '';
+        for( let i = 0; i < response.data.length ; i++) {
+            console.log(response.data[i]);
+            result = result +`<div style="display: flex; align-items: center; justify-content: center;padding: 1rem">
+                              <span>순번 ${response.data[i].id}</span>
+                              <span>코멘트 ${response.data[i].comment}</span>
+                              <span>작성자 ${response.data[i].writer}</span>
+                              <span>작성시간 ${response.data[i].created_at}</span>
+                            </div>`;
+        }
+        $result.innerHTML = result;
+    }
+
+    $insert.addEventListener('click', function(){
+        if( $comment.value.length < 1){
+            alert('코멘트를 입력하세요');
+            $comment.focus();
+            return;
+        }else if( $writer.value.length < 1){
+            alert('작성자를 입력하세요');
+            $writer.focus();
+            return;
+        }else{
+            insertData($comment.value, $writer.value);
+        }
+        console.log("test");
+    } );
+    // $select.addEventListener('click', selectData );
+    $select.addEventListener('click', function(){
+        selectData();
+    } );
+
+</script>
