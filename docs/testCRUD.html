@@ -1,28 +1,84 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/mobile.css">
+    <script src="https://kit.fontawesome.com/582d1bfdc8.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="testCRUD.js"></script>
 </head>
+
 <body>
-    <button id="insert">insert</button>
-    <button id="select">select</button>
-    <button id="update">update</button>
-    <button id="delete">delete</button>
-    <div id="datas">
-        <ul>
-            <li>순번 : 1</li>
-            <li>댓글 : 댓글입니다.</li>
-            <li>작성자 : 홍길동</li>
-            <li>작성일자 : 2025</li>
-        </ul>
+    <div id="container">
+        <!-- <input type="checkbox" name="" id="menu" /> -->
+        <input type="checkbox" name="" id="menu" style="display: none;" />
+        <div id="header">
+            <div id="left-menu">
+                <h3 style="padding-left:10px; padding-top:5px;">👩‍🦰🧓<i class="fa-regular fa-face-smile fa-2x"></i>
+                </h3>
+            </div>
+            <div id="center-menu">
+                <a href="index.html">
+                    <h1 style="line-height: 60px">PMH</h1>
+                </a>
+            </div>
+            <div id="right-menu">
+                <label for="menu">
+                    <h3 style="padding-right: 10px; padding-top:5px;cursor: pointer;"><i
+                            class="fa-solid fa-bars fa-2x"></i></h3>
+                </label>
+            </div>
+        </div>
+        <hr />
+        <div id="sub-header">
+            <ul>
+                <ul>
+                    <li>
+                        <a href="html.html" style="background-color: rgb(200, 90, 90)">HTML</a>
+                    </li>
+                    <li>
+                        <a href="testCRUD.html" style="background-color: rgb(150, 200, 90)">testCRUD</a>
+                    </li>
+                    <li>
+                        <a href="css.html" style="background-color: rgb(230, 150, 90)">CSS</a>
+                    </li>
+                    <li>
+                        <a href="javasciprt.html" style="background-color: rgb(200, 90, 90)">JAVASCIPRT</a>
+                    </li>
+                    <li>
+                        <a href="github.html" style="background-color: rgb(230, 150, 90)">GITHUB</a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        <div id="content">
+            <h1>testCRUD</h1>
+            <button id="insert">insert</button>
+            <button id="select">select</button>
+            <button id="update">update</button>
+            <button id="delete">delete</button>
+            <div id="datas">
+                <ul>
+                    <li>순번 : 1</li>
+                    <li>댓글 : 댓글입니다.</li>
+                    <li>작성자 : 홍길동</li>
+                    <li>작성일자 : 2025</li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer">
+            <h1>COPY RIGHT by 박명회</h1>
+        </div>
     </div>
+
 </body>
+
 </html>
 <script>
     const $insert = document.querySelector('#insert');
@@ -38,15 +94,15 @@
     const dbCon = window.supabase.createClient(dbUrl, dbPassword);
 
     //                                      ()=>{                        }
-    $insert.addEventListener('click', function(){
+    $insert.addEventListener('click', function () {
         insertData(dbCon);
         alert('저장하였습니다.');
     });
 
-    $select.addEventListener('click', async function() {
+    $select.addEventListener('click', async function () {
         const arr = await selectData(dbCon);
         let answer = '';
-        for( let i = 0; i< arr.length; i++ ){
+        for (let i = 0; i < arr.length; i++) {
             answer = answer + '<ul>';
             answer = answer + '<li>순번' + arr[i].id + '</li>';
             answer = answer + '<li>코멘트' + arr[i].comment + '</li>';
@@ -57,11 +113,11 @@
         $datas.innerHTML = answer;
     });
 
-    $update.addEventListener('click', function() {
+    $update.addEventListener('click', function () {
         alert('수정하였습니다.');
     });
 
-    $delete.addEventListener('click', function() {
+    $delete.addEventListener('click', function () {
         alert('삭제하였습니다.');
     });
 
