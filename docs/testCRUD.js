@@ -19,6 +19,19 @@ async function selectData(dbCon) {
     return res.data;
 }
 
+async function deleteData(dbCon) {
+    const res = await dbCon.from('test').select('*');
+    console.log(res);
+    return res.data;
+}
+
+async function updateData(dbCon) {
+    const res = await dbCon.from('test').select('*');
+    console.log(res);
+    return res.data;
+}
+
+
 
 
 
