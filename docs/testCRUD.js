@@ -9,8 +9,8 @@ function add(x, y) {
 
 // float left right overflow hidden 겹치는거 해결해야됨.
 
-async function insertData(dbCon) {
-    await dbCon.from('test').insert([{ comment: '내가 insert해야지', writer: 'ㅂㅈㄷㄱ' }]);
+async function insertData(comment, writer) {
+    await dbCon.from('test').insert([{ comment, writer}]);
 }
 
 async function selectData(dbCon) {
@@ -19,14 +19,15 @@ async function selectData(dbCon) {
     return res.data;
 }
 
-async function deleteData(dbCon) {
-    const res = await dbCon.from('test').select('*');
+async function deleteData(deleteArr) {
+    console.log(deleteArr);
+    const res = await dbCon.from('test').delete().in('id',deleteArr);
     console.log(res);
     return res.data;
 }
 
-async function updateData(dbCon) {
-    const res = await dbCon.from('test').select('*');
+async function updateData(comment, writer, id) {
+    const res = await dbCon.from('test').update({comment,writer}).eq('id',id);
     console.log(res);
     return res.data;
 }
