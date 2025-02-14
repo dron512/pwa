@@ -129,10 +129,10 @@
         let answer = '';
         for (let i = 0; i < arr.length; i++) {
             answer = answer + '<ul style="max-width: 400px; margin: 20px auto; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">';
-            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;">순번' + arr[i].id + '</li>';
-            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;">코멘트' + arr[i].comment + '</li>';
-            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;">작성자' + arr[i].writer + '</li>';
-            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;">작성시간' + new Date(arr[i].created_at).toLocaleString() + '</li>';
+            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;"><span style="color: #007bff;">📌 순번 ' + arr[i].id + '</span></li>';
+            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;"><span style="font-weight: bold; color: #28a745;">💬코멘트' + arr[i].comment + '</span></li>';
+            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;"><span style="font-weight: bold; color: #dc3545;">✍작성자' + arr[i].writer + '</span></li>';
+            answer = answer + '<li style="padding: 8px 0; font-weight: bold; color: #333; border-bottom: 1px solid #eee;"><span style="font-weight: bold; color: #6c757d;">📅작성시간' + new Date(arr[i].created_at).toLocaleString() + '</span></li>';
             answer = answer + '</ul>';
         }
         $datas.innerHTML = answer;
