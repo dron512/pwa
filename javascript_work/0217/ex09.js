@@ -13,5 +13,5 @@ const res3 = arr => {
     return sum;
 }
 
-const result = res3([10,20,30]);
+const result = res3([10, 20, 30]);
 console.log(result);
