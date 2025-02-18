@@ -1,7 +1,7 @@
-var $select = document.querySelector('#type');
-var $etc1 = document.querySelector('#etc1');
-var $etc2 = document.querySelector('#etc2');
-var $divService = document.querySelector('#div-service');
+const $select = document.querySelector('#type');
+const $etc1 = document.querySelector('#etc1');
+const $etc2 = document.querySelector('#etc2');
+const $divService = document.querySelector('#div-service');
 
 const $confirmReserve = document.querySelector('#confirm-reserve');
 const $step01 = document.querySelector('#step01');
