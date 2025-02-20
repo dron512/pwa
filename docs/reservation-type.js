@@ -3,6 +3,29 @@ const $etc1 = document.querySelector('#etc1');
 const $etc2 = document.querySelector('#etc2');
 const $divService = document.querySelector('#div-service');
 
+const $nameInput = document.querySelector('#name');
+const $phoneInput = document.querySelector('#phone');
+
+const $typeInput = document.querySelector('#type');
+
+const $jimStartHour = document.querySelector('#jum-start-hour');
+const $jimStartMin = document.querySelector('#jim-start-min');
+const $jimEndHour = document.querySelector('#jim-end-hour');
+const $jimEndMin = document.querySelector('#jim-end-min');
+
+const $keepBag1 = document.querySelector('#keep-bag1');
+const $keepBag2 = document.querySelector('#keep-bag2');
+const $keepBag3 = document.querySelector('#keep-bag3');
+
+const $useDateInput =document.querySelector('#use-date');
+const $commentInput = document.querySelector('#comment');
+const $agreeInput = document.querySelector('#agree');
+
+const $nameOutput = document.querySelector('#r-name');
+const $phoneOutput = document.querySelector('#r-phone');
+const $dateOutput = document.querySelector('#r-date');
+const $commentOutput = document.querySelector('#r-comment');
+
 const $confirmReserve = document.querySelector('#confirm-reserve');
 const $cancelReserve = document.querySelector('#cancel-reserve');
 const $submitReserve = document.querySelector('#submit-reserve');
@@ -38,6 +61,22 @@ $select.addEventListener('change', function (e) {
 });
 
 $confirmReserve.addEventListener('click', function (e) {
+    // false 이면... return
+    if( !($agreeInput.checked) ){
+        alert('개인정보 취급 방침에 동의하셔야 합니다.')
+        return;
+    }
+    if( $nameInput.value === '' ){
+        alert('예약자이름 입력하세요');
+        $nameInput.focus();
+        return;
+    }
+    // 예약자 이름 설정
+    $nameOutput.innerHTML = $nameInput.value;
+    $phoneOutput.innerHTML = $phoneInput.value;
+    $dateOutput.innerHTML = $useDateInput.value;
+    $commentOutput.innerHTML = $commentInput.value;
+
     $step01.classList.add('hidden');
     $step02.classList.remove('hidden');
 });
