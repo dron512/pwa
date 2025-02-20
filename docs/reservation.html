@@ -96,7 +96,8 @@
             <div class="p-1 border border-gray-300 rounded-lg shadow-sm ml-1" style="flex:1">
                 <input class="m-2 p-1 border border-gray-300 rounded-lg shadow-sm
                             focus:outline-none focus:ring-2 focus:ring-blue-500"
-                       type="text" name="name" id="phone" placeholder="구분자(-)를 제외한 숫자만 입력하세요">
+                       type="text" name="name"
+                       id="phone" placeholder="구분자(-)를 제외한 숫자만 입력하세요">
             </div>
         </div>
         <div class="flex my-3 h-20" id="div-service">
@@ -121,8 +122,11 @@
                     <div id="etc1" class="hidden p-2">
                         <div class="flex items-center gap-5 mb-3">
                             <h3 class="text-gray-700">짐 맡길 시간</h3>
-                            <select class="w-[100px] p-2 border border-gray-300 rounded-lg shadow-sm
-                                focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <select class="w-[100px] p-2 border
+                                border-gray-300 rounded-lg shadow-sm
+                                focus:outline-none focus:ring-2
+                                focus:ring-blue-500"
+                                id="jim-start-hour">
                                 <option value="">시</option>
                                 <option value="00" selected>00</option>
                                 <option value="01">01</option>
@@ -137,16 +141,22 @@
                                 <option value="10">10</option>
                                 <option value="12">12</option>
                             </select>
-                            <select class="w-[100px] p-2 border border-gray-300 rounded-lg shadow-sm
-                                focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <select class="w-[100px] p-2 border
+                                border-gray-300 rounded-lg shadow-sm
+                                focus:outline-none focus:ring-2
+                                focus:ring-blue-500"
+                                id="jim-start-min">
                                 <option value="">분</option>
                                 <option value="00">00</option>
                                 <option value="20">20</option>
                                 <option value="40">40</option>
                             </select>
                             <h3 class="text-gray-700">짐 찾을 시간</h3>
-                            <select class="w-[100px] p-2 border border-gray-300 rounded-lg shadow-sm
-                                focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <select class="w-[100px] p-2 border
+                                border-gray-300 rounded-lg shadow-sm
+                                focus:outline-none focus:ring-2
+                                focus:ring-blue-500"
+                                id="jim-end-hour">
                                 <option value="">시</option>
                                 <option value="00">00</option>
                                 <option value="01">01</option>
@@ -161,8 +171,11 @@
                                 <option value="10">10</option>
                                 <option value="12" selected>12</option>
                             </select>
-                            <select class="w-[100px] p-2 border border-gray-300 rounded-lg shadow-sm
-                                focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <select class="w-[100px] p-2 border
+                                border-gray-300 rounded-lg shadow-sm
+                                focus:outline-none focus:ring-2
+                                focus:ring-blue-500"
+                                id="jim-end-min">
                                 <option value="">분</option>
                                 <option value="00">00</option>
                                 <option value="20">20</option>
@@ -172,17 +185,20 @@
                         <div class="flex items-center gap-5 mb-3">
                             <label for="keep-bag1" class="text-gray-700 mr-48">쇼핑백/백팩 개당<span class="text-orange-500"> 3,000원</span></label>
                             <input class="w-[100px] p-2 border border-gray-300 rounded-lg shadow-sm
-                                focus:outline-none focus:ring-2 focus:ring-blue-500 text-right" type="text" name="" id="keep-bag1" value="1">
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 text-right" type="text" name=""
+                                   id="keep-bag1" value="1">
                         </div>
                         <div class="flex items-center gap-5 mb-3">
                             <label for="keep-bag2" class="text-gray-700 mr-64">캐리어<span class="text-orange-500"> 3,000원</span></label>
                             <input class="w-[100px] p-2 border border-gray-300 rounded-lg shadow-sm
-                                focus:outline-none focus:ring-2 focus:ring-blue-500 text-right" type="text" name="" id="keep-bag2" value="1">
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 text-right" type="text" name=""
+                                   id="keep-bag2" value="1">
                         </div>
                         <div class="flex items-center gap-5 mb-3">
                             <label for="keep-bag3" class="text-gray-700 mr-40">기타물품 종류 및 수량<span class="text-orange-500"> 3,000원</span></label>
                             <input class="w-[100px] p-2 border border-gray-300 rounded-lg shadow-sm
-                                focus:outline-none focus:ring-2 focus:ring-blue-500 text-right" type="text" name="" id="keep-bag3" value="1">
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 text-right" type="text" name=""
+                                   id="keep-bag3" value="1">
                         </div>
                         <div class="flex items-center gap-5 mb-3">
                             <label class="text-orange-300 mr-48">※ 보관 이용 요금은 1일기준입니다.</label>
@@ -347,7 +363,8 @@
         </div>
         <div class="text-center">
             <div class="mt-5 mb-10">
-                <input type="checkbox" name="agree" id="agree"> <label for="agree" class="cursor-pointer">개인정보제공에 동의합니다.</label>
+                <input type="checkbox" name="agree" id="agree">
+                <label for="agree" class="cursor-pointer">개인정보제공에 동의합니다.</label>
             </div>
             <div>
                 <button class="bg-amber-300 px-12
