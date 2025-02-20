@@ -8,7 +8,7 @@ const $phoneInput = document.querySelector('#phone');
 
 const $typeInput = document.querySelector('#type');
 
-const $jimStartHour = document.querySelector('#jum-start-hour');
+const $jimStartHour = document.querySelector('#jim-start-hour');
 const $jimStartMin = document.querySelector('#jim-start-min');
 const $jimEndHour = document.querySelector('#jim-end-hour');
 const $jimEndMin = document.querySelector('#jim-end-min');
@@ -87,24 +87,33 @@ $cancelReserve.addEventListener('click', function (e) {
 })
 
 $submitReserve.addEventListener('click', async function (e) {
-    await dbConnect.from('reservation').insert([
+    console.log($jimStartHour.value);
+    const res = await dbConnect.from('reservation').insert([
         {
-            id: 1,  // 실제 고객 ID로 변경
-            use_date: '2025-02-07', // 예약 날짜 (YYYY-MM-DD)
-            departure_time: '10:00:00', // 출발 시간 (HH:MM:SS)
-            departure_location: 'Seoul Station', // 출발 장소
-            arrival_time: '12:00:00', // 도착 시간 (HH:MM:SS)
-            arrival_location: 'Busan Station', // 도착 장소
-            shopping_bag_count: 2, // 쇼핑백 개수
-            carrier_small_count: 1, // 작은 캐리어 개수
-            carrier_large_count: 0, // 큰 캐리어 개수
-            other_items: 'Umbrella, Backpack', // 기타 물품
-            inquiries: 'Handle with care', // 문의 사항
-            status: 'pending', // 예약 상태
-            total_price: 50000, // 총 가격
-            payment_status: 'pending', // 결제 상태
+            name: $nameOutput.value,
+            phone: $phoneOutput.value,
+            // 보관인경우 보관 날짜 넣기
+            use_date_keep  : $dateOutput.innerHTML, // 예약 날짜 (YYYY-MM-DD)
+            // 이동인 경우 날짜 넣기
+            use_start_date : null,
+            use_end_date : null,
+            // 보관인경우 시간 넣기
+            use_start_time : '09:00:00',
+            use_end_time : '21:00:00',
+            use_start_location  : null,
+            use_end_location : null,
+            use_keep_location  : '서울',
+            shopping_bag_count  : $keepBag1.value,
+            carrier_small_count  : $keepBag2.value,
+            carrier_large_count : $keepBag3.value,
+            inquiries: $commentOutput.innerHTML,
+            type  : 'keep',
+            status  : 'pending',
+            total_price  : 123123,
+            payment_status : 'pending',
         }
-    ])
+    ]);
+    alert('예약되었습니다.'+res);
 })
 
 
