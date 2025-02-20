@@ -42,7 +42,7 @@ const $submitReserve = document.querySelector('#submit-reserve');
 const $step01 = document.querySelector('#step01');
 const $step02 = document.querySelector('#step02');
 
-const dbConnect = supabase.createClient('https://fsvilhpktvuyimkzgflu.supabase.co',
+var dbConnect = supabase.createClient('https://fsvilhpktvuyimkzgflu.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzdmlsaHBrdHZ1eWlta3pnZmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk0MjUwODgsImV4cCI6MjA1NTAwMTA4OH0.LU7A0fgqUj2eia-xunOWZYDuvfSvuM-a1_4V3TffXrI');
 
 $select.addEventListener('change', function (e) {
@@ -129,7 +129,8 @@ $submitReserve.addEventListener('click', async function (e) {
             payment_status: 'pending',
         }
     ]);
-    alert('예약되었습니다.' + res);
+    alert('예약되었습니다.');
+    location.reload();
 })
 
 
