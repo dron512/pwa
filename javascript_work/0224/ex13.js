@@ -12,7 +12,7 @@ Object.defineProperty(person, "lName", {
 Object.defineProperty(person, "age", {
     value: 20,
 })
-
+// console.log(person);
 person.lName = "동길";
 console.log(person.lName);
 
