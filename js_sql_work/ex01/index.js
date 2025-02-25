@@ -1,5 +1,5 @@
 const { add, sub, mul } = require('./aa');
-const { default: div } = require('./aa');
+const div = require('./aa');
 
 const value = add(10, 5);
 console.log(value);
