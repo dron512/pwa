@@ -7,7 +7,6 @@ function solution(n) {
         .map(item => Number(item))
         .reduce((a, b) => a + b, 0);
 
-
     // forEach map filter reduce
     // const arr = n.split('');
     // console.log(arr);
