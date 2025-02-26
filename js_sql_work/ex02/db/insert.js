@@ -14,7 +14,7 @@ function people_insert() {
     connection.connect();
 
     const sql = 'insert into people (person_name,age) values (?,?)';
-    const values = ['홍길동', 30];
+    const values = ['qwer', 30];
 
     connection.query(sql, values, (error, result) => {
         if (error) throw error;
