@@ -1,7 +1,5 @@
 const mysql = require('mysql2');
 
-// console.log(mysql);
-
 function people_select() {
     const dbInfo = {
         host: '192.168.0.40',
