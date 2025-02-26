@@ -17,7 +17,7 @@ async function getInput() {
             console.log("1번 입력했네");
             people_select();
         } else if (number == '2') {
-            console.log('2번입력했네')
+            console.log('2번입력했네');
             people_insert();
         } else {
             console.log(`number = ${number} 종료됩니다.`);
