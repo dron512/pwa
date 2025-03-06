@@ -14,9 +14,21 @@ export async function usersMInsert() {
     console.log(res);
 }
 
-export async function usersSelectByEmail(email){
+export async function usersSelectByEmail(email) {
     const res = await supabase.from('users')
-                        .select()
-                        .eq('email',email);
+        .select()
+        .eq('email', email);
+    console.log(res.data[0].id);
+    return res.data[0].id;
+}
+
+export async function ordersMInsert(userid) {
+    console.log(userid);
+    const res = await supabase.from('orders')
+        .insert([
+            { user_id:userid, product_name: '노트북', price: 150000 },
+            { user_id:userid, product_name: '아이패드프로11인m4', price: 900000 },
+        ])
+        .select();
     console.log(res);
 }
