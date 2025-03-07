@@ -9,4 +9,25 @@ stk에 원소가 있는데 stk의 마지막 원소가 arr[i]와 다르면 stk의
 위 작업을 마친 후 만들어진 stk을 return 하는 solution 함수를 완성해 주세요.
 
 단, 만약 빈 배열을 return 해야한다면 [-1]을 return 합니다.
+
+[0,1,1,1,0] [0,1,0]
  */
+
+function solution(arr) {
+    var stk = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (stk.length == 0) {
+            stk.push(arr[i]);
+        } else if (stk[stk.length - 1] === arr[i]) {
+            stk.pop();
+        } else if (stk[stk.length - 1] !== arr[i]) {
+            stk.push(arr[i]);
+        }
+    }
+    if (stk.length ==0 ) {
+        return [-1];
+    }
+    return stk;
+}
+
+console.log(solution([0, 1, 1, 1, 0]))
