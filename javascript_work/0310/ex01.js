@@ -20,8 +20,8 @@ function solution(str_list) {
     let lindex = str_list.indexOf('l')    // 2
     let rindex = str_list.indexOf('r')    // 3
 
-    if( lindex == -1) lindex = 21;
-    if( rindex == -1) rindex = 21;
+    if (lindex == -1) lindex = 21;
+    if (rindex == -1) rindex = 21;
 
     // 10 9 
     // 9 10 
@@ -44,4 +44,4 @@ function solution(str_list) {
 // lindex = -1
 // rindex = 1
 
-console.log(solution( ["u", "d"]))
+console.log(solution(["u", "u", "l", "r"]))
