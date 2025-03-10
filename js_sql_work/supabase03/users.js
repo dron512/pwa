@@ -91,4 +91,5 @@ async function usersSelect() {
     </div>
     `;
     $usersDiv.innerHTML = users;
+    $usersDiv.classList.add('show');
 }
