@@ -1,3 +1,8 @@
+/*
+    1. js addEventListner
+    2. html 직접 적을수 있고 onclick
+*/
+
 document.querySelector('#input-button-user').addEventListener('click', async function () {
     const name = document.querySelector('#name').value;
     const email = document.querySelector('#email').value;
@@ -58,11 +63,37 @@ document.querySelector('#input-button-user').addEventListener('click', async fun
         usersSelect();
     }
 })
-const $usersDiv = document.querySelector('#users-div');
+document.querySelector('#update-button-user').addEventListener('click', async function () {
+    const $updateUserId = document.querySelector('#update-user-id');
+    const $updateName = document.querySelector('#update-name');
+    const $updateEmail = document.querySelector('#update-email');
+
+    const res = await supabase
+        .from('users')
+        .update({
+            name: $updateName.value,
+            email: $updateEmail.value
+        })
+        .eq('id', $updateUserId.innerHTML)
+        .select();
+
+    // console.log(res.status);
+    if(res.status==200){
+        const $modal = document.querySelector('#modal');
+        $modal.classList.add('hidden');
+        await Swal.fire({
+            title: "수정성공",
+            icon: "success",
+            draggable: true
+        });
+        usersSelect();
+    }
+})
 // $usersDiv.innerHTML = 'asdfasdf';
 // $usersDiv.style.backgroundColor = 'rgb(200,100,200)';
 // 유저테이블 내용 가져와서 출력하는 함수
 async function usersSelect() {
+    const $usersDiv = document.querySelector('#users-div');
     const res = await supabase.from('users').select()
     let rows = '';
     for (let i = 0; i < res.data.length; i++) {
@@ -94,18 +125,22 @@ async function usersSelect() {
     $usersDiv.classList.add('show');
 }
 
-function userRowClick(trTag){
+function userRowClick(trTag) {
     // innerHTML => html 코드가 적용 되는것 <ul> <img>
     // innerText => html 코드가 적용이 안되는것 <img>글자출력이
+    const $updateUserId = document.querySelector('#update-user-id');
+    const $updateName = document.querySelector('#update-name');
+    const $updateEmail = document.querySelector('#update-email');
+
     const userId = trTag.children[0].innerText;
-    console.log(userId);
-
     const userName = trTag.children[1].innerText;
-    console.log(userName);
-
     const userEmail = trTag.children[2].innerText;
-    console.log(userEmail);
+
+    $updateUserId.innerHTML = userId;
+    $updateName.value = userName;
+    $updateEmail.value = userEmail;
 
     const $modal = document.querySelector('#modal');
     $modal.classList.remove('hidden');
 }
+
