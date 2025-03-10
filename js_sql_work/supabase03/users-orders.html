@@ -13,19 +13,20 @@
 
         var supabase = window.supabase.createClient(supabaseUrl, supabasePassword);
     </script>
+    <style>
+        h1:hover{
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- 
-        1. onclick = 
-        2. id 부여한다음에 queryselecter -> addEventListener('click', function(){} )
-    -->
     <button onclick="usersSelect();">USERS조회</button>
-    <button>ORDERS조회</button>
-    <h1>유저</h1>
-    <div id="users-div"></div>
-    <h1>주문</h1>
-    <div id="orders-div"></div>
+    <button onclick="ordersSelect();">ORDERS조회</button>
+    <h1 style="cursor: pointer;" onclick="userToggle()">유저</h1>
+    <div id="users-div" class="content"></div>
+    <h1 style="cursor: pointer;" onclick="orderToggle()">주문</h1>
+    <div id="orders-div" class="content"></div>
     <div>
         이름<input type="text" id="name" value="aaa"/><br/>
         이메일<input type="email" id="email"/>
@@ -34,10 +35,9 @@
     <div>
         상품명<input type="text" id="product_name"/><br/>
         상품가격<input type="text" id="price"/>
-        <button>ORDERS입력</button>
+        <button id="input-button-order">ORDERS입력</button>
     </div>
 </body>
-
 </html>
 <style>
     table{
@@ -49,5 +49,22 @@
         text-align: center;
     }
 </style>
+<style>
+    .content{
+        height: 0;
+        overflow: hidden;
+    }
+    .show{
+        height: auto;
+    }
+</style>
+<script>
+    function userToggle(){
+        document.querySelector('#users-div').classList.toggle('show');
+    }
+    function orderToggle(){
+        document.querySelector('#orders-div').classList.toggle('show');
+    }
+</script>
 <script src="users.js"></script>
 <script src="orders.js"></script>
