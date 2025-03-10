@@ -45,9 +45,15 @@
                 top:0; bottom: 0; left: 0; right: 0; 
                 background-color: rgba(230,230,230,0.5);">
         <div class="modal-div">
-            <div>
+            <div style="display: flex; justify-content: space-around;">
                 <h1>수정</h1>
                 <button onclick="modalClose();">❌</button>
+            </div>
+            <div>
+                사용자ID <h3 id="update-user-id"></h3>
+                이름<input type="text" id="update-name" value="aaa" /><br />
+                이메일<input type="email" id="update-email" />
+                <button id="update-button-user">USERS수정</button>
             </div>
         </div>
     </div>

@@ -29,8 +29,9 @@ document.querySelector('#input-button-order').addEventListener('click', async fu
     console.log(res)
 })
 
-const $orderDiv = document.querySelector('#orders-div');
 async function ordersSelect() {
+    const $orderDiv = document.querySelector('#orders-div');
+
     const res = await supabase.from('orders').select();
     let rows = '';
     for (let i = 0; i < res.data.length; i++) {
@@ -62,3 +63,4 @@ async function ordersSelect() {
     $orderDiv.innerHTML = orders;
     $orderDiv.classList.add('show');
 }
+
