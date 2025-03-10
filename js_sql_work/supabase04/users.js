@@ -78,7 +78,7 @@ document.querySelector('#update-button-user').addEventListener('click', async fu
         .select();
 
     // console.log(res.status);
-    if(res.status==200){
+    if (res.status == 200) {
         const $modal = document.querySelector('#modal');
         $modal.classList.add('hidden');
         await Swal.fire({
@@ -94,7 +94,7 @@ document.querySelector('#update-button-user').addEventListener('click', async fu
 // 유저테이블 내용 가져와서 출력하는 함수
 async function usersSelect() {
     const $usersDiv = document.querySelector('#users-div');
-    const res = await supabase.from('users').select()
+    const res = await supabase.from('users').select().order('created_at', { ascending: false })
     let rows = '';
     for (let i = 0; i < res.data.length; i++) {
         rows = rows + `
