@@ -79,7 +79,7 @@ document.querySelector('#update-button-user').addEventListener('click', async fu
 
     // console.log(res.status);
     if (res.status == 200) {
-        const $modal = document.querySelector('#modal');
+        const $modal = document.querySelector('#user-modal');
         $modal.classList.add('hidden');
         await Swal.fire({
             title: "수정성공",
@@ -142,7 +142,7 @@ function userRowClick(trTag) {
     $updateName.value = userName;
     $updateEmail.value = userEmail;
 
-    const $modal = document.querySelector('#modal');
+    const $modal = document.querySelector('#user-modal');
     $modal.classList.remove('hidden');
 }
 
@@ -164,7 +164,7 @@ function userDeleteClick(ev, id) {
                     .delete()
                     .eq('id',id)
                 .then(() => {
-                    console.log('삭제되었습니다.');
+                    usersSelect();
                 });
             Swal.fire({
                 title: "Deleted!",
