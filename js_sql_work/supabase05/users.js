@@ -147,13 +147,7 @@ function userRowClick(trTag) {
 }
 
 function userDeleteClick(ev, id) {
-    // ev <- pointerEvent
-    alert(ev);
-    alert(id);
-    // stop propagation 전파 
     ev.stopPropagation(); // 다른 이벤트 걸린거 막아라
-    // tableCellElement
-    
     Swal.fire({
         title: "삭제하시겠습니까?",
         text: "삭제하시게되면 복원하실수 없습니다.",
