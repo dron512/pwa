@@ -1,7 +1,5 @@
 document.querySelector('#input-button-order').addEventListener('click', async function () {
     let user = sessionStorage.getItem('user');
-    console.log(typeof user);
-
     /*
         object -> String 으로 변환
         JSON.stringfy(변수)
@@ -13,11 +11,17 @@ document.querySelector('#input-button-order').addEventListener('click', async fu
         const cc = "{a:10,b:20}";
         const dd = JSON.parse(cc);
     */
-
     if (user == null) {
         alert('로그인하셔야 주문등록 할 수 있습니다.');
     }
     else {
+        `{
+            "id":"146c50d3-283f-49b9-81ff-59c06ab8df66",
+            "name":"qwerqwer",
+            "email":"aaaa",
+            "created_at":"2025-03-07T05:53:59.228802",
+            "active":true
+        }`
         user = JSON.parse(user);
     }
 
