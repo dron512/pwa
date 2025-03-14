@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const supabaseUrl = "https://fsvilhpktvuyimkzgflu.supabase.co";
+        const supabasePassword = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzdmlsaHBrdHZ1eWlta3pnZmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk0MjUwODgsImV4cCI6MjA1NTAwMTA4OH0.LU7A0fgqUj2eia-xunOWZYDuvfSvuM-a1_4V3TffXrI";
+
+        var supabase = window.supabase.createClient(supabaseUrl, supabasePassword);
+    </script>
+</head>
+
+<body>
+    <h1>POST</h1>
+    <div>
+        <label for="title">title</label>
+        <input type="text" id="title" name="title" />
+        <hr>
+        <label for="content">content</label>
+        <textarea id="content" style="width: 100%;height: 200px;"></textarea>
+        <input type="file" id="file" name="file" /><br />
+        <hr>
+        <button onclick="post();">POST</button>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    function post() {
+        const title = document.querySelector('#title').value;
+        const content = document.querySelector('#content').value;
+        const file = document.querySelector('#file').files[0];
+
+        // javascript 빈값은 boolean으로 false 입니다.
+        if (!title) {
+            alert('타이틀을입력하세요');
+            return;
+        } else if (!content) {
+            alert('내용을 입력하세요');
+            return;
+        }
+        // file 이 없을때는 테이블 바로 저장
+        // file 이 있을때는 storage에 저장 하고 테이블에 저장
+        if (!file) {
+            savePost(title, content);
+        } else {
+            const fileUrl = uploadFile(file);
+            savePost(title, content, fileUrl);
+        }
+    }
+    async function savePost(title, content, fileUrl = '') {
+        const user = sessionStorage.getItem('user');
+        const user_id = JSON.parse(user).id;
+        console.log(user_id);
+
+        // await supabase.from('post').insert([{ title, contnet }]
+    }
+    async function uploadFile(file) {
+        return "파일퍼블릭주소";
+    }
+</script>
