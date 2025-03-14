@@ -31,7 +31,7 @@
 
 </html>
 <script type="text/javascript">
-    function post() {
+    async function post() {
         const title = document.querySelector('#title').value;
         const content = document.querySelector('#content').value;
         const file = document.querySelector('#file').files[0];
@@ -49,18 +49,24 @@
         if (!file) {
             savePost(title, content);
         } else {
-            const fileUrl = uploadFile(file);
+            const fileUrl = await uploadFile(file);
+            console.log(fileUrl);
             savePost(title, content, fileUrl);
         }
     }
     async function savePost(title, content, fileUrl = '') {
         const user = sessionStorage.getItem('user');
         const user_id = JSON.parse(user).id;
-        console.log(user_id);
 
-        // await supabase.from('post').insert([{ title, contnet }]
+        const res = await supabase.from('post').insert([{ title, content, user_id, image_url: fileUrl }]).select();
+        console.log(res);
     }
     async function uploadFile(file) {
-        return "파일퍼블릭주소";
+        const filename = `${crypto.randomUUID()}.${file.name.split('.').pop()}`;
+        await supabase.storage.from('ex01').upload(filename, file);
+
+        // 업로드한 파일을 접속할 수 있는 주소 가져오기
+        const res = await supabase.storage.from('ex01').getPublicUrl(filename);
+        return res.data.publicUrl;
     }
 </script>
