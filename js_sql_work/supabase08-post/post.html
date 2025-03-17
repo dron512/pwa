@@ -50,7 +50,6 @@
             savePost(title, content);
         } else {
             const fileUrl = await uploadFile(file);
-            console.log(fileUrl);
             savePost(title, content, fileUrl);
         }
     }
