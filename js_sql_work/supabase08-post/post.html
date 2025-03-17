@@ -27,45 +27,9 @@
         <hr>
         <button onclick="post();">POST</button>
     </div>
+    <div id="post-list">
+    </div>
 </body>
 
 </html>
-<script type="text/javascript">
-    async function post() {
-        const title = document.querySelector('#title').value;
-        const content = document.querySelector('#content').value;
-        const file = document.querySelector('#file').files[0];
-
-        // javascript 빈값은 boolean으로 false 입니다.
-        if (!title) {
-            alert('타이틀을입력하세요');
-            return;
-        } else if (!content) {
-            alert('내용을 입력하세요');
-            return;
-        }
-        // file 이 없을때는 테이블 바로 저장
-        // file 이 있을때는 storage에 저장 하고 테이블에 저장
-        if (!file) {
-            savePost(title, content);
-        } else {
-            const fileUrl = await uploadFile(file);
-            savePost(title, content, fileUrl);
-        }
-    }
-    async function savePost(title, content, fileUrl = '') {
-        const user = sessionStorage.getItem('user');
-        const user_id = JSON.parse(user).id;
-
-        const res = await supabase.from('post').insert([{ title, content, user_id, image_url: fileUrl }]).select();
-        console.log(res);
-    }
-    async function uploadFile(file) {
-        const filename = `${crypto.randomUUID()}.${file.name.split('.').pop()}`;
-        await supabase.storage.from('ex01').upload(filename, file);
-
-        // 업로드한 파일을 접속할 수 있는 주소 가져오기
-        const res = await supabase.storage.from('ex01').getPublicUrl(filename);
-        return res.data.publicUrl;
-    }
-</script>
+<script src="post.js"></script>
