@@ -15,6 +15,7 @@ async function post() {
         const fileUrl = await uploadFile(file);
         savePost(title, content, fileUrl);
     }
+    //조회
     fetchPosts();
 }
 async function savePost(title, content, fileUrl = '') {
@@ -47,7 +48,6 @@ async function uploadFile(file) {
     const res = await supabase.storage.from('ex01').getPublicUrl(filename);
     return res.data.publicUrl;
 }
-
 async function fetchPosts() {
     const res = await supabase.from('post').select('*').order('created_at', { ascending: false });
     // error가 내용이 있으면 true 내용이 없으면 false
@@ -62,16 +62,31 @@ async function fetchPosts() {
     // 원래꺼를 삭제하고 추가 하는 겁니다.
     $postList.innerHTML = "";
     res.data.forEach(data => {
+        // div태그 만들어라
         const post = document.createElement('div');
-
         post.innerHTML = `
                         <h3>${data.title}</h3>
                         <p>${data.content}</p>
                         <img src='${data.image_url}' width='250'/>
+                        <div>
+                            <button>수정</button>
+                            <button onclick='deletePost("${data.id}")'>삭제</button>
+                        </div>
                     `;
         $postList.appendChild(post);
     });
+}
 
+async function deletePost(id) {
+    const res = await supabase.from('post').delete().eq('id', id);
+    console.log(res);
+    const { error } = res;
+    if (error){
+        alert('에러 발생 삭제 실패');
+    }else{
+        Swal.fire('완료','게시글이 삭제 되었습니다.','success');
+        fetchPosts();
+    }
 
 }
 
