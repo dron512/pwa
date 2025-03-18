@@ -1,58 +1,25 @@
 document.querySelector('#input-button-order').addEventListener('click', async function () {
-    let user = sessionStorage.getItem('user');
-    /*
-        object -> String 으로 변환
-        JSON.stringfy(변수)
-        String -> Object 으로 변환
-        JSON.parse(변수)
-
-        const aa = { a:10, b:20 };
-        JSON.stringify(aa); // -> "{a:10,b:20}"
-        const cc = "{a:10,b:20}";
-        const dd = JSON.parse(cc);
-    */
-    if (user == null) {
-        alert('로그인하셔야 주문등록 할 수 있습니다.');
-    }
-    else {
-        `{
-            "id":"146c50d3-283f-49b9-81ff-59c06ab8df66",
-            "name":"qwerqwer",
-            "email":"aaaa",
-            "created_at":"2025-03-07T05:53:59.228802",
-            "active":true
-        }`
-        user = JSON.parse(user);
-    }
-
     const product_name = document.querySelector('#product_name').value;
     const price = document.querySelector('#price').value;
 
-    if (price.length == 0) {
-        await Swal.fire({
-            icon: "error",
-            title: "입력 실패",
-            text: "가격을 입력하셔야 합니다.",
-            // footer: '<a href="#">Why do I have this issue?</a>'
-        });
-        return;
-    }
-    else if (!(/^[0-9]+(\.[0-9]+)?$/.test(price))) {
-        await Swal.fire({
-            icon: "error",
-            title: "입력 실패",
-            text: "가격은 숫자를 입력하셔야 합니다.",
-            // footer: '<a href="#">Why do I have this issue?</a>'
-        });
+    const user = await supabase.auth.getUser();
+
+    if (!user.data.user) {
+        console.error("로그인되지 않음");
         return;
     }
 
-    const res = await supabase
+    const { data, error } = await supabase
         .from('orders')
-        .insert([
-            { product_name, price, user_id: user.id }
-        ]).select();
-    console.log(res)
+        .insert([{ user_id: user.data.user.id, product_name: product_name, price }])
+        .select();
+
+    if (error) {
+        console.error("데이터 추가 실패:", error.message);
+    } else {
+        console.log("주문 추가 성공:", data);
+    }
+    console.log(data)
 })
 
 
@@ -84,30 +51,32 @@ document.querySelector('#update-button-order').addEventListener('click', async f
 })
 
 async function ordersSelect() {
-    let user = sessionStorage.getItem('user');
-    if (user == null) {
-        alert('주문 목록 조회는 로그인 하셔야 됩니다.');
+    const $orderDiv = document.querySelector('#orders-div');
+    const user = await supabase.auth.getUser();
+
+    if (!user.data.user) {
+        console.error("로그인되지 않음");
         return;
     }
-    else {
-        user = JSON.parse(user);
-    }
-    const $orderDiv = document.querySelector('#orders-div');
 
-    const res = await supabase
-                    .from('orders')
-                    .select()
-                    .eq('user_id', user.id)
-                    .order('created_at', { ascending: false });
+    const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .eq('user_id', (await supabase.auth.getUser()).data.user.id);
+
+    if (error) {
+        console.error("데이터 조회 실패:", error.message);
+    } else {
+        console.log("내 주문 데이터:", data);
+    }
     let rows = '';
-    for (let i = 0; i < res.data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         rows = rows + `
             <tr style="cursor:pointer" onclick="orderRowClick(this);">
-                <td>${res.data[i].id}</td>
-                <td>${res.data[i].user_id}</td>
-                <td>${res.data[i].product_name}</td>
-                <td>${res.data[i].price}</td>
-                <td>${res.data[i].created_at}</td>
+                <td>${data[i].id}</td>
+                <td>${data[i].user_id}</td>
+                <td>${data[i].price}</td>
+                <td>${data[i].created_at}</td>
             </tr>
         `;
     }
