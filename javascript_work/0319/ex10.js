@@ -19,7 +19,6 @@ function solution(n) {
             }
             if (count > 2) {
                 console.log('소수아님 ' + i)
-                count = 1;
                 break;
             }
         }
@@ -33,4 +32,4 @@ function solution(n) {
     return answer;
 }
 // 2,3,5,7
-console.log(solution(30));
+console.log(solution(10));
