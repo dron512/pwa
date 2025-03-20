@@ -15,7 +15,7 @@ async function selectReview() {
         const reviewDiv = document.createElement('div');
         reviewDiv.innerHTML = `
             <h3>${review.title}</h3>
-            <img src="${review.file_url}" alt="${review.file_url}">
+            <img src="${review.file_url}" alt="${review.file_url}" width="100">
         `
         $reviewList.appendChild(reviewDiv);
     })
