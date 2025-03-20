@@ -3,7 +3,7 @@ const supabaseAnonkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonkey);
 
-document.getElementById('review-save-btn').addEventListener('click', async function(){
+document.getElementById('review-save-btn').addEventListener('click', async function () {
     const name = document.getElementById('review-name').value;
     const title = document.getElementById('review-title').value;
     const password = document.getElementById('review-password').value;
@@ -11,7 +11,53 @@ document.getElementById('review-save-btn').addEventListener('click', async funct
 
     // user uuid
     const res = await supabase.auth.getUser();
-    console.log(res.data.user.id);
+    if (!res.data.user.id) {
+        alert('로그인하셔야 합니다.')
+    } else {
+        const fileInput = document.getElementById('review-file');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            console.log("파일선택 안함");
+            const reviewData
+                = await supabase.from('review').insert([
+                {
+                    user_id: res.data.user.id,
+                    name,
+                    title,
+                    password,
+                    review_txt,
+                }
+            ]).select();
+            console.log(reviewData);
+        } else {
+            console.log("파일선택함");
+            // 파일이름이 한글이면 수파베이스에 올라가지 않기 때문에
+            // 파일이름을 생성해서 확장자 붙여서 filename 새로 생성
+            // aaabb.jpg
+            const fileName = crypto.randomUUID() + "." + file.name.split(".")[1];
+            await supabase.storage.from('images').upload(fileName, file);
+
+            const publicUrl = await supabase.storage.from('images').getPublicUrl(fileName).data.publicUrl;
+            console.log(publicUrl);
+
+            const reviewData
+                = await supabase.from('review').insert([
+                {
+                    user_id: res.data.user.id,
+                    file_url: publicUrl,
+                    name,
+                    title,
+                    password,
+                    review_txt,
+                }
+            ]).select();
+            console.log(reviewData);
+
+        }
+
+
+    }
 
 });
 
@@ -31,7 +77,7 @@ document.getElementById('sign').addEventListener('click', async function () {
     this.disabled = "true";
     this.innerHTML = "회원가입중...";
 
-    const res = await supabase.auth.signUp({ email: $email, password: $password });
+    const res = await supabase.auth.signUp({email: $email, password: $password});
     if (res.error) {
         alert('에러발생', res.error);
     } else {
@@ -54,7 +100,7 @@ document.getElementById('login').addEventListener('click', async () => {
         return;
     }
 
-    const res = await supabase.auth.signInWithPassword({ email: $email, password: $password });
+    const res = await supabase.auth.signInWithPassword({email: $email, password: $password});
     if (res.error) {
         alert('에러발생', res.error);
     } else {
