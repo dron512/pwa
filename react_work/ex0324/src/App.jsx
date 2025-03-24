@@ -1,33 +1,38 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import BB from './BB';
+
+// javascript 2달
+// react 3주 문법은 다 깨달았다
+// react + supabase 예약을 하고 나면.. 관리자 3주
+
+class AA {
+
+}
+
+function CC() {
+  return (
+    <div><h1>CC</h1></div>
+  )
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [aa, setAA] = useState('useStateAA');
+  const doClick = () => setAA(aa + "!!");
+
+  const test = "안녕하세요 test입니다";
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CC className=""></CC>
+      <CC></CC>
+      <CC></CC>
+      <BB></BB>
+      <BB></BB>
+      <BB></BB>
+      <h2 className='title'>{test}</h2>
+      <h1 id='aa'>안녕 {aa}</h1>
+      <button onClick={doClick}>버튼</button>
     </>
   )
 }
