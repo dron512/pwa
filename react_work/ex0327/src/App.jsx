@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import AA from './components/AA';
+import BB from './components/BB';
 
 // App 컴포넌트
 function App() {
@@ -20,6 +21,8 @@ function App() {
   // AA 함수가 새로 호출됨.
   return (
     <>
+      {AA()}
+      <BB addCount={addCount} subCount={subCount}></BB>
       <AA aa="10" bb={20}></AA>
       <h1>name = {name}</h1>
       <button onClick={changeName}>이름변경</button>
