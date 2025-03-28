@@ -7,6 +7,12 @@ class Users {
         const user = this.users.filter(item => item.id == id);
         console.log(user);
     }
+
+    // 2를 삭제
+    remove(id) {
+        // 해당하는 id가 아닐때 true이다.
+        this.users = this.users.filter((item) => item.id != id);
+    }
 }
 
 const myUsers = new Users([
@@ -17,6 +23,9 @@ const myUsers = new Users([
 
 console.log(myUsers);
 myUsers.findById(3);
+
+myUsers.remove(2);
+console.log(myUsers);
 
 // const users = [
 //     { id: 1, name: "홍길동" },
