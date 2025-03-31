@@ -21,7 +21,7 @@ function MyTime(props) {
                 console.log('타이머 멈춤');
             }
         }
-        return ()=>{
+        return () => {
             clearInterval(intervalRef.current);
         }
     }, [running]);
@@ -32,7 +32,7 @@ function MyTime(props) {
             <h1>타이머 {time}</h1>
             <button onClick={() => setRunning(true)}>시작</button>
             <button onClick={() => setRunning(false)}>멈춤</button>
-            <button>리셋</button>
+            <button onClick={() => setTime(0)}>리셋</button>
         </div>
     );
 }
