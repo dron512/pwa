@@ -1,25 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 function MyTime(props) {
 
-    const [time, setTime] = React.useState(0);
-    const [running, setRunning] = React.useState(true);
-    const [interId,setInterId] = React.useState(0);
+    const [time, setTime] = useState(0);
+    const [running, setRunning] = useState(true);
+    // const [interId, setInterId] = React.useState(null);
+
+    const intervalRef = useRef(null);
 
     useEffect(() => {
-        if(running){
-            const interId = setInterval(() => {
-                setTime((time)=> {
-                    return time + 100;  // 34.40초
-                });
+        if (running) {
+            intervalRef.current = setInterval(() => {
+                setTime(prev => prev + 100);
             }, 100);
-            setInterId(interId);
-            console.log('시작됨');
-            console.log('running = '+running + 'interId = '+interId);
-        }else{
-            console.log('멈춤');
-            console.log('running = '+running + 'interId = '+interId);
-            clearInterval(interId);
+            console.log('타이머 시작');
+        } else {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+                console.log('타이머 멈춤');
+            }
+        }
+        return ()=>{
+            clearInterval(intervalRef.current);
         }
     }, [running]);
     // 처음에 1번 호출이 되고 running이 변경 될때마다 호출이 됩니다.
@@ -27,8 +30,8 @@ function MyTime(props) {
     return (
         <div>
             <h1>타이머 {time}</h1>
-            <button onClick={()=>setRunning(true)}>시작</button>
-            <button onClick={()=>setRunning(false)}>멈춤</button>
+            <button onClick={() => setRunning(true)}>시작</button>
+            <button onClick={() => setRunning(false)}>멈춤</button>
             <button>리셋</button>
         </div>
     );
