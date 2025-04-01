@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import './App.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Calcu from './components/Calcu';
 
 {
   /* <App></App> */
@@ -21,13 +22,14 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('useEffect 호출');
+    // console.log('useEffect 호출');
     handleClick();
     // inputRef.current.focus();
   });
 
   return (
     <>
+      <Calcu />
       <h1>count = {count}</h1>
       <h1>a = {a}</h1>
       <h1>useA = {useA.current}</h1>
