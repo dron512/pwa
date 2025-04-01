@@ -4,16 +4,16 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist'] },
+  { ignores: ['dist'] },  // 이 폴더는 문법 검사 하지마라
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx}'], // js, jsx 문법검사 하고
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      ecmaVersion: 2020,  // es2020
+      globals: globals.browser, // global
       parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+        ecmaVersion: 'latest',  // 최신
+        ecmaFeatures: { jsx: true },  //jsx분법
+        sourceType: 'module', // module
       },
     },
     plugins: {
