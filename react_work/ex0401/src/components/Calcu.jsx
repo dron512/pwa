@@ -26,13 +26,12 @@ function Calcu() {
   // chat gpt 
 
   // useState useEffect useRef useMemo
+  
 /* 
-
   문제
    1. 클릭 수를 세는 카운터 만들기 
       (증가, 감소, 리셋) -> sessionStorage 에 저장도 해보고..
    2. 나이계산 (생년월일 넣으면 현재 2025년 기준으로 만 몇살입니다)
-
 */ 
 
   // 성능개선 
