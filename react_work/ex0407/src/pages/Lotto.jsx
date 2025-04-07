@@ -27,7 +27,7 @@ function Lotto(props) {
         const inputValue = inputRef.current.value || 1166;
         console.log(inputValue);
         // 로또 서버에 가서 1166회차 가져와
-        const text = await fetch(`/api/common.do?method=getLottoNumber&drwNo=${inputValue}`);
+        const text = await fetch(`/api/lotto?drwNo=${inputValue}`);
         // 가져왔는데이터 text -> json 바꿔줘
         const res = await text.json();
         // 바꿔준걸 출력해줘
@@ -43,7 +43,9 @@ function Lotto(props) {
         <div>
             <h1>LOTTO</h1>
             <h1>{drwNo}회</h1>
-            <input type="text" ref={inputRef}/>
+            <div>
+                <input type="text" ref={inputRef}/>
+            </div>
             <button onClick={getNumbers}>조회</button>
             <div style={{display: "flex", gap: "1rem"}}>
                 {numbers.map(number => (
