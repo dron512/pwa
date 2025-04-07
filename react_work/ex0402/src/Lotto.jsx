@@ -49,6 +49,14 @@ const Lotto = () => {
 
     useEffect(() => {
         fetchLotto(draw);
+        fetch('/cloud')
+        .then(data=>{
+            console.log(data);
+            return data.text();
+        })
+        .then(result=>{
+            console.log(result);
+        })
     }, [draw]);
 
     const handlePrev = () => setDraw((prev) => prev - 1);
