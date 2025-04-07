@@ -11,3 +11,5 @@ console.log(brr.sort((a, b) => b.localeCompare(a)));
 
 const crr = ["한국", "가나다라", "태스트입니다", "나무"];
 console.log(crr.sort((a, b) => a.length - b.length));
+
+// 소스변경
