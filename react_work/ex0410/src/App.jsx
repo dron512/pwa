@@ -8,6 +8,7 @@ import {
     MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import 'antd/dist/reset.css'; // or antd.min.css depending on version
+import WebSocketChat from './WebSocketChat';
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -47,6 +48,9 @@ const App = () => {
                     <Row gutter={[16, 16]}>
                         <Col xs={24} sm={12} md={8} lg={6}>
                             <div style={{ background: '#eee', padding: '20px' }}>Box 1</div>
+                            <div className="min-h-screen flex items-center justify-center">
+                                <WebSocketChat />
+                            </div>
                         </Col>
                         <Col xs={24} sm={12} md={8} lg={6}>
                             <div style={{ background: '#ddd', padding: '20px' }}>Box 2</div>
