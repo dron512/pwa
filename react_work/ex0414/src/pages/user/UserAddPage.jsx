@@ -35,7 +35,6 @@ function UserAddPage() {
                     text: "사용자가 성공적으로 추가 되었습니다.!",
                     icon: "success"
                 });
-                // Link로 이동 useNavigate 로 두개
                 navigate('/user/list');
             }
 
