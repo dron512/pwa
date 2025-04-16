@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, Col, Form, Input, Layout, Row, Button, message} from "antd";
+import {Card, Col, Form, Input, Layout, Row, Button, message, notification, Modal} from "antd";
 import {supabase} from "../../database/supabaseClient.js";
 import bcrypt from 'bcryptjs';
 import Swal from "sweetalert2";
@@ -22,14 +22,17 @@ function UserAddPage() {
             const {error} =
                 await supabase.from('members')
                     .insert([{name, email, age, phone, password: hashedPassword}]);
-            if(error) {
+            if (error) {
                 Swal.fire({
                     icon: "error",
                     title: "회원추가실패",
                     text: "사용자 추가 실패되었습니다.",
                 });
-            }
-            else {
+            } else {
+                Modal.success({
+                    title: '성공!',
+                    content: '작업이 완료되었습니다.',
+                });
                 Swal.fire({
                     title: "회원추가",
                     text: "사용자가 성공적으로 추가 되었습니다.!",
@@ -46,37 +49,54 @@ function UserAddPage() {
         setLoading(false);
     }
     return (<Content>
-        <Row gutter={[16, 16]}>
-            <Col span={24}>
-                <Card style={{margin: '1rem', padding: '1rem'}}>
-                    <h1 style={{fontSize: '2rem'}}>사용자추가</h1>
-                    <Form layout="vertical" onFinish={onFinish}>
-                        <Form.Item label="이름" name="name" rules={[{required: true, message: '이름을 입력해주세요'}]}>
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item label="이메일" name="email"
-                                   rules={[{required: true, type: 'email', message: '올바른 이메일을 입력해주세요'}]}>
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item label="나이" name="age" rules={[{required: true, message: '나이를 입력해주세요'}]}>
-                            <Input type="number"/>
-                        </Form.Item>
-                        <Form.Item label="전화번호" name="phone" rules={[{required: true, message: '전화번호를 입력해주세요'}]}>
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item label="비밀번호" name="password" rules={[{required: true, message: '비밀번호를 입력해주세요'}]}>
-                            <Input.Password/>
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit" loading={loading} block>
-                                등록
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Card>
-            </Col>
-        </Row>
-    </Content>);
+            <Row gutter={[16, 16]}>
+                <Col span={24}>
+                    <Card hoverable style={{margin: '1rem', padding: '1rem'}}>
+                        <h1 style={{fontSize: '2rem'}}>사용자추가</h1>
+                        <Form layout="vertical" onFinish={onFinish} initialValues={{
+                            name: '홍길동',
+                            email: 'test@example.com',
+                            age: 25,
+                            phone: '010-1234-5678',
+                            password: '1234'
+                        }}>
+                            <Form.Item label="이름" name="name" rules={[{required: true, message: '이름을 입력해주세요'}]}>
+                                <Input/>
+                            </Form.Item>
+                            <Form.Item label="이메일" name="email"
+                                       rules={[{required: true, type: 'email', message: '올바른 이메일을 입력해주세요'}]}>
+                                <Input/>
+                            </Form.Item>
+                            <Form.Item label="나이" name="age" rules={[{required: true, message: '나이를 입력해주세요'}]}>
+                                <Input type="number"/>
+                            </Form.Item>
+                            <Form.Item
+                                label="전화번호"
+                                name="phone"
+                                rules={[
+                                    {required: true, message: '전화번호를 입력해주세요 예시 010-1234-1234'},
+                                    {
+                                        pattern: /^01[016789]-\d{3,4}-\d{4}$/, // 하이픈 없는 형태: 010-1234-5678
+                                        message: '유효한 전화번호 형식이 아닙니다'
+                                    }
+                                ]}
+                            >
+                                <Input placeholder="010-1234-5678"/>
+                            </Form.Item>
+                            <Form.Item label="비밀번호" name="password" rules={[{required: true, message: '비밀번호를 입력해주세요'}]}>
+                                <Input.Password/>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" loading={loading} block>
+                                    등록
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Card>
+                </Col>
+            </Row>
+        </Content>
+    );
 }
 
 export default UserAddPage;

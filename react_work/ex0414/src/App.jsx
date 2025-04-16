@@ -19,6 +19,8 @@ import UserListPage from "./pages/user/UserListPage.jsx";
 const {Header, Sider, Content, Footer} = Layout;
 const {useBreakpoint} = Grid;
 
+import { useLocation } from 'react-router-dom';
+
 // 메뉴 항목 구성
 const items = [
     {
@@ -41,8 +43,8 @@ const items = [
         icon: <UserOutlined/>,
         label: '사용자 관리',
         children: [
-            {key: 'users-list', label: <Link to={`/user/list`}>사용자목록</Link>},
-            {key: 'users-add', label: <Link to={`/user/add`}>사용자추가</Link>},
+            {key: '/user/list', label: <Link to={`/user/list`}>사용자목록</Link>},
+            {key: '/user/add', label: <Link to={`/user/add`}>사용자추가</Link>},
             {key: 'users-delete', label: '사용자 삭제'},
         ],
     },
@@ -56,6 +58,8 @@ const items = [
 const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const screens = useBreakpoint();
+    const location = useLocation();
+    const selectedKey = location.pathname;
 
     return (
         <Layout style={{minHeight: '100vh'}}>
@@ -72,6 +76,7 @@ const AppLayout = () => {
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={['dashboard']}
+                    selectedKeys={[selectedKey]}
                     items={items}
                 />
             </Sider>
