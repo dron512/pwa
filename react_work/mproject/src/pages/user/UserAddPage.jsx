@@ -25,15 +25,14 @@ function UserAddPage() {
                 message.error("회원 추가 실패하였습니다.");
             } else {
                 message.success('성공적으로 회원 추가 하였습니다.');
-                notification.success({
-                    message: '회원 등록 완료',
-                    description: '성공적으로 등록되었습니다.',
-                });
-                Modal.success({
-                    title: '성공!',
-                    content: '작업이 완료되었습니다.',
-                });
-
+                // notification.success({
+                //     message: '회원 등록 완료',
+                //     description: '성공적으로 등록되었습니다.',
+                // });
+                // Modal.success({
+                //     title: '성공!',
+                //     content: '작업이 완료되었습니다.',
+                // });
                 // navigate('/user/list');
             }
 
