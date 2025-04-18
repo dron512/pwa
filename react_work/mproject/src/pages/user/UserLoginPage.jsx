@@ -20,6 +20,9 @@ function UserLoginPage(props) {
             const isMatch = await bcrypt.compare(password, ret.data.password);
             if(isMatch){
                 message.success('로그인성공하였습니다.');
+                sessionStorage.setItem('name',ret.data.name);
+                sessionStorage.setItem('email',ret.data.email);
+                sessionStorage.setItem('age',ret.data.age);
                 navigate('/');
             }
             else{

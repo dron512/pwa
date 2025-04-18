@@ -129,7 +129,13 @@ const AppLayout = () => {
                         />
                     )}
                     <div style={{fontSize: '1.1rem', fontWeight: 'bold'}}>
-                        <Link to={`/user/login`}>로그인</Link>
+                        {/*세션스토리지에 값이 있으면 로그아웃 출력*/}
+                        {/*세션스토리지에 값이 없으면 로그인 출력 */}
+                        {
+                            sessionStorage.getItem('name') ?
+                                (<Link to={`/user/login`}>로그아웃</Link>) :
+                                (<Link to={`/user/login`}>로그인</Link>)
+                        }
                     </div>
                 </Header>
 
