@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
-const { MONGO_ID, MONGO_PASSWORD, NODE_ENV } = process.env;
-const MONGO_URL = `mongodb+srv://parkmyounghoi:${MONGO_PASSWORD}@cluster0.n7xpd.mongodb.net/?appName=Cluster0`;
+const { NODE_ENV } = process.env;
 
+console.log("process.env.MONGO_PASSWORD");
+console.log(process.env.MONGO_PASSWORD);
 
-const connect = () => {
+const MONGO_URL = `mongodb+srv://parkmyounghoi:${process.env.MONGO_PASSWORD}@cluster0.n7xpd.mongodb.net/?appName=Cluster0`;
+const connect = async () => {
     if (NODE_ENV !== 'production') {
         mongoose.set('debug', true);
     }
@@ -23,7 +25,7 @@ mongoose.connection.on('error', (error) => {
 });
 mongoose.connection.on('disconnected', () => {
     console.error('몽고디비 연결이 끊겼습니다. 연결을 재시도합니다.');
-    connect();
+    // connect();
 });
 
 module.exports = connect;

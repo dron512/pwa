@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "GIF 웹 소켓 채팅방",
   "main": "app.js",
+  "type": "commonjs",
   "scripts": {
     "start": "nodemon app"
   },
