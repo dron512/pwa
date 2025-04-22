@@ -47,7 +47,6 @@ const items = [
         children: [
             {key: '/user/list', label: <Link to={`/user/list`}>사용자목록</Link>},
             {key: '/user/add', label: <Link to={`/user/add`}>사용자추가</Link>},
-            {key: 'users-delete', label: '사용자 삭제'},
         ],
     },
     {

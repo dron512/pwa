@@ -16,8 +16,6 @@ const mongooseConnect = require('./schemas');
 //     await mongooseConnect()
 // })();
 
-
-
 const webSocket = require('./socket');
 const indexRouter = require('./routes');
 

@@ -1,5 +1,11 @@
 import {supabase} from "./supabaseClient.js";
 
+export const deleteUserByIds = async (ids)=>{
+    const res
+        = await supabase.from('members').delete().in('id',ids);
+    return res;
+}
+
 export const getUsers = async () => {
     const users
         = await supabase.from('members').select();
@@ -25,7 +31,6 @@ export const loginUser = async (email, password) => {
             data: data[0]
         }
     }
-
 }
 
 
