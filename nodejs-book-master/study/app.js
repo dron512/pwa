@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const ColorHash = require('color-hash').default;
+
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -10,9 +12,9 @@ const nunjucks = require('nunjucks');
 
 const mongooseConnect = require('./schemas');
 
-(async function () {
-    await mongooseConnect()
-})();
+// (async function () {
+//     await mongooseConnect()
+// })();
 
 
 
@@ -42,6 +44,15 @@ app.use(session({
     },
 }));
 
+app.use((req, res, next) => {
+    if (!req.session.color) {
+        const colorHash = new ColorHash();
+        req.session.color = colorHash.hex(req.sessionID);
+        console.log(req.session.color, req.sessionID);
+    }
+    next();
+});
+
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
@@ -61,7 +72,7 @@ const server = app.listen(app.get('port'), () => {
     console.log(app.get('port'), '번 포트에서 대기중');
 });
 
-webSocket(server);
+webSocket(server,app);
 
 // const Room = require('./schemas/room');
 // (async function () {
