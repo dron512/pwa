@@ -2,13 +2,16 @@ const SocketIO = require('socket.io');
 
 module.exports = (server,app) => {
     const io = SocketIO(server, {path: '/socket.io'});
-    app.set(io);
+    app.set("io",io);
 
     const room = io.of('/room');
     const chat = io.of('/chat');
 
     room.on('connection', (socket) => {
         console.log('room 연결');
+        socket.on('message', (msg) => {
+            console.log(msg);
+        })
     })
 
     // io.on('connection', (socket) => { // 웹소켓 연결 시
