@@ -5,10 +5,7 @@
     <title>GIF 채팅방</title>
 </head>
 <body>
-<div>F12를 눌러 console 탭과 network 탭을 확인하세요.</div>
-<input type="text">
-<button onclick="send()">보내기</button>
-<script src="/socket.io/socket.io.js"></script>
+<h1><a href="/room">방목록</a></h1>
 <script>
     function send(){
         socket.emit('message', {data: 'Hello World!'});

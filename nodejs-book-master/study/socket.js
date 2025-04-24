@@ -13,6 +13,13 @@ module.exports = (server,app) => {
             console.log(msg);
         })
     })
+    chat.on('connection', (socket) => {
+        console.log('chat연결');
+        socket.on('join', (roomId) => {
+            socket.join(roomId);
+            console.log(`Room ${roomId} joined by socket ${socket.id}`);
+        });
+    })
 
     // io.on('connection', (socket) => { // 웹소켓 연결 시
     //     const req = socket.request;

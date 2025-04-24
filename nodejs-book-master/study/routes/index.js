@@ -1,5 +1,6 @@
 const express = require('express');
 const Room = require('../schemas/Room');
+const Chat = require('../schemas/Chat');
 
 const router = express.Router();
 
@@ -35,9 +36,34 @@ router.post('/room', async (req, res) => {
 
 router.get('/chat/:roomId', async (req, res) => {
     try {
-        res.render('chat');
+        console.log("roomId")
+        console.log(req.params.roomId);
+        const chats
+            = await Chat.find({room: req.params.roomId})
+        console.log(chats);
+        res.render('chat',
+            {
+                chats,
+                user: req.session.color
+            }
+        );
     } catch (err) {
         console.log(err);
     }
 });
+
+router.post('/chat', async (req, res) => {
+    try {
+        const chat = await Chat.create({
+            room: req.body.roomId,
+            user: req.session.color,
+            chat: req.body.chat,
+        })
+        console.log(req.body.roomId);
+        req.app.get("io").of('chat').to(req.body.roomId).emit('chat', chat);
+        res.send("ok");
+    } catch (err) {
+        console.log(err);
+    }
+})
 module.exports = router;

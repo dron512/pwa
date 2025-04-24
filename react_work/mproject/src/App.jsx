@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import {Link, Route, Routes} from "react-router-dom";
 import RootPage from "./pages/RootPage.jsx";
-import TodoPage from "./pages/TodoPage.jsx";
+import TodoPage from "./pages/todo/TodoPage.jsx";
 import ReviewPage from "./pages/ReviewPage.jsx";
 import UserAddPage from "./pages/user/UserAddPage.jsx";
 import UserListPage from "./pages/user/UserListPage.jsx";
@@ -22,6 +22,8 @@ const {useBreakpoint} = Grid;
 import {useLocation} from 'react-router-dom';
 import UserLoginPage from "./pages/user/UserLoginPage.jsx";
 import Logout from "./components/Logout.jsx";
+import TodoListPage from "./pages/todo/TodoListPage.jsx";
+import TodoAddPage from "./pages/todo/TodoAddPage.jsx";
 
 // 메뉴 항목 구성
 const items = [
@@ -33,7 +35,11 @@ const items = [
     {
         key: 'todo',
         icon: <InfoOutlined/>,
-        label: <Link to={`/todo`}>할일</Link>,
+        label: 'todo',
+        children: [
+            {key: '/todo/list', label: <Link to={`/todo/list`}>TodoList</Link>},
+            {key: '/todo/add', label: <Link to={`/todo/add`}>TodoAdd</Link>},
+        ],
     },
     {
         key: 'review',
@@ -155,11 +161,14 @@ const AppLayout = () => {
                 {/* 본문 콘텐츠 */}
                 <Routes>
                     <Route path="/" element={<RootPage/>}></Route>
-                    <Route path="/todo" element={<TodoPage/>}></Route>
                     <Route path="/review" element={<ReviewPage/>}></Route>
                     <Route path="/user/add" element={<UserAddPage/>}></Route>
                     <Route path="/user/list" element={<UserListPage/>}></Route>
                     <Route path="/user/login" element={<UserLoginPage/>}></Route>
+                    <Route path="/todo" element={<TodoPage/>}>
+                        <Route path="list" element={<TodoListPage/>}></Route>
+                        <Route path="add" element={<TodoAddPage/>}></Route>
+                    </Route>
                 </Routes>
 
                 {/* 하단 푸터 */}
