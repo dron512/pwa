@@ -3,7 +3,8 @@ import {Card, Col, Layout, Row} from "antd";
 import styles from "./TodoPage.module.css";
 import {Outlet} from "react-router-dom";
 
-const {Content} = Layout;
+const {Content}
+    = Layout;
 
 function TodoPage(props) {
     return (
