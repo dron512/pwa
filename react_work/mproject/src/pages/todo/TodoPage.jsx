@@ -11,7 +11,7 @@ function TodoPage(props) {
         <>
             <Content className={styles.content}>
                 <Card>
-                    <h1>Hello Todo List</h1>
+                    <h1 style={{fontSize:'2rem'}}>Hello Todo List</h1>
                     <Outlet/>
                 </Card>
             </Content>

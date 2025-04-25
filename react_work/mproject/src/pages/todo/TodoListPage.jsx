@@ -36,8 +36,8 @@ function TodoListPage(props) {
                 // <select>
                 //     { completed ? (<option>완료</option>) : (<option>미완료</option>) }
                 // </select>
-                <Tag color={completed ? 'green' : 'volcano'}>
-                    {completed ? "완료" : "미완료"}
+                <Tag color={String(completed) === 'true' ? 'green' : 'volcano'}>
+                    { String(completed) === 'true' ? "완료" : "미완료"}
                 </Tag>
             )
         },
@@ -49,24 +49,24 @@ function TodoListPage(props) {
     ];
 
     const loadData = async () => {
-        fetch('https://dummyjson.com/todos')
+        fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos')
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                setTodos(data.todos);
+                setTodos(data);
             })
     }
     return (
         <div>
             <h1>목록</h1>
+            <Button type="primary" style={{margin:"1rem 0"}} onClick={loadData}>조회</Button>
+            <Table dataSource={todos} rowKey="id" columns={columns}>
+            </Table>
             {
                 todos.map(todo => {
                     return (<h1 key={todo.id}>{todo.todo}</h1>)
                 })
             }
-            <Button type="primary" style={{margin:"1rem 0"}} onClick={loadData}>조회</Button>
-            <Table dataSource={todos} rowKey="id" columns={columns}>
-            </Table>
         </div>
     );
 }
