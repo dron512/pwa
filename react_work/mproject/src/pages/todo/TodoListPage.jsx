@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Table, Tag} from "antd";
+import {useNavigate} from "react-router-dom";
 
 function TodoListPage(props) {
     const [todos, setTodos] = useState([
         {"id": 1, "todo": "Do something nice for someone you care about", "completed": false, "userId": 152},
         {"id": 2, "todo": "Do someone you care about", "completed": true, "userId": 152}
     ]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // console.log(todos);
@@ -49,7 +51,7 @@ function TodoListPage(props) {
     ];
 
     const loadData = async () => {
-        fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos')
+        fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos?sortBy=id&order=desc')
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -59,7 +61,11 @@ function TodoListPage(props) {
     return (
         <div>
             <h1>목록</h1>
-            <Button type="primary" style={{margin:"1rem 0"}} onClick={loadData}>조회</Button>
+            <div style={{ display: "flex", gap:"1rem", marginTop:"1rem", marginBottom:"1rem" }}>
+                <Button type="primary" onClick={loadData}>조회</Button>
+                <Button type="primary" onClick={()=>{ navigate('/todo/modify/3')}}>수정</Button>
+                <Button type="primary" >삭제</Button>
+            </div>
             <Table dataSource={todos} rowKey="id" columns={columns}>
             </Table>
             {
