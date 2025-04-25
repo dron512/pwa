@@ -6,6 +6,7 @@ fetch("https://dummyjson.com/todos", { method: "POST" })
 
 
 const axios = require("axios");
+
 axios.post("https://dummyjson.com/todos").then((res) => {
   console.log(res.data.todos);
 });
