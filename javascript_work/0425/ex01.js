@@ -12,4 +12,5 @@ console.log(baa);
 
 aa().then((baa) => {
   console.log(baa);
+  return "test";
 });
