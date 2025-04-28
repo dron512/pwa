@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Table, Tag} from "antd";
+import {Button, message, Table, Tag} from "antd";
 import {useNavigate} from "react-router-dom";
 
 function TodoListPage(props) {
@@ -8,10 +8,7 @@ function TodoListPage(props) {
         {"id": 2, "todo": "Do someone you care about", "completed": true, "userId": 152}
     ]);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        // console.log(todos);
-    }, []);
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     const columns = [
         {
@@ -39,7 +36,7 @@ function TodoListPage(props) {
                 //     { completed ? (<option>완료</option>) : (<option>미완료</option>) }
                 // </select>
                 <Tag color={String(completed) === 'true' ? 'green' : 'volcano'}>
-                    { String(completed) === 'true' ? "완료" : "미완료"}
+                    {String(completed) === 'true' ? "완료" : "미완료"}
                 </Tag>
             )
         },
@@ -50,6 +47,13 @@ function TodoListPage(props) {
         }
     ];
 
+    const rowSelection = {
+        selectedRowKeys: selectedRowKeys,
+        onChange: (newselectedRowKeys) => {
+            setSelectedRowKeys(newselectedRowKeys);
+        }
+    }
+
     const loadData = async () => {
         // fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos?sortBy=id&order=desc')
         fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos')
@@ -59,15 +63,22 @@ function TodoListPage(props) {
                 setTodos(sortedData);
             })
     }
+
     return (
         <div>
             <h1>목록</h1>
-            <div style={{ display: "flex", gap:"1rem", marginTop:"1rem", marginBottom:"1rem" }}>
+            <div style={{display: "flex", gap: "1rem", marginTop: "1rem", marginBottom: "1rem"}}>
                 <Button type="primary" onClick={loadData}>조회</Button>
-                <Button type="primary" onClick={()=>{ navigate('/todo/modify/3')}}>수정</Button>
-                <Button type="primary" >삭제</Button>
+                <Button type="primary" onClick={() => {
+                    if (selectedRowKeys.length !== 1) {
+                        message.warning('한개의 행 선택하세요');
+                        return; // 함수 종료
+                    }
+                    navigate(`/todo/modify/${selectedRowKeys[0]}`); //페이지이동해라
+                }}>수정</Button>
+                <Button type="primary">삭제</Button>
             </div>
-            <Table dataSource={todos} rowKey="id" columns={columns}>
+            <Table rowSelection={rowSelection} dataSource={todos} rowKey="id" columns={columns}>
             </Table>
             {
                 todos.map(todo => {
