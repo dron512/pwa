@@ -25,8 +25,25 @@
     <div id="result"></div>
     <script>
       const $div = document.getElementById("result");
-      document.getElementById("GET").addEventListener("click", function () {
+      let id;
+      $div.addEventListener("click", ({ target }) => {
+        console.log(target);
+        if (target.tagName == "INPUT") {
+          id = target.value;
+          console.log(id);
+        }
+      });
+
+      document.getElementById("GET").addEventListener("click", async function () {
         $div.innerHTML = "";
+
+        // const result = awiat supabase.from('todos').select()
+        // .then(result =>{
+
+        // });
+
+        const result = await axois.get('http://localhost:5000/todos');
+
         axios.get("http://192.168.0.40:5000/todos").then((data) => {
           console.log(data);
           data.data.forEach((item) => {
@@ -34,6 +51,8 @@
 
             const $checkbox = document.createElement("input");
             $checkbox.type = "checkbox";
+            $checkbox.value = item.id;
+
             const $h1 = document.createElement("h1");
             $h1.textContent = item.todo;
 
@@ -55,11 +74,9 @@
       document
         .getElementById("PATCH")
         .addEventListener("click", function () {});
-      document
-        .getElementById("DELETE")
-        .addEventListener("click", function () {
-            axios.delete(`http://192.168.0.40:5000/todos/5ad1`)
-        });
+      document.getElementById("DELETE").addEventListener("click", function () {
+        axios.delete(`http://192.168.0.40:5000/todos/${id}`);
+      });
     </script>
   </body>
 </html>
