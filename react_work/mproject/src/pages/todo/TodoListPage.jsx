@@ -51,11 +51,12 @@ function TodoListPage(props) {
     ];
 
     const loadData = async () => {
-        fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos?sortBy=id&order=desc')
+        // fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos?sortBy=id&order=desc')
+        fetch('https://6809e0571f1a52874cde2b14.mockapi.io/todos')
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                setTodos(data);
+                const sortedData = data.sort((a, b) => b.id - a.id);
+                setTodos(sortedData);
             })
     }
     return (
