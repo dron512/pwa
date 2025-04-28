@@ -1,66 +1,6 @@
 {
   "todos": [
     {
-      "todo": "ㅎㅎㅎ",
-      "completed": false,
-      "id": "6114"
-    },
-    {
-      "id": "05e3",
-      "todo": "추가하기",
-      "completed": false
-    },
-    {
-      "id": "c514",
-      "todo": "추가하기",
-      "completed": false
-    },
-    {
-      "id": "cabb",
-      "todo": "추가하기",
-      "completed": false
-    },
-    {
-      "id": "c864",
-      "todo": "추가하기",
-      "completed": false
-    },
-    {
-      "id": "1cd8",
-      "todo": "추가하기",
-      "completed": false
-    },
-    {
-      "id": "82fe",
-      "todo": "추가하기",
-      "completed": false
-    },
-    {
-      "id": "d55b",
-      "todo": "예??",
-      "completed": false
-    },
-    {
-      "id": "1e0d",
-      "todo": "예??",
-      "completed": false
-    },
-    {
-      "id": "cb6b",
-      "todo": "추가하기d",
-      "completed": false
-    },
-    {
-      "id": "d346",
-      "todo": "예??",
-      "completed": false
-    },
-    {
-      "id": "e9cd",
-      "todo": "예??",
-      "completed": false
-    },
-    {
       "id": "fef9",
       "todo": "예??",
       "completed": false
@@ -98,11 +38,6 @@
     {
       "id": "cf2e",
       "todo": "잘하고있네요",
-      "completed": false
-    },
-    {
-      "id": "d64e",
-      "todo": "진짜요??",
       "completed": false
     }
   ],
