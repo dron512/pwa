@@ -1,34 +1,14 @@
 {
   "todos": [
     {
-      "id": "fef9",
-      "todo": "예??",
-      "completed": false
+      "todo": "qwe",
+      "completed": false,
+      "id": "fef9"
     },
     {
-      "id": "45ba",
-      "todo": "예??",
-      "completed": false
-    },
-    {
-      "id": "4820",
-      "todo": "예??",
-      "completed": false
-    },
-    {
-      "id": "01ba",
-      "todo": "예??",
-      "completed": false
-    },
-    {
-      "id": "bb67",
-      "todo": "예??",
-      "completed": false
-    },
-    {
-      "id": "78fe",
-      "todo": "예??",
-      "completed": false
+      "todo": "ㄱㄱㄱ",
+      "completed": false,
+      "id": "01ba"
     },
     {
       "id": "ca4b",
@@ -38,6 +18,11 @@
     {
       "id": "cf2e",
       "todo": "잘하고있네요",
+      "completed": false
+    },
+    {
+      "id": "3967",
+      "todo": "qwe",
       "completed": false
     }
   ],

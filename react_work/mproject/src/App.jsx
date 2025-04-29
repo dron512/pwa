@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 import {Layout, Menu, Button, Grid, Row, Col, Card} from 'antd';
 import {
     MenuFoldOutlined,
@@ -18,7 +18,6 @@ import UserListPage from "./pages/user/UserListPage.jsx";
 import UserLoginPage from "./pages/user/UserLoginPage.jsx";
 
 import TodoPage from "./pages/todo/TodoPage.jsx";
-import TodoListPage from "./pages/todo/TodoListPage.jsx";
 import TodoAddPage from "./pages/todo/TodoAddPage.jsx";
 import TodoModifyPage from "./pages/todo/TodoModifyPage.jsx";
 
@@ -69,6 +68,8 @@ const items = [
     },
 ];
 
+const TodoListPage = lazy(()=> import( './pages/todo/TodoListPage') )
+
 const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const screens = useBreakpoint();
@@ -81,7 +82,7 @@ const AppLayout = () => {
         const sessionName = sessionStorage.getItem("name");
         if (sessionName) {
             setName(sessionName);
-        }else{
+        } else {
             setName('');
         }
     }, [location.pathname]);
@@ -153,35 +154,43 @@ const AppLayout = () => {
                         />
                     )}
                     <div style={{fontSize: '1.1rem', fontWeight: 'bold'}}>
-                        <span style={{marginRight:'2rem'}}>{name && `${name} 님 안녕하세요`}</span>
+                        <span style={{marginRight: '2rem'}}>{name && `${name} 님 안녕하세요`}</span>
                         <Button color="primary" variant="solid">
-                        {
-                            name ?
-                                (<Logout></Logout>)
-                                :
-                                (<Link to={`/user/login`}>로그인</Link>)
-                        }
+                            {
+                                name ?
+                                    (<Logout></Logout>)
+                                    :
+                                    (<Link to={`/user/login`}>로그인</Link>)
+                            }
                         </Button>
                     </div>
                 </Header>
 
                 {/* 본문 콘텐츠 */}
-                <Routes>
-                    <Route path="/" element={<RootPage/>}></Route>
-                    <Route path="/review" element={<ReviewPage/>}></Route>
-                    <Route path="/user/add" element={<UserAddPage/>}></Route>
-                    <Route path="/user/list" element={<UserListPage/>}></Route>
-                    <Route path="/user/login" element={<UserLoginPage/>}></Route>
-                    <Route path="/todo" element={<TodoPage/>}>
-                        <Route path="list" element={<TodoListPage/>}></Route>
-                        <Route path="add" element={<TodoAddPage/>}></Route>
-                        <Route path="modify/:id" element={<TodoModifyPage/>}></Route>
-                    </Route>
-                    <Route path="/review" element={<ReviewPage/>}>
-                        <Route path="list" element={<ReviewListPage/>}></Route>
-                        <Route path="add" element={<ReviewAddPage/>}></Route>
-                    </Route>
-                </Routes>
+                <Content style={{margin: '1rem'}}>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Routes>
+                            <Route path="/" element={<RootPage/>}></Route>
+                            <Route path="/review" element={<ReviewPage/>}></Route>
+
+                            <Route path="/user/add" element={<UserAddPage/>}></Route>
+                            <Route path="/user/list" element={<UserListPage/>}></Route>
+                            <Route path="/user/login" element={<UserLoginPage/>}></Route>
+
+
+                            <Route path="/todo" element={<TodoPage/>}>
+                                <Route path="list" element={<TodoListPage/>}></Route>
+                                <Route path="add" element={<TodoAddPage/>}></Route>
+                                <Route path="modify/:id" element={<TodoModifyPage/>}></Route>
+                            </Route>
+                            <Route path="/review" element={<ReviewPage/>}>
+                                <Route path="list" element={<ReviewListPage/>}></Route>
+                                <Route path="add" element={<ReviewAddPage/>}></Route>
+                            </Route>
+                        </Routes>
+                    </Suspense>
+                </Content>
+
 
                 {/* 하단 푸터 */}
                 <Footer style={{textAlign: 'center'}}>

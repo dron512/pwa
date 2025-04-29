@@ -1,17 +1,34 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Card, Form, Input, Layout, notification, Select} from "antd";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 function TodoModifyPage(props) {
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
+    const [form] = Form.useForm();
+    const [values,setValues] = useState({
+        createdAt: "2025-04-24T09:10:09.632Z",
+        todo: "추가하기",
+        completed: "false",
+        userId: "123",
+        id: "1"
+    });
+    const navigate = useNavigate();
 
-    console.log(id);
+    useEffect(() => {
+        fetch( `https://6809e0571f1a52874cde2b14.mockapi.io/todos/${id}`)
+            .then(result=>result.json())
+            .then(data => {
+                setValues(data);
+                form.setFieldsValue(data);
+            })
+    }, []);
 
     const onFinish =  (values) => {
         setLoading(true);
-        fetch( 'https://6809e0571f1a52874cde2b14.mockapi.io/todos',{
-            method: 'POST',
+        // axios.put('http://localhost:5000/tods',{asdfnlj})
+        fetch( `https://6809e0571f1a52874cde2b14.mockapi.io/todos/${id}`,{
+            method: 'PUT',
             body: JSON.stringify(values),
             headers: {
                 'Content-Type': 'application/json'
@@ -19,23 +36,17 @@ function TodoModifyPage(props) {
         }).then(res => res.json())
         .then(data => {
             notification.success({
-                message: "성공적으로 저장하였습니다."
+                message: "성공적으로 수정하였습니다."
             })
+            navigate('/todo/list');
         })
-
         setLoading(false);
     }
     return (
         <Layout.Content>
             <h1>Modify page</h1>
             <Card hoverable>
-                <Form layout="vertical" onFinish={onFinish} initialValues={{
-                    createdAt: "2025-04-24T09:10:09.632Z",
-                    todo: "추가하기",
-                    completed: "false",
-                    userId: "123",
-                    id: "1"
-                }}>
+                <Form form={form} layout="vertical" onFinish={onFinish} initialValues={values}>
                     <Form.Item label="Todo" name="todo" rules={[{required: true, message: "할일을 입력하세요"}]}>
                         <Input/>
                     </Form.Item>
