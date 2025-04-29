@@ -3,10 +3,7 @@ import {Button, message, Table, Tag} from "antd";
 import {useNavigate} from "react-router-dom";
 
 function TodoListPage(props) {
-    const [todos, setTodos] = useState([
-        {"id": 1, "todo": "Do something nice for someone you care about", "completed": false, "userId": 152},
-        {"id": 2, "todo": "Do someone you care about", "completed": true, "userId": 152}
-    ]);
+    const [todos, setTodos] = useState([]);
     const navigate = useNavigate();
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -16,11 +13,6 @@ function TodoListPage(props) {
             dataIndex: "id",
             key: "id",
             width: 80,
-            // render : (a,b)=>{
-            //     console.log("a = "+a);
-            //     console.log("b = "+JSON.stringify(b));
-            //     return (<h1>{b.id}</h1>)
-            // }
         },
         {
             title: "할일",
@@ -64,6 +56,17 @@ function TodoListPage(props) {
             })
     }
 
+    // useEffect 제일 처음에 한번만 호출 됩니다.
+    useEffect(() => {
+        loadData();
+    }, [])
+
+    const hadleDelete = () => {
+        message.success('눌렀냐');
+        console.log(selectedRowKeys);
+        //mockapi
+    }
+
     return (
         <div>
             <h1>목록</h1>
@@ -76,10 +79,17 @@ function TodoListPage(props) {
                     }
                     navigate(`/todo/modify/${selectedRowKeys[0]}`); //페이지이동해라
                 }}>수정</Button>
-                <Button type="primary">삭제</Button>
+                <Button type="primary" onClick={hadleDelete}>삭제</Button>
             </div>
-            <Table rowSelection={rowSelection} dataSource={todos} rowKey="id" columns={columns}>
-            </Table>
+            {
+                todos.length === 0 ?
+                    (<h1>불러오는중</h1>)
+                    :
+                    (<Table rowSelection={rowSelection} dataSource={todos} rowKey="id" columns={columns}></Table>)
+            }
+
+            {/*<Table rowSelection={rowSelection} dataSource={todos} rowKey="id" columns={columns}>*/}
+            {/*</Table>*/}
             {
                 todos.map(todo => {
                     return (<h1 key={todo.id}>{todo.todo}</h1>)
