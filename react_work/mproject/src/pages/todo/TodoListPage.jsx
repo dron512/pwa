@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, message, Table, Tag} from "antd";
 import {useNavigate} from "react-router-dom";
+import {todosReq} from "../../api/mockapi.js";
 
 function TodoListPage(props) {
     const [todos, setTodos] = useState([]);
@@ -62,9 +63,17 @@ function TodoListPage(props) {
     }, [])
 
     const hadleDelete = () => {
-        message.success('눌렀냐');
-        console.log(selectedRowKeys);
-        //mockapi
+        const result = [];
+        selectedRowKeys.forEach(id => {
+            todosReq.delete(id)
+                .then(res =>{
+                    result.push(res);
+                    if(result.includes(200)){
+                        message.success("삭제되었습니다");
+                        loadData(); // 불러오기...
+                    }
+                });
+        })
     }
 
     return (
