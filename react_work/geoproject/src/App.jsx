@@ -1,8 +1,13 @@
 import {useRef, useState} from 'react'
 import './App.css'
 import {MapMarker, Map, useKakaoLoader} from "react-kakao-maps-sdk";
+import { Card, Table, Typography, Space, Divider } from 'antd';
+import { EnvironmentOutlined } from '@ant-design/icons';
+import 'antd/dist/reset.css';
 
 const API_KEY = "e2e2a254b45f875ca65de396caabf107";
+
+const { Title, Text } = Typography;
 
 function App() {
     const [count, setCount] = useState(0);
