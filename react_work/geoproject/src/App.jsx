@@ -1,29 +1,16 @@
-import {useEffect, useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import './App.css'
-import {MapMarker, Map} from "react-kakao-maps-sdk";
+import {MapMarker, Map, useKakaoLoader} from "react-kakao-maps-sdk";
 
 const API_KEY = "e2e2a254b45f875ca65de396caabf107";
 
 function App() {
     const [count, setCount] = useState(0);
-    const [loaded, setLoaded] = useState(false);
+    useKakaoLoader({
+        appkey: API_KEY,
+        libraries: ["clusterer", "drawing", "services"],
+    })
 
-    useEffect(() => {
-        // SDK 로딩 완료 확인
-        if (window.kakao && window.kakao.maps) {
-            console.log("true")
-            setLoaded(true);
-        } else {
-            console.log("false")
-            // 100ms 간격으로 계속 체크
-            const interval = setInterval(() => {
-                if (window.kakao && window.kakao.maps) {
-                    setLoaded(true);
-                    clearInterval(interval);
-                }
-            }, 100);
-        }
-    }, []);
     return (
         <>
             <h1>Hello</h1>
