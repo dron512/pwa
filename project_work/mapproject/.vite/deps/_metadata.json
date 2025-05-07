@@ -1,0 +1,61 @@
+{
+  "hash": "54f01761",
+  "configHash": "15b01e85",
+  "lockfileHash": "ec145756",
+  "browserHash": "7e62a556",
+  "optimized": {
+    "@ant-design/v5-patch-for-react-19": {
+      "src": "../../node_modules/@ant-design/v5-patch-for-react-19/es/index.js",
+      "file": "@ant-design_v5-patch-for-react-19.js",
+      "fileHash": "dec08e12",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "879d6b59",
+      "needsInterop": true
+    },
+    "antd": {
+      "src": "../../node_modules/antd/es/index.js",
+      "file": "antd.js",
+      "fileHash": "5075046b",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "6989490b",
+      "needsInterop": true
+    },
+    "react-kakao-maps-sdk": {
+      "src": "../../node_modules/react-kakao-maps-sdk/esm/index.js",
+      "file": "react-kakao-maps-sdk.js",
+      "fileHash": "b9e50e63",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "85af4cef",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-QZJRHDBR": {
+      "file": "chunk-QZJRHDBR.js"
+    },
+    "chunk-ZYXIWDHD": {
+      "file": "chunk-ZYXIWDHD.js"
+    },
+    "chunk-OAZAAUMI": {
+      "file": "chunk-OAZAAUMI.js"
+    },
+    "chunk-6GAV2S6I": {
+      "file": "chunk-6GAV2S6I.js"
+    },
+    "chunk-DC5AMYBS": {
+      "file": "chunk-DC5AMYBS.js"
+    }
+  }
+}
