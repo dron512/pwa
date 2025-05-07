@@ -7,7 +7,6 @@ function App() {
     const [count, setCount] = useState(0);
     // 마커 설정할 위도 경도 나중에 supabase 에서 데이터 가져와서 setCities 할 계획
     const [cities, setCities] = useState([
-        {id: 0, lat: 35.8296, lng: 128.5328},
         {id: 1, name: "달서구", lat: 35.8296, lng: 128.5328}, // 달서구
         {id: 2, name: "중구", lat: 35.8693, lng: 128.6062}, // 중구
         {id: 3, name: "남구", lat: 35.8467, lng: 128.5971}, // 남구
@@ -24,7 +23,8 @@ function App() {
     return (
         <>
             <h1>Hello</h1>
-            <Map center={{lat: 35.8296, lng: 128.5328}} level={8}
+            <button onClick={() => setCities([...cities])}></button>
+            <Map center={{lat: 35.8693, lng: 128.6062}} level={8}
                  style={{width: '100%', height: '80vh'}}>
                 {cities.map((city) => (
                     <MapMarker key={city.id}
