@@ -76,6 +76,7 @@ function App() {
     setSelectedCityId(cityId);
   };
 
+  
   return (
     <Space direction="vertical" size="large" style={{ width: '100%', padding: 24 }}>
       <Title level={2}>대구 권역 대기질 정보</Title>
@@ -92,7 +93,7 @@ function App() {
               <MapMarker
                 position={currentLocation}
                 image={{
-                  src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+                  src: "https://png.pngtree.com/png-vector/20221029/ourmid/pngtree-ilustrasi-soju-bottle-drink-korean-alcohol-png-image_6390162.png",
                   size: { width: 24, height: 35 },
                 }}
                 onClick={() => setShowCurrentLocationInfo(!showCurrentLocationInfo)}
