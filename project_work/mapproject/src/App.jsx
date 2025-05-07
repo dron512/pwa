@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { MapMarker, Map, useKakaoLoader, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { Card, Table, Typography, Space } from 'antd';
-import { EnvironmentOutlined } from '@ant-design/icons';
+import { EnvironmentOutlined, UserOutlined } from '@ant-design/icons';
 import 'antd/dist/reset.css';
 import PollutantTable from './components/PollutantTable';
 import Reviews from './components/Reviews';
-import { fetchCities } from './supa/supaApi';
+import { fetchCities, getCurrentLocation } from './supa/supaApi';
 
 const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
 const WAQI_API_KEY = "24c9e5d547168d084b63e7b5bbf25a4b1888803d";
@@ -19,6 +19,9 @@ function App() {
   const [aqiInfo, setAqiInfo] = useState(null);
   const [hoveredCity, setHoveredCity] = useState(null);
   const [selectedCityId, setSelectedCityId] = useState(null);
+  const [mapCenter, setMapCenter] = useState(DAEGU_CENTER);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [showCurrentLocationInfo, setShowCurrentLocationInfo] = useState(false);
   
   // 카카오훅
   useKakaoLoader({
@@ -26,13 +29,24 @@ function App() {
     libraries: ["clusterer", "drawing", "services"],
   });
 
+  // 현재 위치 가져오기
+  useEffect(() => {
+    getCurrentLocation()
+      .then(location => {
+        setMapCenter(location);
+        setCurrentLocation(location);
+      })
+      .catch(error => {
+        console.error('위치 정보를 가져오는데 실패했습니다:', error);
+      });
+  }, []);
+
   // Supabase에서 도시 데이터 가져오기
   useEffect(() => {
     (async function () {
       const data = await fetchCities();
       setCities(data);
     })();
-
   }, []);
 
   const fetchAQI = async (city) => {
@@ -68,10 +82,45 @@ function App() {
       
       <Card>
         <Map
-          center={DAEGU_CENTER}
+          center={mapCenter}
           style={{ width: "100%", height: "500px" }}
           level={DEFAULT_ZOOM_LEVEL}
         >
+          {/* 현재 위치 마커 */}
+          {currentLocation && (
+            <>
+              <MapMarker
+                position={currentLocation}
+                image={{
+                  src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+                  size: { width: 24, height: 35 },
+                }}
+                onClick={() => setShowCurrentLocationInfo(!showCurrentLocationInfo)}
+              />
+              {showCurrentLocationInfo && (
+                <CustomOverlayMap
+                  position={currentLocation}
+                  yAnchor={2.2}
+                >
+                  <div style={{
+                    padding: '5px 10px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '4px',
+                    fontSize: '12px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    whiteSpace: 'nowrap',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => setShowCurrentLocationInfo(false)}
+                  >
+                    내 위치
+                  </div>
+                </CustomOverlayMap>
+              )}
+            </>
+          )}
+
+          {/* 도시 마커들 */}
           {cities.map((city) => (
             <MapMarker
               key={`${city.name}-${city.latitude}-${city.longitude}`}
