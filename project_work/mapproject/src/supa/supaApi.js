@@ -5,6 +5,30 @@ const supabase = new SupabaseClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
+// 현재 위치를 가져오는 함수
+export async function getCurrentLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("이 브라우저에서는 Geolocation을 지원하지 않습니다."));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      },
+      (error) => {
+        console.error("위치 정보를 가져오는 데 실패했습니다:", error);
+        // 위치 정보를 가져오는데 실패하면 대구시청 좌표를 기본값으로 사용
+        resolve(DAEGU_CENTER);
+      }
+    );
+  });
+}
+
 // 대구시청 좌표 (지도 중심점)
 export const DAEGU_CENTER = {
   lat: 35.8714,
