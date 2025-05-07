@@ -112,7 +112,7 @@ var require_react_jsx_runtime_development = __commonJS({
       function defineKeyPropWarningGetter(props, displayName) {
         function warnAboutAccessingKey() {
           specialPropKeyWarningShown || (specialPropKeyWarningShown = true, console.error(
-            "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)",
+            "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child components, you should pass it as a different prop. (https://react.dev/link/special-props)",
             displayName
           ));
         }

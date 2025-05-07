@@ -1,41 +1,137 @@
-import {useState} from 'react'
-import './App.css'
-import {Map, MapMarker, useKakaoLoader} from "react-kakao-maps-sdk";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import { MapMarker, Map, useKakaoLoader, CustomOverlayMap } from "react-kakao-maps-sdk";
+import { Card, Table, Typography, Space } from 'antd';
+import { EnvironmentOutlined } from '@ant-design/icons';
+import 'antd/dist/reset.css';
+import PollutantTable from './components/PollutantTable';
+import Reviews from './components/Reviews';
+import { fetchCities } from './supa/supaApi';
+
+const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
+const WAQI_API_KEY = "24c9e5d547168d084b63e7b5bbf25a4b1888803d";
+const DAEGU_CENTER = { lat: 35.8714, lng: 128.6014 };
+const DEFAULT_ZOOM_LEVEL = 8;
+
+const { Title, Text } = Typography;
 
 function App() {
-    const [count, setCount] = useState(0);
-    // 마커 설정할 위도 경도 나중에 supabase 에서 데이터 가져와서 setCities 할 계획
-    const [cities, setCities] = useState([
-        {id: 1, name: "달서구", lat: 35.8296, lng: 128.5328}, // 달서구
-        {id: 2, name: "중구", lat: 35.8693, lng: 128.6062}, // 중구
-        {id: 3, name: "남구", lat: 35.8467, lng: 128.5971}, // 남구
-        {id: 4, name: "동구", lat: 35.8867, lng: 128.6350}, // 동구
-        {id: 5, name: "수성구", lat: 35.8588, lng: 128.6305} // 수성구
-    ]);
-    // 카카오 api key 설정
-    useKakaoLoader({
-        appkey: 'a38e46e8d7d8c504f896a7933c9e4494',
-    })
-    // 좌표 클릭시 해당 미세먼지 초미세먼지 데이터 가져와서 뿌리기
-    const getAqi = () => {
+  const [cities, setCities] = useState([]);
+  const [aqiInfo, setAqiInfo] = useState(null);
+  const [hoveredCity, setHoveredCity] = useState(null);
+  const [selectedCityId, setSelectedCityId] = useState(null);
+  
+  // 카카오훅
+  useKakaoLoader({
+    appkey: KAKAO_API_KEY,
+    libraries: ["clusterer", "drawing", "services"],
+  });
+
+  // Supabase에서 도시 데이터 가져오기
+  useEffect(() => {
+    (async function () {
+      const data = await fetchCities();
+      setCities(data);
+    })();
+
+  }, []);
+
+  const fetchAQI = async (city) => {
+    try {
+      const url = `https://api.waqi.info/feed/geo:${city.latitude};${city.longitude}/?token=${WAQI_API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === "ok") {
+        setAqiInfo({
+          cityName: city.name,
+          aqi: data.data.aqi,
+          pm10: data.data.iaqi.pm10?.v || "N/A",
+          pm25: data.data.iaqi.pm25?.v || "N/A",
+          no2: data.data.iaqi.no2?.v || "N/A",
+          so2: data.data.iaqi.so2?.v || "N/A",
+          co: data.data.iaqi.co?.v || "N/A",
+          o3: data.data.iaqi.o3?.v || "N/A",
+        });
+      }
+    } catch (error) {
+      console.error("API 호출 오류:", error);
     }
-    return (
-        <>
-            <h1>Hello</h1>
-            <button onClick={() => setCities([...cities])}></button>
-            <Map center={{lat: 35.8693, lng: 128.6062}} level={8}
-                 style={{width: '100%', height: '80vh'}}>
-                {cities.map((city) => (
-                    <MapMarker key={city.id}
-                               position={{lat: city.lat, lng: city.lng}}
-                               onClick={getAqi}
-                    >
-                    </MapMarker>
-                ))}
-            </Map>
-        </>
-    )
+  };
+
+  const handleMarkerClick = (cityId) => {
+    setSelectedCityId(cityId);
+  };
+
+  return (
+    <Space direction="vertical" size="large" style={{ width: '100%', padding: 24 }}>
+      <Title level={2}>대구 권역 대기질 정보</Title>
+      
+      <Card>
+        <Map
+          center={DAEGU_CENTER}
+          style={{ width: "100%", height: "500px" }}
+          level={DEFAULT_ZOOM_LEVEL}
+        >
+          {cities.map((city) => (
+            <MapMarker
+              key={`${city.name}-${city.latitude}-${city.longitude}`}
+              position={{ lat: city.latitude, lng: city.longitude }}
+              image={{
+                src: "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png",
+                size: { width: 18, height: 24 },
+              }}
+              onClick={() => {
+                fetchAQI(city);
+                handleMarkerClick(city.id);
+              }}
+              onMouseOver={() => setHoveredCity(city)}
+              onMouseOut={() => setHoveredCity(null)}
+            />
+          ))}
+          {hoveredCity && (
+            <CustomOverlayMap
+              position={{ lat: hoveredCity.latitude, lng: hoveredCity.longitude }}
+              yAnchor={2.2}
+            >
+              <div style={{
+                padding: '5px 10px',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '4px',
+                fontSize: '12px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                whiteSpace: 'nowrap'
+              }}>
+                {hoveredCity.name}
+              </div>
+            </CustomOverlayMap>
+          )}
+        </Map>
+      </Card>
+
+      <Card>
+        {aqiInfo ? (
+          <Space direction="vertical" size="small">
+            <Title level={3}>
+              <EnvironmentOutlined /> {aqiInfo.cityName} 대기질 정보 AQI (Air Quality Index 대기질 지수)
+            </Title>
+            <Text strong>AQI(대기질 지수): {aqiInfo.aqi}</Text>
+            <Text>미세먼지(PM10): {aqiInfo.pm10}</Text>
+            <Text>초미세먼지(PM2.5): {aqiInfo.pm25}</Text>
+            <Text>이산화질소(NO₂): {aqiInfo.no2} ppb</Text>
+            <Text>아황산가스(SO₂): {aqiInfo.so2} ppb</Text>
+            <Text>일산화탄소(CO): {aqiInfo.co} ppm</Text>
+            <Text>오존(O₃): {aqiInfo.o3} ppb</Text>
+          </Space>
+        ) : (
+          <Text>지도에서 지역을 클릭하면 대기질 정보가 표시됩니다.</Text>
+        )}
+      </Card>
+
+      <PollutantTable />
+
+      <Reviews cityId={selectedCityId} aqiInfo={aqiInfo} />
+    </Space>
+  );
 }
 
-export default App
+export default App; 
