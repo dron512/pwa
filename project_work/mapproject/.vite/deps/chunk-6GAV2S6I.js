@@ -28,7 +28,7 @@ var require_react_development = __commonJS({
         publicInstance = (publicInstance = publicInstance.constructor) && (publicInstance.displayName || publicInstance.name) || "ReactClass";
         var warningKey = publicInstance + "." + callerName;
         didWarnStateUpdateForUnmountedComponent[warningKey] || (console.error(
-          "Can't call %s on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the %s component.",
+          "Can't call %s on a components that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the %s components.",
           callerName,
           publicInstance
         ), didWarnStateUpdateForUnmountedComponent[warningKey] = true);
@@ -143,7 +143,7 @@ var require_react_development = __commonJS({
       function defineKeyPropWarningGetter(props, displayName) {
         function warnAboutAccessingKey() {
           specialPropKeyWarningShown || (specialPropKeyWarningShown = true, console.error(
-            "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)",
+            "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child components, you should pass it as a different prop. (https://react.dev/link/special-props)",
             displayName
           ));
         }
@@ -371,7 +371,7 @@ var require_react_development = __commonJS({
       function resolveDispatcher() {
         var dispatcher = ReactSharedInternals.H;
         null === dispatcher && console.error(
-          "Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem."
+          "Invalid hook call. Hooks can only be called inside of the body of a function components. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem."
         );
         return dispatcher;
       }
@@ -644,7 +644,7 @@ var require_react_development = __commonJS({
         popActScope(prevActQueue, prevActScopeDepth);
         0 === prevActScopeDepth && (flushActQueue(queue), 0 !== queue.length && queueSeveralMicrotasks(function() {
           didAwaitActCall || didWarnNoAwaitAct || (didWarnNoAwaitAct = true, console.error(
-            "A component suspended inside an `act` scope, but the `act` call was not awaited. When testing React components that depend on asynchronous data, you must await the result:\n\nawait act(() => ...)"
+            "A components suspended inside an `act` scope, but the `act` call was not awaited. When testing React components that depend on asynchronous data, you must await the result:\n\nawait act(() => ...)"
           ));
         }), ReactSharedInternals.actQueue = null);
         if (0 < ReactSharedInternals.thrownErrors.length)
@@ -780,7 +780,7 @@ var require_react_development = __commonJS({
       };
       exports.forwardRef = function(render) {
         null != render && render.$$typeof === REACT_MEMO_TYPE ? console.error(
-          "forwardRef requires a render function but received a `memo` component. Instead of forwardRef(memo(...)), use memo(forwardRef(...))."
+          "forwardRef requires a render function but received a `memo` components. Instead of forwardRef(memo(...)), use memo(forwardRef(...))."
         ) : "function" !== typeof render ? console.error(
           "forwardRef requires a render function but was given %s.",
           null === render ? "null" : typeof render
@@ -789,7 +789,7 @@ var require_react_development = __commonJS({
           1 === render.length ? "Did you forget to use the ref parameter?" : "Any additional parameter will be undefined."
         );
         null != render && null != render.defaultProps && console.error(
-          "forwardRef render functions do not support defaultProps. Did you accidentally pass a React component?"
+          "forwardRef render functions do not support defaultProps. Did you accidentally pass a React components?"
         );
         var elementType = { $$typeof: REACT_FORWARD_REF_TYPE, render }, ownName;
         Object.defineProperty(elementType, "displayName", {
@@ -815,7 +815,7 @@ var require_react_development = __commonJS({
       };
       exports.memo = function(type, compare) {
         null == type && console.error(
-          "memo: The first argument must be a component. Instead received: %s",
+          "memo: The first argument must be a components. Instead received: %s",
           null === type ? "null" : typeof type
         );
         compare = {
