@@ -36,7 +36,6 @@ function App() {
     return (
         <>
             <h1>Hello</h1>
-            <button onClick={() => setCities([...cities])}></button>
             <Map center={{lat: 35.8693, lng: 128.6062}} level={7}
                  style={{width: '100%', height: '80vh'}}>
                 {cities.map((city) => (

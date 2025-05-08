@@ -36,12 +36,10 @@ function AirTable(props) {
     ];
 
     return (
-        <Space>
-            <Card hoverable>
-                <h1>대기질 정보</h1>
-                <Table dataSource={dataSource} columns={columns} />;
-            </Card>
-        </Space>
+        <Card hoverable style={{margin:'2rem'}}>
+            <h1>대기질 정보</h1>
+            <Table dataSource={dataSource} columns={columns} pagination={false}/>
+        </Card>
     );
 }
 
