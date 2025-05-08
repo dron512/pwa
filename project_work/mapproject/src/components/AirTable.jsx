@@ -69,6 +69,7 @@ function AirTable(props) {
                     ) || []}
                     xField="date"
                     yField="value"
+                    colorField='type'
                     point={{
                         shape: 'diamond',
                     }}
