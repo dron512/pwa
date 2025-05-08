@@ -11,7 +11,10 @@ function App() {
         {id: 2, name: "중구", lat: 35.8693, lng: 128.6062}, // 중구
         {id: 3, name: "남구", lat: 35.8467, lng: 128.5971}, // 남구
         {id: 4, name: "동구", lat: 35.8867, lng: 128.6350}, // 동구
-        {id: 5, name: "수성구", lat: 35.8588, lng: 128.6305} // 수성구
+        {id: 5, name: "수성구", lat: 35.8588, lng: 128.6305}, // 수성구
+
+      // {id: 6, name: "내마음데로", lat: 35.8588, lng: 128.8888} // 수성구
+
     ]);
     // 카카오 api key 설정
     useKakaoLoader({
@@ -24,7 +27,7 @@ function App() {
         <>
             <h1>Hello</h1>
             <button onClick={() => setCities([...cities])}></button>
-            <Map center={{lat: 35.8693, lng: 128.6062}} level={8}
+            <Map center={{lat: 35.8693, lng: 128.6062}} level={7}
                  style={{width: '100%', height: '80vh'}}>
                 {cities.map((city) => (
                     <MapMarker key={city.id}
