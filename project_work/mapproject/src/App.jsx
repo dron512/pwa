@@ -6,6 +6,7 @@ import 'antd/dist/reset.css';
 import PollutantTable from './components/PollutantTable';
 import Reviews from './components/Reviews';
 import { fetchCities, getCurrentLocation } from './supa/supaApi';
+import { NaverMap, Marker, InfoWindow, useNavermaps,NavermapsProvider } from 'react-naver-maps';
 
 const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
 const WAQI_API_KEY = "24c9e5d547168d084b63e7b5bbf25a4b1888803d";
@@ -22,7 +23,7 @@ function App() {
   const [mapCenter, setMapCenter] = useState(DAEGU_CENTER);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [showCurrentLocationInfo, setShowCurrentLocationInfo] = useState(false);
-  
+
   // 카카오훅
   useKakaoLoader({
     appkey: KAKAO_API_KEY,
@@ -76,11 +77,11 @@ function App() {
     setSelectedCityId(cityId);
   };
 
-  
+
   return (
     <Space direction="vertical" size="large" style={{ width: '100%', padding: 24 }}>
       <Title level={2}>대구 권역 대기질 정보</Title>
-      
+
       <Card>
         <Map
           center={mapCenter}
@@ -112,7 +113,7 @@ function App() {
                     whiteSpace: 'nowrap',
                     cursor: 'pointer'
                   }}
-                  onClick={() => setShowCurrentLocationInfo(false)}
+                    onClick={() => setShowCurrentLocationInfo(false)}
                   >
                     내 위치
                   </div>
@@ -180,6 +181,7 @@ function App() {
       <PollutantTable />
 
       <Reviews cityId={selectedCityId} aqiInfo={aqiInfo} />
+
     </Space>
   );
 }
