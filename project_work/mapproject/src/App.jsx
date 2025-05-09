@@ -1,18 +1,17 @@
 import {useEffect, useState} from 'react'
-import './App.css'
 import {Map, MapMarker, useKakaoLoader} from "react-kakao-maps-sdk";
 import {fetchCities} from "../api/supadb.js";
 import {fetchAqi} from "../api/airapi.js";
-import {Card, Space} from "antd";
 import AirTable from "./components/AirTable.jsx";
 
 function App() {
-    const [count, setCount] = useState(0);
-    // 마커 설정할 위도 경도 나중에 supabase 에서 데이터 가져와서 setCities 할 계획
+    // supabase 에서 가져온 도시 좌표 데이터 supabase
     const [cities, setCities] = useState([]);
-    const [aqiInfo,setAqiInfo] = useState({});
+    // 클릭한 좌표의 미세먼지 초미세먼지 데이터
+    // {city: {pm10, pm25, o3, no2, so2, co}}
+    const [aqiInfo, setAqiInfo] = useState({});
 
-    const [loading, error] = useKakaoLoader({
+    useKakaoLoader({
         appkey: import.meta.env.VITE_KAKAO_MAP_KEY,
         libraries: ["clusterer", "services", "drawing"]
     });
@@ -35,9 +34,9 @@ function App() {
 
     return (
         <>
-            <h1>Hello</h1>
+            <h1>미세먼지</h1>
             <Map center={{lat: 35.8693, lng: 128.6062}} level={7}
-                 style={{width: '100%', height: '80vh'}}>
+                 style={{width: '100%', height: '50vh'}}>
                 {cities.map((city) => (
                     <MapMarker key={city.id}
                                position={{lat: city.latitude, lng: city.longitude}}
@@ -48,6 +47,7 @@ function App() {
                     </MapMarker>
                 ))}
             </Map>
+            {/* { AirTable({...aqiInfo}) } */}
             <AirTable {...aqiInfo}></AirTable>
         </>
     )
