@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 
-const Reviews = ({ city: propCity }) => {
-  if (propCity == null) {
+const Reviews = ({ city }) => {
+  if (city == null) {
     return <div>Loading...</div>;
   }
-
-  const [city, setCity] = useState(propCity);
-  console.log(city);
 
   return (
     <div>
