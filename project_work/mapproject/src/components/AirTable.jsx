@@ -3,12 +3,10 @@ import { Card, Space, Table } from "antd";
 import { Line } from "@ant-design/plots";
 
 function AirTable(props) {
-  console.log("AirTable props", props);
   const [data, setData] = useState(props);
 
   // porps 값이 바뀌면.. useEffect 가 실행된다.
   useEffect(() => {
-    console.log("AirTable useEffect");
     // setData 로 useState 사용시 화면 재랜더링이 이루어지면서 클릭했는
     // 좌표의 미세먼지 데이터가 표시된다.
     setData(props);
@@ -20,14 +18,14 @@ function AirTable(props) {
       city: { geo },
       iaqi: { co, no2, o3, pm10, pm25, so2 },
     } = props;
-    console.log(aqi);
-    console.log(geo);
-    console.log("일산화탄소", co);
-    console.log("이산화질소", no2);
-    console.log("오존", o3);
-    console.log("미세먼지", pm10);
-    console.log("초미세먼지", pm25);
-    console.log("아황산가스", so2);
+    // console.log(aqi);
+    // console.log(geo);
+    // console.log("일산화탄소", co);
+    // console.log("이산화질소", no2);
+    // console.log("오존", o3);
+    // console.log("미세먼지", pm10);
+    // console.log("초미세먼지", pm25);
+    // console.log("아황산가스", so2);
   } catch (e) {}
 
   const dataSource = [
@@ -142,6 +140,7 @@ function AirTable(props) {
         point={{
           shape: "diamond",
         }}
+        height={300}
       />
     </Card>
   );
