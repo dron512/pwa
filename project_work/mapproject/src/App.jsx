@@ -102,12 +102,13 @@ function App() {
             key={city.id}
             position={{ lat: city.latitude, lng: city.longitude }}
             onClick={() => {
-              clickAqi(city);
-              setCity(city);
+              clickAqi(city); // 미세먼지 데이터 정보 가져오기
+              setCity(city); // 해당좌표 클릭해서 하위 컴포넌트인 Reivews 곳에 props넘기는 역활
             }}
           ></MapMarker>
         ))}
       </Map>
+      {/* city 데이터 변경시 자동으로 하위컴포넌트 호출 */}
       <Reviews city={city}></Reviews>
       <AirTable {...aqiInfo}></AirTable>
     </>
