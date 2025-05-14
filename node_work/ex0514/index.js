@@ -3,6 +3,8 @@
 
 const http = require('http');
 const fs = require('fs').promises;
+const mysql = require('mysql2/promise');
+const pool = require('./db');
 
 http.createServer(async (req, res) => {
     console.log(req.url);
@@ -23,17 +25,24 @@ http.createServer(async (req, res) => {
             req.on('data', (data) => {
                 body += data;
             });
-            req.on('end',()=>{
+            req.on('end',async ()=>{
                 // body 내용 출력
                 console.log(body);
                 // body를 JSON.parse로 객체로 변환
                 const {id, password} = JSON.parse(body);
                 console.log(id, password);
+
+                const conn = await pool.getConnection();
+                const sql = `INSERT INTO users (id, password) VALUES (?, ?)`;
+                const [result] = await conn.execute(sql, [id, password]);
+                conn.release();
+
+                console.log('DB 삽입 결과:', result);
             })
 
-            const obj = {name: "홍길동", age: 20};
-            res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
-            return res.end(JSON.stringify(obj));
+            const response = { message: '회원가입 성공' };
+            res.writeHead(201, { 'Content-Type': 'application/json; charset=utf-8' });
+            return res.end(JSON.stringify(response));
         } else if (req.url === '/login') {
             res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
             return res.end('로그인 성공');
