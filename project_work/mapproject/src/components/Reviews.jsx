@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { fetchReviews } from "../../api/supadb";
 import { UserOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Card, Typography, Form, Input, Button, message, Rate } from "antd";
-// import { useForm } from "antd/es/form/Form";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -11,14 +10,7 @@ const Reviews = ({ city }) => {
   if (!city) {
     return <div>Loading...</div>;
   }
-
-  // console.log("Reviews", propCity);
-  // const [city, setCity] = useState(propCity);
-
-  // 해당하는 좌표를 클릭하게 맞는 리뷰 데이터 슈파베이스에서 가져와야하기때문에
-  // useEffect(() => {
-  //   setCity(propCity);
-  // }, [propCity]);
+  
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
@@ -43,7 +35,7 @@ const Reviews = ({ city }) => {
     <div>
       <h1>Reviews {city.name}</h1>
       <h2>미세먼지 {city.aqi}</h2>
-      {reviews &&
+      { city && reviews &&
         reviews.map((review) => (
           <div key={review.id}>
             <p>{review.comment}</p>
