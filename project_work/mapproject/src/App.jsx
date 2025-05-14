@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
-import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import { fetchCities } from "../api/supadb.js";
 import { fetchAqi } from "../api/airapi.js";
-import AirTable from "./components/AirTable.jsx";
-import MyChart from "./components/MyChart.jsx";
+import { Button, Drawer } from "antd";
 
-import { Button, Drawer, Radio, Space } from "antd";
-import Link from "antd/es/typography/Link.js";
-import Reviews from "./components/Reviews.jsx";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import RootPage from "./pages/RootPage.jsx";
+import UserPage from "./pages/UserPage.jsx";
 
 function App() {
-  const [cities, setCities] = useState([]);
-  const [aqiInfo, setAqiInfo] = useState({});
-  const [city, setCity] = useState(null);
-
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
+  const navigate = useNavigate();
 
   const showDrawer = () => {
     setOpen(true);
@@ -26,46 +21,6 @@ function App() {
   const onChange = (e) => {
     setPlacement(e.target.value);
   };
-
-  useKakaoLoader({
-    appkey: import.meta.env.VITE_KAKAO_MAP_KEY,
-    libraries: ["clusterer", "services", "drawing"],
-  });
-
-  useEffect(() => {
-    fetchCities().then((data) => {
-      setCities(data);
-    });
-  }, []);
-
-  const clickAqi = (city) => {
-    fetchAqi(city.latitude, city.longitude).then((data) => {
-      setAqiInfo(data);
-    });
-  };
-
-  const data = [
-    {
-      date: "2023-01-01",
-      value: 100,
-    },
-    {
-      date: "2023-01-02",
-      value: 30,
-    },
-    {
-      date: "2023-01-03",
-      value: 0,
-    },
-    {
-      date: "2023-01-04",
-      value: 40,
-    },
-    {
-      date: "2023-01-05",
-      value: 65,
-    },
-  ];
 
   return (
     <>
@@ -84,33 +39,42 @@ function App() {
         open={open}
         key={placement}
       >
-        <p>
-          <Link href="">어떤메뉴</Link>
-        </p>
+        <div>
+          <ul>
+            <li>
+              <Button
+                onClick={() => {
+                  navigate("/");
+                  setOpen(false);
+                }}
+              >
+                root
+              </Button>
+            </li>
+            <li>
+              <Button
+                onClick={() => {
+                  navigate("/user");
+                  setOpen(false);
+                }}
+              >
+                user
+              </Button>
+            </li>
+            {/* <li>
+              <Link to="/user">user</Link>
+            </li> */}
+          </ul>
+        </div>
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Drawer>
-      {/* <h1>미세먼지</h1> */}
-      {/* <MyChart data={data}></MyChart> */}
-      <Map
-        center={{ lat: 35.8693, lng: 128.6062 }}
-        level={7}
-        style={{ width: "100%", height: "50vh" }}
-      >
-        {cities.map((city) => (
-          <MapMarker
-            key={city.id}
-            position={{ lat: city.latitude, lng: city.longitude }}
-            onClick={() => {
-              clickAqi(city); // 미세먼지 데이터 정보 가져오기
-              setCity(city); // 해당좌표 클릭해서 하위 컴포넌트인 Reivews 곳에 props넘기는 역활
-            }}
-          ></MapMarker>
-        ))}
-      </Map>
+
+      <Routes>
+        <Route path="/" element={<RootPage />}></Route>
+        <Route path="/user" element={<UserPage />}></Route>
+      </Routes>
       {/* city 데이터 변경시 자동으로 하위컴포넌트 호출 */}
-      <Reviews city={city}></Reviews>
-      <AirTable {...aqiInfo}></AirTable>
     </>
   );
 }
