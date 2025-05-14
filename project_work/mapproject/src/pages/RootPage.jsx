@@ -68,7 +68,7 @@ const RootPage = () => {
           ></MapMarker>
         ))}
       </Map>
-      <Reviews city={city}></Reviews>
+      <Reviews city={city} aqi={aqiInfo.aqi}></Reviews>
       <AirTable {...aqiInfo}></AirTable>
     </>
   );
