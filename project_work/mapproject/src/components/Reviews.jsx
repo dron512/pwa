@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchReviews } from "../../api/supadb";
+import { fetchReviews, postReview } from "../../api/supadb";
 import { UserOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Card, Typography, Form, Input, Button, message, Rate } from "antd";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-const Reviews = ({ city }) => {
+const Reviews = ({ city, aqi }) => {
   if (!city) {
     return <div>Loading...</div>;
   }
@@ -26,15 +26,22 @@ const Reviews = ({ city }) => {
   // custom 훅은 맨 마지막에 호출되야 한다고 경고 메시지 떠서 옮겼습니다.
   const [form] = Form.useForm();
 
-  const handleSubmit = (values) => {
-    console.log("submit");
-    console.log(values);
+  const handleSubmit = async (values) => {
+    values.city_id = city.id;
+    values.air_quality_index = aqi;
+    const ret = await postReview(values);
+    if(ret==='success'){
+      message.success('성공적으로 저장하였습니다.');
+    }
+    else{
+      message.error('저장 실패');
+    }
   };
 
   return (
     <div>
       <h1>Reviews {city.name}</h1>
-      <h2>미세먼지 {city.aqi}</h2>
+      <h2>미세먼지 {aqi}</h2>
       { city && reviews &&
         reviews.map((review) => (
           <div key={review.id}>
@@ -54,7 +61,7 @@ const Reviews = ({ city }) => {
         {
           <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Form.Item
-              name="userName"
+              name="user_name"
               label="이름"
               rules={[{ required: true, message: "이름을 입력하세요" }]}
             >
