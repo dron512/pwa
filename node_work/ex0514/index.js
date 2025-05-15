@@ -1,5 +1,7 @@
 // 단방향 암호화
 // const crypto = require('crypto');
+const pool = require('./db');
+// console.log(pool);
 
 const http = require('http');
 const fs = require('fs').promises;
@@ -20,6 +22,9 @@ http.createServer(async (req, res) => {
             let body = '';
             // request 요청 한 클라인거 data로 들어오는게 있으면 
             // data를 모아서 body에 넣어준다.
+
+            // addEventListener('click', (data) => {});
+
             req.on('data', (data) => {
                 body += data;
             });
@@ -29,12 +34,18 @@ http.createServer(async (req, res) => {
                 // body를 JSON.parse로 객체로 변환
                 const {id, password} = JSON.parse(body);
                 console.log(id, password);
+
+                // mysql 에 저장하는 코드
+
             })
 
             const obj = {name: "홍길동", age: 20};
             res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
             return res.end(JSON.stringify(obj));
         } else if (req.url === '/login') {
+
+            // id password => mysql select 해당하는 행이 있으면 로그인성공..
+
             res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
             return res.end('로그인 성공');
         }
