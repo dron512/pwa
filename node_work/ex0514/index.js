@@ -53,61 +53,53 @@ http.createServer(async (req, res) => {
             let body = '';
 
             // Promise를 사용하여 요청 본문을 처리
-            const requestBody = await new Promise((resolve, reject) => {
-                req.on('data', (data) => {
-                    body += data;
-                });
-                req.on('end', () => {
-                    try {
-                        resolve(JSON.parse(body));
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
-                req.on('error', (error) => {
-                    reject(error);
-                });
+            // 요청 본문 데이터 수집
+            req.on('data', (data) => {
+                body += data;
             });
 
-            try {
-                const { id, password } = requestBody;
-                
-                // 사용자 정보 조회
-                const conn = await pool.getConnection();
-                const sql = 'SELECT * FROM users WHERE id = ?';
-                const [users] = await conn.execute(sql, [id]);
-                conn.release();
+            // 요청 본문 처리 완료 시
+            req.on('end', async () => {
+                try {
+                    const { id, password } = JSON.parse(body);
+                    
+                    // DB에서 사용자 조회
+                    const conn = await pool.getConnection();
+                    const [users] = await conn.execute('SELECT * FROM users WHERE id = ?', [id]);
+                    conn.release();
 
-                if (users.length === 0) {
+                    // 사용자가 없는 경우
+                    if (!users.length) {
+                        res.writeHead(401, {'Content-Type': 'application/json; charset=utf-8'});
+                        return res.end(JSON.stringify({message: '아이디 또는 비밀번호가 일치하지 않습니다.'}));
+                    }
+
+                    // 비밀번호 확인
+                    if (await verifyPassword(password, users[0].salt, users[0].password)) {
+                        res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+                        return res.end(JSON.stringify({message: '로그인 성공'}));
+                    }
+
                     res.writeHead(401, {'Content-Type': 'application/json; charset=utf-8'});
                     return res.end(JSON.stringify({message: '아이디 또는 비밀번호가 일치하지 않습니다.'}));
-                }
 
-                const user = users[0];
-                // 비밀번호 검증
-                const isMatch = await verifyPassword(password, user.salt, user.password);
-
-                if (isMatch) {
-                    res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
-                    return res.end(JSON.stringify({message: '로그인 성공'}));
-                } else {
-                    res.writeHead(401, {'Content-Type': 'application/json; charset=utf-8'});
-                    return res.end(JSON.stringify({message: '아이디 또는 비밀번호가 일치하지 않습니다.'}));
+                } catch (error) {
+                    console.error('Login error:', error);
+                    res.writeHead(500, {'Content-Type': 'application/json; charset=utf-8'});
+                    return res.end(JSON.stringify({message: '서버 오류가 발생했습니다.'}));
                 }
-            } catch (error) {
-                console.error('Login error:', error);
-                res.writeHead(500, {'Content-Type': 'application/json; charset=utf-8'});
-                return res.end(JSON.stringify({message: '서버 오류가 발생했습니다.'}));
-            }
+            });
+        }else{
+            res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'});
+            return res.end('잘못된 경로입니다.');
         }
-
-        res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'});
-        return res.end('잘못된 경로입니다.');
     } catch (e) {
         console.log(e);
         res.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
         res.end(e.message);
     }
+
+    console.log("여기 실행")
     // res.end('<html><body><h1>안녕</h1></body></html>\n');
 }).listen(8080, '0.0.0.0', () => {
     console.log('8080 포트에서 서버 대기 중');
