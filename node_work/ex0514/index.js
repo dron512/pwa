@@ -25,6 +25,8 @@ function setCorsHeaders(res) {
 
 http.createServer(async (req, res) => {
     console.log(req.url);
+    setCorsHeaders(res);
+
     try {
         // OPTIONS 요청 처리 (preflight)
         if (req.method === 'OPTIONS') {
@@ -32,11 +34,8 @@ http.createServer(async (req, res) => {
             res.writeHead(204);
             return res.end();
         }
-
         // 모든 응답에 CORS 헤더 추가
-        setCorsHeaders(res);
-
-        if( req.url==='/subscribe'){
+        else if( req.url==='/subscribe'){
             // 구독 요청을 처리하는 부분
             req.setEncoding('utf-8');
             let body = '';
@@ -52,8 +51,7 @@ http.createServer(async (req, res) => {
                 return res.end(JSON.stringify({message: '구독 성공'}));
             });
         }
-
-        if( req.url==='/send'){
+        else if( req.url==='/send'){
             // 구독자에게 푸시 알림을 보내는 부분
             const payload = JSON.stringify({ title: '푸시 알림 제목', body: '푸시 알림 내용' });
 
