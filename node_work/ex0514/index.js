@@ -14,7 +14,7 @@ const pool = require('./db');
 const http = require('http');
 const fs = require('fs').promises;
 
-const subscriptions = []
+const subscriptions = new Set();
 
 // CORS 헤더 설정 함수
 function setCorsHeaders(res) {
@@ -46,7 +46,7 @@ http.createServer(async (req, res) => {
             req.on('end', () => {
                 try {
                     const subscription = JSON.parse(body);
-                    subscriptions.push(subscription);
+                    subscriptions.add(subscription); // 구독 정보를 Set에 추가
                     res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
                     res.end(JSON.stringify({message: '구독 성공'}));
                 } catch (err) {
