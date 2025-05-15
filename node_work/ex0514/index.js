@@ -1,13 +1,71 @@
 // 단방향 암호화
 // const crypto = require('crypto');
+const webpush = require('web-push')
+
+webpush.setVapidDetails(
+    'mailto:your@email.com',
+    'BCRUQ5WPVsJ5r2mmTedv_VtZE6L3XMJ9ZOFWtzBAvmpKzvpe5W_LHPt5jr8-qq6TZlCXwcSFbMm0xY0cPBzsutk',
+    'Yl_En8v44xeEL5QFwgULaxutTWKlWuoMI_-SpfpPcB8'
+)
+
 const { hashPassword, verifyPassword } = require('./passwordEncode');
 const pool = require('./db');
 
 const http = require('http');
 const fs = require('fs').promises;
 
+const subscriptions = []
+
+// CORS 헤더 설정 함수
+function setCorsHeaders(res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
 http.createServer(async (req, res) => {
+    console.log(req.url);
     try {
+        // OPTIONS 요청 처리 (preflight)
+        if (req.method === 'OPTIONS') {
+            setCorsHeaders(res);
+            res.writeHead(204);
+            return res.end();
+        }
+
+        // 모든 응답에 CORS 헤더 추가
+        setCorsHeaders(res);
+
+        if( req.url==='/subscribe'){
+            // 구독 요청을 처리하는 부분
+            req.setEncoding('utf-8');
+            let body = '';
+
+            req.on('data', (data) => {
+                body += data;
+            });
+
+            req.on('end', () => {
+                const subscription = JSON.parse(body);
+                subscriptions.push(subscription);
+                res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
+                return res.end(JSON.stringify({message: '구독 성공'}));
+            });
+        }
+
+        if( req.url==='/send'){
+            // 구독자에게 푸시 알림을 보내는 부분
+            const payload = JSON.stringify({ title: '푸시 알림 제목', body: '푸시 알림 내용' });
+
+            for (const subscription of subscriptions) {
+                webpush.sendNotification(subscription, payload)
+                    .then(() => console.log('푸시 알림 전송 성공'))
+                    .catch(err => console.error('푸시 알림 전송 실패:', err));
+            }
+
+            res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+            return res.end(JSON.stringify({message: '푸시 알림 전송'}));
+        }
         if (req.url === '/') {
             const password = '비밀번호';    // 숨겨진 데이터
             const indexhtml = await fs.readFile('./index.html');
@@ -52,7 +110,6 @@ http.createServer(async (req, res) => {
             req.setEncoding('utf-8');
             let body = '';
 
-            // Promise를 사용하여 요청 본문을 처리
             // 요청 본문 데이터 수집
             req.on('data', (data) => {
                 body += data;
@@ -89,7 +146,7 @@ http.createServer(async (req, res) => {
                     return res.end(JSON.stringify({message: '서버 오류가 발생했습니다.'}));
                 }
             });
-        }else{
+        } else {
             res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'});
             return res.end('잘못된 경로입니다.');
         }
