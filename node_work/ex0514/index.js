@@ -14,8 +14,6 @@ const pool = require('./db');
 const http = require('http');
 const fs = require('fs').promises;
 
-const subscriptions = []
-
 // CORS 헤더 설정 함수
 function setCorsHeaders(res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -43,10 +41,20 @@ http.createServer(async (req, res) => {
                 body += data;
             });
 
-            req.on('end', () => {
+            req.on('end', async () => {
                 try {
                     const subscription = JSON.parse(body);
-                    subscriptions.push(subscription);
+
+                    // 구독 정보를 DB에 저장
+                    const conn = await pool.getConnection();
+                    const sql = 'INSERT INTO subscriptions (endpoint, p256dh, auth) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE p256dh = VALUES(p256dh), auth = VALUES(auth)';
+                    await conn.execute(sql, [
+                        subscription.endpoint,
+                        subscription.keys.p256dh,
+                        subscription.keys.auth
+                    ]);
+                    conn.release();
+
                     res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
                     res.end(JSON.stringify({message: '구독 성공'}));
                 } catch (err) {
@@ -65,14 +73,39 @@ http.createServer(async (req, res) => {
                 body: '이 알림을 클릭하면 이동합니다.',
                 url: 'https://aqi-xi.vercel.app/'
             })
-            for (const subscription of subscriptions) {
-                webpush.sendNotification(subscription, payload)
-                    .then(() => console.log('푸시 알림 전송 성공'))
-                    .catch(err => console.error('푸시 알림 전송 실패:', err));
-            }
+            // DB에서 모든 구독 정보 가져오기
+            const conn = await pool.getConnection();
+            const [subscriptions] = await conn.execute('SELECT * FROM subscriptions');
+            conn.release();
+
+            // 각 구독자에게 푸시 알림 전송
+            const sendPromises = subscriptions.map(sub => {
+                const subscription = {
+                    endpoint: sub.endpoint,
+                    keys: {
+                        p256dh: sub.p256dh,
+                        auth: sub.auth
+                    }
+                };
+
+                return webpush.sendNotification(subscription, payload)
+                    .then(() => {
+                        console.log('푸시 알림 전송 성공:', sub.endpoint);
+                    })
+                    .catch(err => {
+                        console.error('푸시 알림 전송 실패:', sub.endpoint, err);
+                        // 구독이 만료되었거나 유효하지 않은 경우 DB에서 삭제
+                        if (err.statusCode === 410) {
+                            return pool.execute('DELETE FROM subscriptions WHERE endpoint = ?', [sub.endpoint]);
+                        }
+                    });
+            });
+
+            // 모든 알림 전송 완료 대기
+            await Promise.all(sendPromises);
 
             res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
-            return res.end(JSON.stringify({message: '푸시 알림 전송'}));
+            return res.end(JSON.stringify({message: '푸시 알림 전송 완료'}));
         } else if (req.url === '/') {
             const password = '비밀번호';    // 숨겨진 데이터
             const indexhtml = await fs.readFile('./index.html');
@@ -160,9 +193,6 @@ http.createServer(async (req, res) => {
         res.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
         res.end(e.message);
     }
-
-    console.log("여기 실행")
-    // res.end('<html><body><h1>안녕</h1></body></html>\n');
 }).listen(8080, '0.0.0.0', () => {
     console.log('8080 포트에서 서버 대기 중');
 });
