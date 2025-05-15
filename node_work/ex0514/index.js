@@ -63,6 +63,7 @@ http.createServer(async (req, res) => {
             const payload = JSON.stringify({title: '푸시 알림 제목', body: '푸시 알림 내용'});
 
             for (const subscription of subscriptions) {
+                console.log(subscription);
                 webpush.sendNotification(subscription, payload)
                     .then(() => console.log('푸시 알림 전송 성공'))
                     .catch(err => console.error('푸시 알림 전송 실패:', err));
