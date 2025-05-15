@@ -1,5 +1,6 @@
 // 단방향 암호화
 // const crypto = require('crypto');
+const { hashPassword, verifyPassword } = require('./passwordEncode');
 const pool = require('./db');
 
 const http = require('http');
@@ -27,10 +28,6 @@ http.createServer(async (req, res) => {
 
             // body 문자열 선언
             let body = '';
-            // request 요청 한 클라인거 data로 들어오는게 있으면 
-            // data를 모아서 body에 넣어준다.
-
-            // addEventListener('click', (data) => {});
 
             req.on('data', (data) => {
                 body += data;
@@ -39,19 +36,69 @@ http.createServer(async (req, res) => {
                 // body를 JSON.parse로 객체로 변환
                 const {id, password} = JSON.parse(body);
 
+                // 비밀번호 해시화
+                const { salt, hashed } = await hashPassword(password);
+
                 // mysql 에 저장하는 코드
                 const conn = await pool.getConnection(); // pool에서 connection을 가져온다.
-                const sql = 'INSERT INTO users (id, password) VALUES (?, ?)'; // sql 구문 설정
-                const [result] = await conn.execute(sql, [id, password]); // sql문 실행
+                const sql = 'INSERT INTO users (id, password, salt) VALUES (?, ?, ?)'; // sql 구문 설정
+                const [result] = await conn.execute(sql, [id, hashed, salt]); // sql문 실행
                 conn.release(); // pool 반환
             })
 
             res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
             return res.end(JSON.stringify({message:'회원가입 성공'}));
-        } else if (req.url === '/login') {
-            // id password => mysql select 해당하는 행이 있으면 로그인성공..
-            res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
-            return res.end('로그인 성공');
+        } else if (req.url === '/login' && req.method === 'POST') {
+            req.setEncoding('utf-8');
+            let body = '';
+
+            // Promise를 사용하여 요청 본문을 처리
+            const requestBody = await new Promise((resolve, reject) => {
+                req.on('data', (data) => {
+                    body += data;
+                });
+                req.on('end', () => {
+                    try {
+                        resolve(JSON.parse(body));
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+                req.on('error', (error) => {
+                    reject(error);
+                });
+            });
+
+            try {
+                const { id, password } = requestBody;
+                
+                // 사용자 정보 조회
+                const conn = await pool.getConnection();
+                const sql = 'SELECT * FROM users WHERE id = ?';
+                const [users] = await conn.execute(sql, [id]);
+                conn.release();
+
+                if (users.length === 0) {
+                    res.writeHead(401, {'Content-Type': 'application/json; charset=utf-8'});
+                    return res.end(JSON.stringify({message: '아이디 또는 비밀번호가 일치하지 않습니다.'}));
+                }
+
+                const user = users[0];
+                // 비밀번호 검증
+                const isMatch = await verifyPassword(password, user.salt, user.password);
+
+                if (isMatch) {
+                    res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+                    return res.end(JSON.stringify({message: '로그인 성공'}));
+                } else {
+                    res.writeHead(401, {'Content-Type': 'application/json; charset=utf-8'});
+                    return res.end(JSON.stringify({message: '아이디 또는 비밀번호가 일치하지 않습니다.'}));
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                res.writeHead(500, {'Content-Type': 'application/json; charset=utf-8'});
+                return res.end(JSON.stringify({message: '서버 오류가 발생했습니다.'}));
+            }
         }
 
         res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'});
