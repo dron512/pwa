@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, Typography, Space, Rate, Divider, Empty, Form, Input, Button, message } from 'antd';
 import { UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import AirQualityChart from './AirQualityChart';
-import { fetchReviews, insertReview } from '../supa/supaApi';
+import { fetchReviews, postReview } from '../../api/supadb.js';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -27,7 +27,7 @@ function Reviews({ cityId, aqiInfo }) {
 
     const handleSubmit = async (values) => {
         try {
-            await insertReview({
+            await postReview({
                 city_id: cityId,
                 user_name: values.userName,
                 rating: values.rating,
