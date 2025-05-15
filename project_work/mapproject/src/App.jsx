@@ -6,7 +6,6 @@ import 'antd/dist/reset.css';
 import PollutantTable from './components/PollutantTable';
 import Reviews from './components/Reviews';
 import { fetchCities, getCurrentLocation } from './supa/supaApi';
-import { NaverMap, Marker, InfoWindow, useNavermaps,NavermapsProvider } from 'react-naver-maps';
 
 const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_API_KEY;
 const WAQI_API_KEY = "24c9e5d547168d084b63e7b5bbf25a4b1888803d";
