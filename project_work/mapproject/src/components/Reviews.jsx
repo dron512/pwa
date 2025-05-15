@@ -1,142 +1,97 @@
-import { useEffect, useState } from 'react';
-import { Card, Typography, Space, Rate, Divider, Empty, Form, Input, Button, message } from 'antd';
-import { UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import AirQualityChart from './AirQualityChart';
-import { fetchReviews, postReview } from '../../api/supadb.js';
+import React, { useEffect, useState } from "react";
+import { fetchReviews, postReview } from "../../api/supadb";
+import { UserOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import { Card, Typography, Form, Input, Button, message, Rate } from "antd";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-function Reviews({ cityId, aqiInfo }) {
-    const [reviews, setReviews] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [form] = Form.useForm();
+const Reviews = ({ city, aqi }) => {
+  if (!city) {
+    return <div>Loading...</div>;
+  }
+  
+  const [reviews, setReviews] = useState(null);
 
-    useEffect(() => {
-        if (!cityId) {
-            setReviews([]);
-            return;
+  useEffect(() => {
+    fetchReviews(city.id)
+      .then((data) => {
+        setReviews(data); // 화면 재랜더링
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [city]);
+
+  // custom 훅은 맨 마지막에 호출되야 한다고 경고 메시지 떠서 옮겼습니다.
+  const [form] = Form.useForm();
+
+  const handleSubmit = async (values) => {
+    values.city_id = city.id;
+    values.air_quality_index = aqi;
+    const ret = await postReview(values);
+    if(ret==='success'){
+      message.success('성공적으로 저장하였습니다.');
+    }
+    else{
+      message.error('저장 실패');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Reviews {city.name}</h1>
+      <h2>미세먼지 {aqi}</h2>
+      { city && reviews &&
+        reviews.map((review) => (
+          <div key={review.id}>
+            <p>{review.comment}</p>
+            <p>
+              <UserOutlined />
+              작성자: {review.user_name}
+            </p>
+            <p>작성일: {new Date(review.created_at).toLocaleDateString()}</p>
+          </div>
+        ))}
+      <Card>
+        <Title level={3}>
+          <EnvironmentOutlined />
+          리뷰작성
+        </Title>
+        {
+          <Form form={form} onFinish={handleSubmit} layout="vertical">
+            <Form.Item
+              name="user_name"
+              label="이름"
+              rules={[{ required: true, message: "이름을 입력하세요" }]}
+            >
+              <Input
+                prefix={<UserOutlined />}
+                placeholder="이름을 입력하세요"
+              />
+            </Form.Item>
+            <Form.Item
+              name="rating"
+              label="평점"
+              rules={[{ required: true, message: "평점을 선택해주세요" }]}
+            >
+              <Rate></Rate>
+            </Form.Item>
+            <Form.Item
+              name="comment"
+              label="리뷰 내용"
+              rules={[{ required: true, message: "리뷰 내용을 입력해주세요" }]}
+            >
+              <TextArea rows={4} placeholder="리뷰 내용을 입력해주세요" />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" block>리뷰 작성</Button>
+            </Form.Item>
+          </Form>
         }
-        setLoading(true);
-        fetchReviews(cityId)
-            .then(data => {
-                setReviews(data || []);
-                setLoading(false);
-            });
-    }, [cityId]);
-
-    const handleSubmit = async (values) => {
-        try {
-            await postReview({
-                city_id: cityId,
-                user_name: values.userName,
-                rating: values.rating,
-                comment: values.comment,
-                air_quality_index: aqiInfo?.aqi || 0,
-            });
-
-            message.success('리뷰가 성공적으로 작성되었습니다.');
-            form.resetFields();
-
-            // 리뷰 목록 새로고침
-            const newReviews = await fetchReviews(cityId);
-            setReviews(newReviews || []);
-        } catch (error) {
-            message.error('리뷰 작성 중 오류가 발생했습니다.');
-            console.error('Error:', error);
-        }
-    };
-
-    if (!cityId) return (
-        <Card>
-            <Empty description="마커를 클릭하여 리뷰를 확인하세요" />
-        </Card>
-    );
-
-    if (loading) return (
-        <Card>
-            <Empty description="리뷰를 불러오는 중..." />
-        </Card>
-    );
-
-    return (
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-            <AirQualityChart aqiInfo={aqiInfo} />
-
-            <Card>
-                <Title level={4}>
-                    <EnvironmentOutlined /> 리뷰 목록
-                </Title>
-                {!reviews.length ? (
-                    <Empty description="아직 작성된 리뷰가 없습니다" />
-                ) : (
-                    <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                        {reviews.map(r => (
-                            <Card key={r.id} size="small">
-                                <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                                    <Space>
-                                        <UserOutlined />
-                                        <Text strong>{r.user_name}</Text>
-                                        <Rate disabled defaultValue={r.rating} />
-                                    </Space>
-                                    <Text>{r.comment}</Text>
-                                    <Space split={<Divider type="vertical" />}>
-                                        <Text type="secondary">
-                                            공기질 지수: {r.air_quality_index}
-                                        </Text>
-                                        <Text type="secondary">
-                                            작성일: {new Date(r.created_at).toLocaleString()}
-                                        </Text>
-                                    </Space>
-                                </Space>
-                            </Card>
-                        ))}
-                    </Space>
-                )}
-            </Card>
-
-            <Card>
-                <Title level={4}>
-                    <EnvironmentOutlined /> 리뷰 작성
-                </Title>
-                <Form
-                    form={form}
-                    onFinish={handleSubmit}
-                    layout="vertical"
-                >
-                    <Form.Item
-                        name="userName"
-                        label="이름"
-                        rules={[{ required: true, message: '이름을 입력해주세요' }]}
-                    >
-                        <Input prefix={<UserOutlined />} placeholder="이름을 입력해주세요" />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="rating"
-                        label="평점"
-                        rules={[{ required: true, message: '평점을 선택해주세요' }]}
-                    >
-                        <Rate />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="comment"
-                        label="리뷰 내용"
-                        rules={[{ required: true, message: '리뷰 내용을 입력해주세요' }]}
-                    >
-                        <TextArea rows={4} placeholder="리뷰 내용을 입력해주세요" />
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit" block>
-                            리뷰 작성
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </Card>
-        </Space>
-    );
-}
+      </Card>
+    </div>
+  );
+};
 
 export default Reviews;
