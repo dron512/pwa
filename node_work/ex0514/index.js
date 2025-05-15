@@ -30,10 +30,10 @@ http.createServer(async (req, res) => {
     try {
         // OPTIONS 요청 처리 (preflight)
         if (req.method === 'OPTIONS') {
-            setCorsHeaders(res);
             res.writeHead(204);
             return res.end();
         }
+
         // 모든 응답에 CORS 헤더 추가
         else if (req.url === '/subscribe') {
             req.setEncoding('utf-8');
@@ -57,7 +57,6 @@ http.createServer(async (req, res) => {
                     }
                 }
             });
-
             return; // ✅ 중복 응답 방지를 위해 반드시 return
         } else if (req.url === '/send') {
             // 구독자에게 푸시 알림을 보내는 부분
