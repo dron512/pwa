@@ -8,7 +8,7 @@ webpush.setVapidDetails(
     'Yl_En8v44xeEL5QFwgULaxutTWKlWuoMI_-SpfpPcB8'
 )
 
-const { hashPassword, verifyPassword } = require('./passwordEncode');
+const {hashPassword, verifyPassword} = require('./passwordEncode');
 const pool = require('./db');
 
 const http = require('http');
@@ -35,8 +35,7 @@ http.createServer(async (req, res) => {
             return res.end();
         }
         // 모든 응답에 CORS 헤더 추가
-        else if( req.url==='/subscribe'){
-            // 구독 요청을 처리하는 부분
+        else if (req.url === '/subscribe') {
             req.setEncoding('utf-8');
             let body = '';
 
@@ -45,15 +44,24 @@ http.createServer(async (req, res) => {
             });
 
             req.on('end', () => {
-                const subscription = JSON.parse(body);
-                subscriptions.push(subscription);
-                res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
-                return res.end(JSON.stringify({message: '구독 성공'}));
+                try {
+                    const subscription = JSON.parse(body);
+                    subscriptions.push(subscription);
+                    res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
+                    res.end(JSON.stringify({message: '구독 성공'}));
+                } catch (err) {
+                    console.error('구독 파싱 오류:', err);
+                    if (!res.headersSent) {
+                        res.writeHead(400);
+                        res.end('잘못된 구독 데이터');
+                    }
+                }
             });
-        }
-        else if( req.url==='/send'){
+
+            return; // ✅ 중복 응답 방지를 위해 반드시 return
+        } else if (req.url === '/send') {
             // 구독자에게 푸시 알림을 보내는 부분
-            const payload = JSON.stringify({ title: '푸시 알림 제목', body: '푸시 알림 내용' });
+            const payload = JSON.stringify({title: '푸시 알림 제목', body: '푸시 알림 내용'});
 
             for (const subscription of subscriptions) {
                 webpush.sendNotification(subscription, payload)
@@ -63,22 +71,19 @@ http.createServer(async (req, res) => {
 
             res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
             return res.end(JSON.stringify({message: '푸시 알림 전송'}));
-        }
-        if (req.url === '/') {
+        } else if (req.url === '/') {
             const password = '비밀번호';    // 숨겨진 데이터
             const indexhtml = await fs.readFile('./index.html');
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
             return res.end(indexhtml);
-        }
-        else if( req.url.includes('/select') ){
+        } else if (req.url.includes('/select')) {
             const conn = await pool.getConnection(); // pool에서 connection을 가져온다.
             const sql = 'SELECT * FROM users';  // select 구문
             const result = await conn.execute(sql); // sql문 실행
             conn.release(); // pool 반환
             res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
             return res.end(JSON.stringify(result[0])); // 결과를 JSON으로 변환하여 전송
-        }
-        else if (req.url === '/join' && req.method === 'POST') {
+        } else if (req.url === '/join' && req.method === 'POST') {
             // 한글이 들어오는 거 맞추기 위해서 utf-8로 인코딩
             req.setEncoding('utf-8');
 
@@ -88,12 +93,12 @@ http.createServer(async (req, res) => {
             req.on('data', (data) => {
                 body += data;
             });
-            req.on('end',async ()=>{
+            req.on('end', async () => {
                 // body를 JSON.parse로 객체로 변환
                 const {id, password} = JSON.parse(body);
 
                 // 비밀번호 해시화
-                const { salt, hashed } = await hashPassword(password);
+                const {salt, hashed} = await hashPassword(password);
 
                 // mysql 에 저장하는 코드
                 const conn = await pool.getConnection(); // pool에서 connection을 가져온다.
@@ -103,7 +108,7 @@ http.createServer(async (req, res) => {
             })
 
             res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
-            return res.end(JSON.stringify({message:'회원가입 성공'}));
+            return res.end(JSON.stringify({message: '회원가입 성공'}));
         } else if (req.url === '/login' && req.method === 'POST') {
             req.setEncoding('utf-8');
             let body = '';
@@ -116,8 +121,8 @@ http.createServer(async (req, res) => {
             // 요청 본문 처리 완료 시
             req.on('end', async () => {
                 try {
-                    const { id, password } = JSON.parse(body);
-                    
+                    const {id, password} = JSON.parse(body);
+
                     // DB에서 사용자 조회
                     const conn = await pool.getConnection();
                     const [users] = await conn.execute('SELECT * FROM users WHERE id = ?', [id]);
