@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import RootPage from "./pages/RootPage.jsx";
 import UserPage from "./pages/UserPage.jsx";
+import TrafficPage from "./pages/TrafficPage.jsx";
 import Menu from "./components/Menu.jsx";
 import { useEffect } from "react";
 
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<RootPage />}></Route>
         <Route path="/user" element={<UserPage />}></Route>
+        <Route path="/traffic" element={<TrafficPage />}></Route>
       </Routes>
       {/* city 데이터 변경시 자동으로 하위컴포넌트 호출 */}
     </>
