@@ -35,6 +35,7 @@ http.createServer(async (req, res) => {
 
             // addEventListener('click', (data) => {});
 
+            // 이벤트 들은 비동기 입니다.
             req.on('data', (data) => {
                 body += data;
             });
@@ -53,9 +54,11 @@ http.createServer(async (req, res) => {
                 
                 console.log(result);    // 결과 출력해보기
             })
-
+            // 201 확인 코드 application/json 한글로 설정
             res.writeHead(201, {'Content-Type': 'application/json; charset=utf-8'});
+            // res.end 응답해라 .. 한번만...
             return res.end(JSON.stringify({message:'회원가입 성공'}));
+
         } else if (req.url === '/login') {
             // id password => mysql select 해당하는 행이 있으면 로그인성공..
             res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
