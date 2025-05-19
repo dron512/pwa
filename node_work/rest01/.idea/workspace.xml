@@ -4,7 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee486cee-efa3-48e5-89e5-4dd52b29d67b" name="Changes" comment="" />
+    <list default="true" id="ee486cee-efa3-48e5-89e5-4dd52b29d67b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/rest01.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/aa.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/aa.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/eslint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/public/vite.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/App.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/assets/react.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/basicData.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/components/Person.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/main.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/vite.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/mapproject/ex01.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../project_work/mapproject/src/components/Reviews.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../project_work/mapproject/src/components/Reviews.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../project_work/mapproject/src/pages/RootPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../project_work/mapproject/src/pages/RootPage.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,21 +51,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "dron512"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dron512&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dron512/pwa.git",
-    "accountId": "903f06e7-ac1d-4a8c-943b-3acb139bf8f1"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dron512/pwa.git&quot;,
+    &quot;accountId&quot;: &quot;903f06e7-ac1d-4a8c-943b-3acb139bf8f1&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2xIHOGpDFnCAbhbr9nT6OKRbxLI" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,7 +80,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging test-main",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "23.7.0",
     "javascript.nodejs.core.library.typings.version": "22.15.19",
@@ -85,6 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1747618633596</updated>
       <workItem from="1747618634718" duration="8389000" />
+      <workItem from="1747638948143" duration="52000" />
     </task>
     <servers />
   </component>
