@@ -2,8 +2,11 @@ import { useState } from "react";
 import "./App.css";
 import Person from "./components/Person";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
+import data from './basicData.json';
 
 function App() {
+  console.log(data);
+  
   useKakaoLoader({
     appkey: "53de8c1d632691695fa1b4266e5b2567",
   });
