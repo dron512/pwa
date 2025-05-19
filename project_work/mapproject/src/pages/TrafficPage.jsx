@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import { Input, List, Typography, Card } from "antd";
 import axios from "axios";
+import basicData from '../bs.json';
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -11,10 +12,9 @@ const TrafficPage = () => {
     const [arrivalInfo, setArrivalInfo] = useState(null);
     const [mapCenter, setMapCenter] = useState({ lat: 35.8693, lng: 128.6062 });
     const [selectedStop, setSelectedStop] = useState(null);
-    const [nearbyStops, setNearbyStops] = useState([]);
     const [map, setMap] = useState(null);
     const [currentZoomLevel, setCurrentZoomLevel] = useState(3);
-    const [busStops, setBusStops] = useState([]);
+    const [visibleStops, setVisibleStops] = useState([]);
 
     useKakaoLoader({
         appkey: import.meta.env.VITE_KAKAO_MAP_KEY,
@@ -22,25 +22,34 @@ const TrafficPage = () => {
     });
 
     useEffect(() => {
-        const fetchBusStops = async () => {
-            try {
-                const response = await axios.get('https://apis.data.go.kr/6270000/dbmsapi01/getBasic', {
-                    params: {
-                        serviceKey: '6j4MG9vFqOJ24QdvW+Q1R5lChK83ym4k0UFBww6Kv/GKEmRsYrtwq/TnVYqpWX640SMT+QXrEdOTn2zFEzdC0g=='
-                    }
-                });
-                
-                if (response.data.header.success) {
-                    console.log(response.data.body.items.bs);
-                    setBusStops(response.data.body.items.bs);
-                }
-            } catch (error) {
-                console.error("버스 정류장 데이터 조회 실패:", error);
-            }
-        };
+        if (map) {
+            const bounds = map.getBounds();
+            const swLatLng = bounds.getSouthWest();
+            const neLatLng = bounds.getNorthEast();
 
-        fetchBusStops();
-    }, []);
+            const minLat = swLatLng.getLat();
+            const maxLat = neLatLng.getLat();
+            const minLng = swLatLng.getLng();
+            const maxLng = neLatLng.getLng();
+
+            const filteredStops = basicData.bs.filter(stop => {
+                const lat = parseFloat(stop.yPos);
+                const lng = parseFloat(stop.xPos);
+                return lat >= minLat && lat <= maxLat && lng >= minLng && lng <= maxLng;
+            }).slice(0, 500);
+
+            setVisibleStops(filteredStops);
+        } else {
+            // 초기 로드 시 기본 영역의 정류장 표시
+            const initialStops = basicData.bs.filter(stop => {
+                const lat = parseFloat(stop.yPos);
+                const lng = parseFloat(stop.xPos);
+                // 대구시 중심 좌표 기준 ±0.1도 범위
+                return lat >= 35.7693 && lat <= 35.9693 && lng >= 128.5062 && lng <= 128.7062;
+            }).slice(0, 500);
+            setVisibleStops(initialStops);
+        }
+    }, [map, mapCenter]);
 
     const fetchArrivalInfo = (bsId) => {
         axios.get(`https://businfo.daegu.go.kr:8095/dbms_web_api/realtime/arr/${bsId}`)
@@ -54,42 +63,33 @@ const TrafficPage = () => {
             });
     };
 
-    const fetchNearbyStops = (lat, lng) => {
-        if (currentZoomLevel <= 3) {
-            // axios.get(`https://businfo.daegu.go.kr:8095/dbms_web_api/bs/nearby?xPos=${lng}&yPos=${lat}&radius=1000`)
-            //     .then(response => {
-            //         if (response.data.header.success) {
-            //             setNearbyStops(response.data.body);
-            //             console.log(response.data.body);
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error("주변 정류장 조회 실패:", error);
-            //     });
-        } else {
-            setNearbyStops([]);
-        }
-    };
-
     const onMapCenterChanged = (map) => {
-        const center = map.getCenter();
-        fetchNearbyStops(center.getLat(), center.getLng());
+        const bounds = map.getBounds();
+        const swLatLng = bounds.getSouthWest();
+        const neLatLng = bounds.getNorthEast();
+
+        const minLat = swLatLng.getLat();
+        const maxLat = neLatLng.getLat();
+        const minLng = swLatLng.getLng();
+        const maxLng = neLatLng.getLng();
+
+        const filteredStops = basicData.bs.filter(stop => {
+            const lat = parseFloat(stop.yPos);
+            const lng = parseFloat(stop.xPos);
+            return lat >= minLat && lat <= maxLat && lng >= minLng && lng <= maxLng;
+        }).slice(0, 500);
+
+        setVisibleStops(filteredStops);
     };
 
     const onZoomChanged = (map) => {
         const level = map.getLevel();
         setCurrentZoomLevel(level);
-        const center = map.getCenter();
-        fetchNearbyStops(center.getLat(), center.getLng());
-    };
-
-    // NGIS 좌표를 카카오맵 좌표로 변환하는 함수
-    const convertNGISToKakao = (x, y) => {
-        // NGIS 좌표를 카카오맵 좌표로 변환하는 공식
-        // 대구시 기준 변환 공식
-        const lat = 35.8693 + (y - 363760.41323086) * 0.00001;
-        const lng = 128.6062 + (x - 163696.53125238) * 0.00001;
-        return { lat, lng };
+        if (level <= 4) {
+            onMapCenterChanged(map);
+        } else {
+            setVisibleStops([]);
+        }
     };
 
     return (
@@ -102,12 +102,7 @@ const TrafficPage = () => {
                 onZoomChanged={(map) => onZoomChanged(map)}
                 onLoad={setMap}
             >
-                {selectedStop && (
-                    <MapMarker
-                        position={convertNGISToKakao(selectedStop.ngisXPos, selectedStop.ngisYPos)}
-                    />
-                )}
-                {currentZoomLevel <= 3 && busStops.map((stop) => (
+                {currentZoomLevel <= 4 && visibleStops.map((stop) => (
                     <MapMarker
                         key={stop.bsId}
                         position={{
@@ -128,28 +123,26 @@ const TrafficPage = () => {
             <div style={{ width: "30%", height: "100%", overflowY: "auto" }}>
                 <div style={{ padding: "1rem" }}>
                     <h3>대구 버스 정류장 검색</h3>
-                    <div style={{ marginBottom: "1rem" }}>
+                    <div style={{ marginBottom: "1rem"}}>
                         <Input.Search
                             placeholder="정류장 검색"
                             enterButton="검색"
                             size="large"
                             onSearch={(value) => {
-                                axios.get(`https://businfo.daegu.go.kr:8095/dbms_web_api/bs/search?searchText=${value}&wincId=`)
-                                    .then(response => {
-                                        if (response.data.header.success) {
-                                            setSearchResults(response.data.body);
-                                            setArrivalInfo(null);
-                                            if (response.data.body.length > 0) {
-                                                const firstStop = response.data.body[0];
-                                                setSelectedStop(firstStop);
-                                                setMapCenter(convertNGISToKakao(firstStop.ngisXPos, firstStop.ngisYPos));
-                                                fetchArrivalInfo(firstStop.bsId);
-                                            }
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.error("정류장 검색 실패:", error);
+                                const filteredStops = basicData.bs.filter(stop =>
+                                    stop.bsNm.includes(value)
+                                );
+                                setSearchResults(filteredStops);
+                                setArrivalInfo(null);
+                                if (filteredStops.length > 0) {
+                                    const firstStop = filteredStops[0];
+                                    setSelectedStop(firstStop);
+                                    setMapCenter({
+                                        lat: parseFloat(firstStop.yPos),
+                                        lng: parseFloat(firstStop.xPos)
                                     });
+                                    fetchArrivalInfo(firstStop.bsId);
+                                }
                             }}
                         />
                     </div>
@@ -162,7 +155,10 @@ const TrafficPage = () => {
                                     onClick={() => {
                                         fetchArrivalInfo(item.bsId);
                                         setSelectedStop(item);
-                                        setMapCenter(convertNGISToKakao(item.ngisXPos, item.ngisYPos));
+                                        setMapCenter({
+                                            lat: parseFloat(item.yPos),
+                                            lng: parseFloat(item.xPos)
+                                        });
                                     }}
                                     style={{ cursor: 'pointer' }}
                                 >
@@ -180,12 +176,6 @@ const TrafficPage = () => {
                                             marginBottom: "4px"
                                         }}>
                                             정류장 ID: {item.bsId}
-                                        </div>
-                                        <div style={{
-                                            color: "#1890ff",
-                                            fontSize: "0.9em"
-                                        }}>
-                                            경유 노선: {item.routeList}
                                         </div>
                                     </div>
                                 </List.Item>
@@ -245,4 +235,5 @@ const TrafficPage = () => {
         </div>
     );
 };
+
 export default TrafficPage; 
