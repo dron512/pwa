@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import { Input, List, Typography, Card } from "antd";
 import axios from "axios";
@@ -14,11 +14,33 @@ const TrafficPage = () => {
     const [nearbyStops, setNearbyStops] = useState([]);
     const [map, setMap] = useState(null);
     const [currentZoomLevel, setCurrentZoomLevel] = useState(3);
+    const [busStops, setBusStops] = useState([]);
 
     useKakaoLoader({
         appkey: import.meta.env.VITE_KAKAO_MAP_KEY,
         libraries: ["clusterer", "services", "drawing"],
     });
+
+    useEffect(() => {
+        const fetchBusStops = async () => {
+            try {
+                const response = await axios.get('https://apis.data.go.kr/6270000/dbmsapi01/getBasic', {
+                    params: {
+                        serviceKey: '6j4MG9vFqOJ24QdvW+Q1R5lChK83ym4k0UFBww6Kv/GKEmRsYrtwq/TnVYqpWX640SMT+QXrEdOTn2zFEzdC0g=='
+                    }
+                });
+                
+                if (response.data.header.success) {
+                    console.log(response.data.body.items.bs);
+                    setBusStops(response.data.body.items.bs);
+                }
+            } catch (error) {
+                console.error("버스 정류장 데이터 조회 실패:", error);
+            }
+        };
+
+        fetchBusStops();
+    }, []);
 
     const fetchArrivalInfo = (bsId) => {
         axios.get(`https://businfo.daegu.go.kr:8095/dbms_web_api/realtime/arr/${bsId}`)
@@ -85,12 +107,12 @@ const TrafficPage = () => {
                         position={convertNGISToKakao(selectedStop.ngisXPos, selectedStop.ngisYPos)}
                     />
                 )}
-                {currentZoomLevel <= 3 && nearbyStops.map((stop) => (
+                {currentZoomLevel <= 3 && busStops.map((stop) => (
                     <MapMarker
                         key={stop.bsId}
                         position={{
-                            lat: parseFloat(stop.yPos),  // Use yPos directly
-                            lng: parseFloat(stop.xPos)   // Use xPos directly
+                            lat: parseFloat(stop.yPos),
+                            lng: parseFloat(stop.xPos)
                         }}
                         onClick={() => {
                             setSelectedStop(stop);
