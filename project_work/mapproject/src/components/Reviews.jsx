@@ -10,10 +10,10 @@ const Reviews = ({ city, aqi }) => {
   if (!city) {
     return <div>Loading...</div>;
   }
-  
+
   const [reviews, setReviews] = useState(null);
 
-  useEffect(() => {
+  const loadReviews = () => {
     fetchReviews(city.id)
       .then((data) => {
         setReviews(data); // 화면 재랜더링
@@ -21,6 +21,10 @@ const Reviews = ({ city, aqi }) => {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  useEffect(() => {
+    loadReviews();
   }, [city]);
 
   // custom 훅은 맨 마지막에 호출되야 한다고 경고 메시지 떠서 옮겼습니다.
@@ -30,11 +34,11 @@ const Reviews = ({ city, aqi }) => {
     values.city_id = city.id;
     values.air_quality_index = aqi;
     const ret = await postReview(values);
-    if(ret==='success'){
-      message.success('성공적으로 저장하였습니다.');
-    }
-    else{
-      message.error('저장 실패');
+    if (ret === "success") {
+      message.success("성공적으로 저장하였습니다.");
+      loadReviews();
+    } else {
+      message.error("저장 실패");
     }
   };
 
@@ -42,7 +46,8 @@ const Reviews = ({ city, aqi }) => {
     <div>
       <h1>Reviews {city.name}</h1>
       <h2>미세먼지 {aqi}</h2>
-      { city && reviews &&
+      {city &&
+        reviews &&
         reviews.map((review) => (
           <div key={review.id}>
             <p>{review.comment}</p>
@@ -85,7 +90,9 @@ const Reviews = ({ city, aqi }) => {
               <TextArea rows={4} placeholder="리뷰 내용을 입력해주세요" />
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit" block>리뷰 작성</Button>
+              <Button type="primary" htmlType="submit" block>
+                리뷰 작성
+              </Button>
             </Form.Item>
           </Form>
         }
