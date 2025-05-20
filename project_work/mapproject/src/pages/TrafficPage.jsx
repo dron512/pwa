@@ -5,15 +5,11 @@ import axios from "axios";
 import basicData from '../bs.json';
 import { throttle } from 'lodash';
 
-const {Search} = Input;
-const {Title} = Typography;
-
 const TrafficPage = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [arrivalInfo, setArrivalInfo] = useState(null);
     const [mapCenter, setMapCenter] = useState({lat: 35.8693, lng: 128.6062});
     const [selectedStop, setSelectedStop] = useState(null);
-    const [map, setMap] = useState(null);
     const [currentZoomLevel, setCurrentZoomLevel] = useState(3);
     const [visibleStops, setVisibleStops] = useState([]);
 
