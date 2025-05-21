@@ -1,10 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": "nodejsbook",
+    "password": "1234",
     "database": "nodebird",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "host": "svc.sel4.cloudtype.app",
+    "dialect": "mysql",
+    "port": 32102
   },
   "test": {
     "username": "root",
