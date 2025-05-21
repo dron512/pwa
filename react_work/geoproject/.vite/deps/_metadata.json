@@ -1,0 +1,34 @@
+{
+  "hash": "7fc85a91",
+  "configHash": "86b88338",
+  "lockfileHash": "943b5120",
+  "browserHash": "022080bf",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "df9076ca",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "e7423dc3",
+      "needsInterop": true
+    },
+    "react-kakao-maps-sdk": {
+      "src": "../../node_modules/react-kakao-maps-sdk/esm/index.js",
+      "file": "react-kakao-maps-sdk.js",
+      "fileHash": "739d59d8",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-WZVU6G5Y": {
+      "file": "chunk-WZVU6G5Y.js"
+    },
+    "chunk-Q462PRL3": {
+      "file": "chunk-Q462PRL3.js"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ee486cee-efa3-48e5-89e5-4dd52b29d67b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/rest01.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/aa.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/aa.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/eslint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/public/vite.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/App.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/assets/react.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/basicData.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/components/Person.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/src/main.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/vite.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/infoproject/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../project_work/mapproject/ex01.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../project_work/mapproject/src/components/Reviews.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../project_work/mapproject/src/components/Reviews.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../project_work/mapproject/src/pages/RootPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../project_work/mapproject/src/pages/RootPage.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dron512&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dron512/pwa.git&quot;,
+    &quot;accountId&quot;: &quot;903f06e7-ac1d-4a8c-943b-3acb139bf8f1&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2xIHOGpDFnCAbhbr9nT6OKRbxLI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.index.js.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Merging test-main",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "23.7.0",
+    "javascript.nodejs.core.library.typings.version": "22.15.19",
+    "last_opened_file_path": "E:/pwa/node_work/rest01/img",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\pwa\node_work\rest01\img" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ee486cee-efa3-48e5-89e5-4dd52b29d67b" name="Changes" comment="" />
+      <created>1747618633596</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747618633596</updated>
+      <workItem from="1747618634718" duration="8389000" />
+      <workItem from="1747638948143" duration="52000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
