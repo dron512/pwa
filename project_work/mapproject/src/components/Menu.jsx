@@ -58,9 +58,16 @@ const Menu = () => {
                 user
               </Button>
             </li>
-            {/* <li>
-          <Link to="/user">user</Link>
-        </li> */}
+            <li>
+              <Button
+                onClick={() => {
+                  navigate("/traffic");
+                  setOpen(false);
+                }}
+              >
+                traffic
+              </Button>
+            </li>
           </ul>
         </div>
         <p>Some contents...</p>

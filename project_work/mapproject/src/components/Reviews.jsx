@@ -101,6 +101,4 @@ const Reviews = ({ city, aqi }) => {
   );
 };
 
-Reviews.__isStatic = true;
-
 export default Reviews;
