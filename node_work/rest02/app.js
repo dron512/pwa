@@ -3,6 +3,15 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const morgan = require("morgan"); // (req,res,next=>{}) 미들웨어'
+const multer = require("multer");
+const fs = require("fs");
+
+try{
+    fs.readdirSync(path.join(__dirname, "public/uploads"));
+}catch(e){
+    console.log('폴더 생성합니다.');
+    fs.mkdirSync(path.join(__dirname, "public/uploads"));
+}
 
 app.use(morgan("dev")); // 미들웨어 등록
 // console.log(morgan("dev").toString());
@@ -11,9 +20,29 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, 'public/uploads');
+        },
+        filename: (req, file, cb) => {
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        }
+    }),
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    }
+});
+
 app.use((req, res, next) => {
   console.log("모든 요청은 여기 들렸다가 진행된다.");
   next();
+});
+
+app.post("/upload", upload.single("file"), (req, res) => {
+    console.log(req.file, req.body);
+    res.send('ok');
 });
 
 app.get(
