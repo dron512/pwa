@@ -21,13 +21,6 @@ exports.uploadPost = async (req, res, next) => {
           });
         })
       );
-      console.log("헐 저건 뭐지");
-      console.log(result);
-      result.map((row)=>{
-        console.log(row);
-        console.log('row[0]');
-        console.log(row[0]);
-      })
       await post.addHashtags(result.map((r) => r[0]));
     }
     res.redirect("/");
