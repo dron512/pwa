@@ -5,8 +5,15 @@ const pool = require("./db");
 const express = require("express"); // http모듈 확장한 프레임워크
 const path = require("path"); // 경로 관리 모듈
 const morgan = require("morgan"); // 기록 남기는 모듈
+// 프론트가 직접 보내줘야 서버에서 받을수 있음
+// req.body => { name:"홍길동" }
+// req.query => localhost:8080?aa=10&b=20 
+// localhost:8080/
+// haha hoho haha -> alksdjfnclqkwjnfdaskjcrnqwleifb
+// application-> Cookie -> 자동으로 요청할때 날아감...
 const cookieParser = require("cookie-parser");
 
+// 암호화..
 console.log(process.env.COOKIE_SECRET);
 
 // app expresss 객체 생성
@@ -17,6 +24,7 @@ const app = express();
 // public 폴더에 해당하는 파일이 있으면 클라이언트한테 준다.
 // images 클라이언트가 접속 방법 설정
 app.use("/images", express.static(path.join(__dirname, "public")));
+
 // req.body 파라메타를 받아주는거 { id:"aaa@naver.com" }
 app.use(express.json());
 // req.query ?aa=10
@@ -27,7 +35,7 @@ app.use((req, res, next) => {
   //   console.log(req.body);
   //   console.log(req.query);
   console.log("모든 요청은 여기 들렸다가 진행된다.");
-  next();
+  next(); // 그 다음 미들웨어 진행
 });
 
 app.get("/setCoo", (req, res, next) => {
@@ -99,6 +107,14 @@ app.delete("/", (req, res) => {
 
 app.get("/html", (req, res) => {
   res.sendFile(path.join(__dirname, "./index.html"));
+});
+
+// select 3 users
+app.get("/users", async (req, res) => {
+  const conn = await pool.getConnection();
+  const result = await conn.execute("select * from users limit 3");
+  conn.release();
+  res.status(200).json(result[0]);
 });
 
 // 모든 에러는 이쪽으로 진행
