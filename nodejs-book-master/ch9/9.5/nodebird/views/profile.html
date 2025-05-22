@@ -1,22 +1,29 @@
-{% extends 'layout.html' %}
-
-{% block content %}
-  <div class="timeline">
-    <div class="followings half">
-      <h2>팔로잉 목록</h2>
-      {% if user.Followings %}
-        {% for following in user.Followings %}
-          <div>{{following.nick}}</div>
-        {% endfor %}
-      {% endif %}
-    </div>
-    <div class="followers half">
-      <h2>팔로워 목록</h2>
-      {% if user.Followers %}
-        {% for follower in user.Followers %}
-          <div>{{follower.nick}}</div>
-        {% endfor %}
-      {% endif %}
-    </div>
+{% extends 'layout.html' %} {% block content %}
+<div class="timeline">
+  <div class="followings half">
+    <h2>팔로잉 목록</h2>
+    {% if user.Followings %} {% for following in user.Followings %}
+    <div>{{following.id}}</div>
+    <div>{{following.email}}</div>
+    <div>{{following.nick}}</div>
+    <div><button onclick="followingDisConnect({{following.id}})";>팔로잉취소</button></div>
+    {% endfor %} {% endif %}
   </div>
+  <div class="followers half">
+    <h2>팔로워 목록</h2>
+    {% if user.Followers %} {% for follower in user.Followers %}
+    <div>{{follower.id}}</div>
+    <div>{{follower.email}}</div>
+    <div>{{follower.nick}}</div>
+    {% endfor %} {% endif %}
+  </div>
+</div>
+{% endblock %} {% block script %}
+<script>
+  async function followingDisConnect(followingid) {
+    console.log(followingid);
+    const result = await axios.post(`/user/${followingid}/followingDisconnect`)
+    console.log(result);
+  }
+</script>
 {% endblock %}
