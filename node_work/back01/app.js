@@ -1,6 +1,7 @@
 // .env 파일에 내용을 읽어서 process.env.변수이름
 require("dotenv").config();
 
+const cors = require("cors");
 const pool = require("./db");
 const express = require("express"); // http모듈 확장한 프레임워크
 const path = require("path"); // 경로 관리 모듈
@@ -18,6 +19,8 @@ console.log(process.env.COOKIE_SECRET);
 
 // app expresss 객체 생성
 const app = express();
+
+app.use(cors());
 
 // dev 개발단계 combined 실제운영 배포에서..
 // app.use(morgan("combined"));
