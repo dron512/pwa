@@ -11,7 +11,7 @@ function App() {
   const [users, setUsers] = useState(dbusers);
 
   const getUsers = async (event) => {
-    const result = await axios.get('http://localhost:8080/users')
+    const result = await axios.get('https://port-0-pwa-m913h1zh8f5530cc.sel4.cloudtype.app')
     const {data, status} = result;
 
     setUsers(data);
