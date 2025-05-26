@@ -1,41 +1,46 @@
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from "@tailwindcss/vite";
 import {VitePWA} from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
+      registerType: 'prompt',
+      injectManifest: {
+        globPatterns: ['**/*.{js,css,html,png,svg}'],
+        maximumFileSizeToCacheInBytes: 100 * 1024 * 1024,
+      },
       manifest: {
-        name: '먼망진창',
-        short_name: '먼망',
-        description: '실시간 미세먼지를 확인 할 수 있습니다.',
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
+        name: '알림',
+        short_name: '알림앱',
+        description: '알림이 됩니다.',
+        theme_color: '#ff3faa',
+        background_color: '#ff3faa',
         display: 'standalone',
         start_url: '/',
         icons: [
           {
-            "src": "/icons/icon-48x48.png",
+            "src": "icons/icon-48x48.png",
             "sizes": "48x48",
             "type": "image/png"
           },
           {
-            "src": "/icons/icon-72x72.png",
+            "src": "icons/icon-72x72.png",
             "sizes": "72x72",
             "type": "image/png"
           },
           {
-            "src": "/icons/icon-96x96.png",
+            "src": "icons/icon-96x96.png",
             "sizes": "96x96",
             "type": "image/png"
           },
           {
-            "src": "/icons/icon-128x128.png",
+            "src": "icons/icon-128x128.png",
             "sizes": "128x128",
             "type": "image/png"
           },
@@ -71,6 +76,6 @@ export default defineConfig({
           }
         ],
       },
-    }),
+    })
   ],
 })
