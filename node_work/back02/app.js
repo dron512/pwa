@@ -36,7 +36,7 @@ app.get("/", (req, res, next) => {
   res.send("클라이언트한테보내기");
 });
 
-app.get("/subscribe",(req,res,next)=>{
+app.post("/subscribe",(req,res,next)=>{
     console.log(req.body);
     res.json({message:'구독성공'});
 })
