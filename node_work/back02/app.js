@@ -57,9 +57,9 @@ app.post("/subscribe",(req,res,next)=>{
 app.get("/send", async (req, res) => {
     try {
         const payload = JSON.stringify({
-            title: '알림',
-            body: '새로운 알림이 도착했습니다!',
-            icon: '/images/icon.png'
+            title: '새로운 알림',
+            body: '새로운 내용이 도착했습니다!',
+            url: 'https://front02-puce.vercel.app/'
         });
 
         // 모든 구독자에게 알림 전송
