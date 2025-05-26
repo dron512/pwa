@@ -36,10 +36,44 @@ app.get("/", (req, res, next) => {
   res.send("클라이언트한테보내기");
 });
 
+const subscribe = [
+    {
+        sub: {
+            endpoint: 'https://fcm.googleapis.com/fcm/send/fEk6pFN9ihc:APA91bFy8GFObup3DmarjtcyWvU_kQ0-SCwuCftONyhnZ1VBZKe6bNNx3u3UHIshJKRppCi2lcnkhsrLSEiZ1HFDII3RfbMD8VbaNkifP9OkSQzrsfORF06KdB_CV_96x-n9NnZfgIgZ',
+            keys: {
+                p256dh: 'BCCyUUatF3RrwtUbGy2B3dyoSYBQHuSlzoGo4SK3cy2uz8XMQ8jmM_qIyukvN7j-5-oiFvKiDA19pjSliFbm7vI',
+                auth: 'BCCyUUatF3RrwtUbGy2B3dyoSYBQHuSlzoGo4SK3cy2uz8XMQ8jmM_qIyukvN7j-5-oiFvKiDA19pjSliFbm7vI'
+            }
+        }
+    }
+]
+
 app.post("/subscribe",(req,res,next)=>{
     console.log(req.body);
+    subscribe.push({ sub: req.body });
     res.json({message:'구독성공'});
 })
+
+app.get("/send", async (req, res) => {
+    try {
+        const payload = JSON.stringify({
+            title: '알림',
+            body: '새로운 알림이 도착했습니다!',
+            icon: '/images/icon.png'
+        });
+
+        // 모든 구독자에게 알림 전송
+        const notifications = subscribe.map(sub => 
+            webpush.sendNotification(sub.sub, payload)
+        );
+        
+        await Promise.all(notifications);
+        res.json({ message: '알림 전송 성공' });
+    } catch (error) {
+        console.error('알림 전송 실패:', error);
+        res.status(500).json({ error: '알림 전송 실패' });
+    }
+});
 
 app.listen(8080, () => {
   console.log("서버 8080시작");
