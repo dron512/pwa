@@ -52,7 +52,14 @@ function App() {
               headers: {
                 "Content-Type": "application/json",
               },
-            });
+            })
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data);
+                console.log('알림을 받을수 있습니다.')
+              });
           })
           .catch((error) => {
             console.error("푸시 구독 실패:", error);

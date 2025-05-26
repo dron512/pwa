@@ -37,15 +37,7 @@ app.get("/", (req, res, next) => {
 });
 
 const subscribe = [
-    {
-        sub: {
-            endpoint: 'https://fcm.googleapis.com/fcm/send/fEk6pFN9ihc:APA91bFy8GFObup3DmarjtcyWvU_kQ0-SCwuCftONyhnZ1VBZKe6bNNx3u3UHIshJKRppCi2lcnkhsrLSEiZ1HFDII3RfbMD8VbaNkifP9OkSQzrsfORF06KdB_CV_96x-n9NnZfgIgZ',
-            keys: {
-                p256dh: 'BCCyUUatF3RrwtUbGy2B3dyoSYBQHuSlzoGo4SK3cy2uz8XMQ8jmM_qIyukvN7j-5-oiFvKiDA19pjSliFbm7vI',
-                auth: 'BCCyUUatF3RrwtUbGy2B3dyoSYBQHuSlzoGo4SK3cy2uz8XMQ8jmM_qIyukvN7j-5-oiFvKiDA19pjSliFbm7vI'
-            }
-        }
-    }
+
 ]
 
 app.post("/subscribe",(req,res,next)=>{
@@ -55,6 +47,7 @@ app.post("/subscribe",(req,res,next)=>{
 })
 
 app.get("/send", async (req, res) => {
+    
     try {
         const payload = JSON.stringify({
             title: '새로운 알림',
@@ -63,9 +56,10 @@ app.get("/send", async (req, res) => {
         });
 
         // 모든 구독자에게 알림 전송
-        const notifications = subscribe.map(sub => 
-            webpush.sendNotification(sub.sub, payload)
-        );
+        const notifications = subscribe.map(sub => {
+            console.log(sub);
+            return webpush.sendNotification(sub.sub, payload)
+        });
         
         await Promise.all(notifications);
         res.json({ message: '알림 전송 성공' });
