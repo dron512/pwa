@@ -45,6 +45,7 @@ function App() {
             applicationServerKey: "BMCne_9uf301kxUf_wqVTiARfQ0t9tnbTzw7WDLu-eeJ0QGxM_AxkXbEAWxaqSLkNa7ty-XZKjYX5EHLw63N7Y4",
           })
           .then((subscription) => {
+            console.log(subscription);
             return fetch(`${API_URL}/subscribe`, {
               method: "POST",
               body: JSON.stringify(subscription),

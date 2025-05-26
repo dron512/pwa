@@ -38,7 +38,7 @@ app.get("/", (req, res, next) => {
 
 app.get("/subscribe",(req,res,next)=>{
     console.log(req.body);
-    res.send('구독성공');
+    res.json({message:'구독성공'});
 })
 
 app.listen(8080, () => {
