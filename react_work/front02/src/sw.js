@@ -3,7 +3,7 @@ import { registerRoute } from 'workbox-routing';
 import { NetworkFirst } from 'workbox-strategies';
 
 precacheAndRoute(self.__WB_MANIFEST);
-cleanupOutdatedCaches();
+cleanupOutdatedCaches();  // activate 오래된 캐시 삭제
 
 registerRoute(
   ({ request }) => request.mode === 'navigate',
