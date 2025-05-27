@@ -19,9 +19,9 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-console.log(mymid.toString());
+// console.log(mymid.toString());
 
-app.use(morgan());
+app.use(morgan("tiny"));
 app.use(cors());
 // 해당하는 파일이 있을때는 res.sendFile(), next()
 app.use("/images", express.static(path.join(__dirname, "public")));
@@ -36,7 +36,7 @@ app.get("/", (req, res, next) => {
   res.send("클라이언트한테보내기");
 });
 
-app.get("/subscribe",(req,res,next)=>{
+app.post("/subscribe",(req,res,next)=>{
     console.log(req.body);
     res.send('구독성공');
 })
