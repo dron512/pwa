@@ -42,22 +42,23 @@ app.get("/", (req, res, next) => {
 const ss = [];
 
 app.post("/subscribe", (req, res, next) => {
+  console.log(req.body);
   ss.push({ sub: req.body });
   console.log(ss);
   res.send("구독성공");
 });
 
-app.get("/send", async(req, res, next) => {
+app.get("/send", async (req, res, next) => {
   try {
     const payload = JSON.stringify({
-        title:"new 알림",
-        body:"미세먼지가.. 좀... 버스가 몇분뒤 도착...하였습니다.",
-        url:"https://front02-puce.vercel.app/"
+      title: "new 알림",
+      body: "미세먼지가.. 좀... 버스가 몇분뒤 도착...하였습니다.",
+      url: "https://front02-puce.vercel.app/",
     });
-    const notifications = ss.map( item =>{
-        console.log('item = ',item);
-        return webpush.sendNotification(item.sub,payload);
-    })
+    const notifications = ss.map((item) => {
+      console.log("item = ", item);
+      return webpush.sendNotification(item.sub, payload);
+    });
     console.log("notifications = ", notifications);
     await Promise.all(notifications);
     res.json({ message: "푸시 알람 전송 성공" });

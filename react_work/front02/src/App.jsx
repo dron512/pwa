@@ -27,6 +27,7 @@ function App() {
           })
           .then((subscription) => {
             subscription.city = '대구';
+            console.log(subscription);
 
             return fetch(`${API_URL}/subscribe`, {
               method: "POST",
