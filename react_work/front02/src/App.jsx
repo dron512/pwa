@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_NODE_URL;
 
 function App() {
 
-  const [test,setTest] = useState("안녕 test");
+  const [test, setTest] = useState("안녕 test");
   const getRoot = async () => {
     const {data, error} = await axios.get(`${API_URL}`);
     console.log(data);
@@ -14,7 +14,7 @@ function App() {
     setTest(data);
   }
 
-  const daeguSub = ()=>{
+  const daeguSub = () => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
       console.log("service worker");
       navigator.serviceWorker.ready.then((registration) => {
@@ -26,12 +26,9 @@ function App() {
             applicationServerKey: "BMCne_9uf301kxUf_wqVTiARfQ0t9tnbTzw7WDLu-eeJ0QGxM_AxkXbEAWxaqSLkNa7ty-XZKjYX5EHLw63N7Y4",
           })
           .then((subscription) => {
-            subscription.city = '대구';
-            console.log(subscription);
-
             return fetch(`${API_URL}/subscribe`, {
               method: "POST",
-              body: JSON.stringify(subscription),
+              body: JSON.stringify({sub: subscription, city: "daegu"}),
               headers: {
                 "Content-Type": "application/json",
               },
