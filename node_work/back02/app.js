@@ -47,7 +47,6 @@ app.post("/subscribe",(req,res,next)=>{
 })
 
 app.get("/send", async (req, res) => {
-    
     try {
         const payload = JSON.stringify({
             title: '새로운 알림',
