@@ -31,21 +31,53 @@ exports.login = (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-      return res.send(`/?error=${info.message}`);
+      return res.status(401).json({ error: info.message });
     }
     return req.login(user, (loginError) => {
-      console.log(loginError);
       if (loginError) {
         console.error(loginError);
         return next(loginError);
       }
-      return res.send('로그인성공');
+      // 비밀번호를 제외한 사용자 정보 전송
+      const userInfo = {
+        id: user.id,
+        email: user.email,
+        nick: user.nick,
+        provider: user.provider,
+        snsId: user.snsId,
+      };
+      console.log(userInfo);
+      return res.json({
+        message: '로그인 성공',
+        user: userInfo
+      });
     });
-  })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
+  })(req, res, next);
 };
 
 exports.logout = (req, res) => {
   req.logout(() => {
-    res.redirect('/');
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('세션 삭제 중 에러 발생:', err);
+        return res.status(500).send('로그아웃 중 오류가 발생했습니다.');
+      }
+      res.clearCookie('connect.sid');
+      res.send('로그아웃 성공');
+    });
+  });
+};
+
+exports.me = (req, res) => {
+  const userInfo = {
+    id: req.user.id,
+    email: req.user.email,
+    nick: req.user.nick,
+    provider: req.user.provider,
+    snsId: req.user.snsId,
+  };
+  return res.json({
+    message: '현재 로그인된 사용자 정보',
+    user: userInfo
   });
 };

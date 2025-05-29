@@ -7,6 +7,8 @@ const nunjucks = require("nunjucks");
 const dotenv = require("dotenv");
 const passport = require("passport");
 const cors = require("cors");
+const sse = require("./sse");
+const webSocket = require("./socket");
 
 dotenv.config();
 const pageRouter = require("./routes/page");
@@ -40,8 +42,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173', 'http://localhost:5174'],
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400
 }));
 app.use(
   session({
@@ -62,6 +68,25 @@ app.use("/auth", authRouter);
 app.use("/post", postRouter);
 app.use("/user", userRouter);
 
+// SSE 라우트 핸들러
+app.get('/sse', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  // 클라이언트 연결 유지
+  const intervalId = setInterval(() => {
+    res.write(`data: ${JSON.stringify({ time: new Date().toISOString() })}\n\n`);
+  }, 1000);
+
+  // 클라이언트 연결이 끊어지면 정리
+  req.on('close', () => {
+    clearInterval(intervalId);
+  });
+});
+
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
@@ -75,6 +100,9 @@ app.use((err, req, res, next) => {
   res.render("error");
 });
 
-app.listen(app.get("port"), () => {
+const server = app.listen(app.get("port"), () => {
   console.log(app.get("port"), "번 포트에서 대기중");
 });
+
+webSocket(server, app);
+sse(server);
