@@ -1,4 +1,20 @@
-const { Post, Hashtag } = require("../models");
+const { User, Post, Hashtag } = require('../models');
+
+exports.getPosts = async(req,res,next)=>{
+  try{
+    const posts = await Post.findAll({
+      include:{
+        model:User,
+        attributes:['id','nick']
+      },
+      order:[['createdAt','DESC']]
+    })
+    res.json(posts);
+  }catch(error){
+    console.error(error);
+    res.json({message:"게시글 조회 실패"});
+  }
+}
 
 exports.afterUploadImage = (req, res) => {
   console.log(req.file);

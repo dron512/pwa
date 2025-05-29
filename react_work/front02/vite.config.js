@@ -6,7 +6,9 @@ import {VitePWA} from "vite-plugin-pwa";
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA({
+    VitePWA(
+      // workbox 제공하는 PWA 기본 기능을 자동으로 해결하겠다 manifest
+      {
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'sw.js',

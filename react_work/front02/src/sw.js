@@ -3,7 +3,7 @@ import { registerRoute } from 'workbox-routing';
 import { NetworkFirst } from 'workbox-strategies';
 
 precacheAndRoute(self.__WB_MANIFEST);
-cleanupOutdatedCaches();
+cleanupOutdatedCaches();  // activate 오래된 캐시 삭제
 
 registerRoute(
   ({ request }) => request.mode === 'navigate',
@@ -11,13 +11,11 @@ registerRoute(
 );
 
 self.addEventListener('push', (event) => {
-  console.log('event',event);
   const data = event.data?.json() || {
     title: '기본 제목',
     body: '기본 내용',
     url: '/'
   }
-
   const options = {
     body: data.body,
     icon: '/icons/icon-48x48.png',

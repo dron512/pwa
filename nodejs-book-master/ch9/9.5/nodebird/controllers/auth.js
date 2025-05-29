@@ -9,13 +9,15 @@ exports.join = async (req, res, next) => {
     if (exUser) {
       return res.redirect('/join?error=exist');
     }
+    console.log(email, nick, password);
+    console.log(exUser);
     const hash = await bcrypt.hash(password, 12);
     await User.create({
       email,
       nick,
       password: hash,
     });
-    return res.redirect('/');
+    return res.send("회원가입완료");
   } catch (error) {
     console.error(error);
     return next(error);
@@ -29,14 +31,15 @@ exports.login = (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-      return res.redirect(`/?error=${info.message}`);
+      return res.send(`/?error=${info.message}`);
     }
     return req.login(user, (loginError) => {
+      console.log(loginError);
       if (loginError) {
         console.error(loginError);
         return next(loginError);
       }
-      return res.redirect('/');
+      return res.send('로그인성공');
     });
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 };
