@@ -34,3 +34,46 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
+// 푸시 알림 수신
+self.addEventListener('push', function (event) {
+  const data = event.data ? event.data.json() : {};
+
+  const title = data.title || '알림 도착!';
+  const options = {
+    body: data.body || '내용이 없습니다.',
+    icon: '/icons/icon-192x192.png',
+    badge: '/icons/icon-192x192.png',
+    data: {
+      url: data.url || '/'
+    }
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(title, options)
+  );
+});
+
+// 클릭 시 이벤트 처리
+self.addEventListener('notificationclick', function (event) {
+  event.notification.close();
+
+  const url = event.notification.data.url || '/';
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then(windowClients => {
+      // 이미 열려있는 탭이 있으면 포커스
+      for (let client of windowClients) {
+        if (client.url === url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+
+      // 아니면 새 창 열기
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    })
+  );
+});
+

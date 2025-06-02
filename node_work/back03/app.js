@@ -21,6 +21,14 @@ try {
 
 require("dotenv").config();
 
+const webpush = require("web-push");
+
+webpush.setVapidDetails(
+  "mailto:you@example.com",
+  "BMq3F00aFd-uR2uUHuzf5i57BfVC9KcPJmvSr90CjYn8cgvz8oqXBBqKfuv9O-gaOot6Eqzl-ujlkUaIXgAdqZ4",
+  "E5sCdeZSehjLu_9y4BjLSkVMwr8rAR7pcCtc-4bujvY"
+);
+
 // console.log(process.env.AA);
 // console.log(process.env.BB);
 // const dotenv = require('dotenv');
@@ -146,19 +154,17 @@ app.get("/multipart", (req, res, next) => {
 // console.log(upload.single('image').toString());
 
 // upload 경로 하나 로만 만들고 싶으면
-// req.file req.files 이것의 내용을 확인해서 
+// req.file req.files 이것의 내용을 확인해서
 // 다음 미들웨어를 upload.single() 이나 upload.array()를 설정해야한다.
 
-app.post("/upload", upload.single("image"), 
- (req, res, next) => {
-  console.log('파일 한개 올림')
+app.post("/upload", upload.single("image"), (req, res, next) => {
+  console.log("파일 한개 올림");
   console.log(req.file, req.body);
   res.send("저장성공");
 });
 
-app.post("/uploads", upload.array("many"), 
-  (req, res, next) => {
-  console.log('파일 여러개 올림')
+app.post("/uploads", upload.array("many"), (req, res, next) => {
+  console.log("파일 여러개 올림");
   console.log(req.files, req.body);
   res.send("저장성공");
 });
@@ -233,6 +239,17 @@ app.get("/getCookie", (req, res, next) => {
 
 app.get("/html", (req, res, next) => {
   res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.get("/send", (req, res, next) => {
+  webpush.sendNotification(
+    subscription,
+    JSON.stringify({
+      title: "새 메시지",
+      body: "누군가가 당신에게 메시지를 보냈어요!",
+      url: "/chat",
+    })
+  );
 });
 
 app.use((err, req, res, next) => {
