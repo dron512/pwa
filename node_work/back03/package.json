@@ -12,7 +12,8 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "workbox-cli": "^7.3.0"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",

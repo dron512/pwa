@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
   </head>
   <body>
     <a href="/multipart">파일업로드</a>
@@ -11,10 +13,8 @@
     <h2>{{data}}</h2>
     <h2>{{aaa}}</h2>
     <p>
-        {% for person in member %}
-        {{person.name}}
-        {{person.age}}
-        {% endfor %}
+      {% for person in member %} {{person.name}} {{person.age}} {% endfor %}
     </p>
+    <script src="/app.js"></script>
   </body>
 </html>
