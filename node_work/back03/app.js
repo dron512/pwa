@@ -241,15 +241,47 @@ app.get("/html", (req, res, next) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/send", (req, res, next) => {
-  webpush.sendNotification(
-    subscription,
-    JSON.stringify({
-      title: "새 메시지",
-      body: "누군가가 당신에게 메시지를 보냈어요!",
-      url: "/chat",
-    })
+const subscribers = [];
+
+app.post("/subscribe", (req, res) => {
+  const subscription = req.body;
+
+  // 중복 제거
+  const isExist = subscribers.find(
+    (sub) => sub.endpoint === subscription.endpoint
   );
+  if (!isExist) {
+    subscribers.push(subscription);
+    console.log("✅ 새 구독자 등록:", subscription.endpoint);
+  }
+
+  res.status(201).json({ message: "구독 완료" });
+});
+
+app.post("/send", async (req, res) => {
+  const payload = JSON.stringify({
+    title: "공지사항",
+    body: "알림 테스트입니다!",
+    url: "/",
+  });
+
+  const results = [];
+
+  for (const sub of subscribers) {
+    try {
+      await webpush.sendNotification(sub, payload);
+      results.push({ endpoint: sub.endpoint, status: "success" });
+    } catch (err) {
+      console.error("❌ 실패:", sub.endpoint, err.message);
+      results.push({
+        endpoint: sub.endpoint,
+        status: "fail",
+        error: err.message,
+      });
+    }
+  }
+
+  res.json({ sent: results.length, results });
 });
 
 app.use((err, req, res, next) => {
