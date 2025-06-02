@@ -4,8 +4,7 @@ const urlsToCache = [
   '/index.html',
   '/app.js',
   '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  '/icons/*',
 ];
 
 // 설치 단계: 캐시 저장
