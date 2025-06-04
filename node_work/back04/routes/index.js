@@ -30,8 +30,21 @@ const upload = multer({
 });
 
 router.get("/", (req, res, next) => {
-  console.log("기본적인 설정 종료");
-  res.render("index", { title: "TITLE제목" });
+  console.log(req.app.get("port"));
+  console.log(req.app.get("static"));
+  res.locals.myname = "홍길동";
+  const users = [
+    { name: "홍길동", age: 20 },
+    { name: "박길동", age: 40 },
+    { name: "김길동", age: 30 },
+  ];
+  res.render("index", { title: "TITLE제목", users });
+});
+
+router.get("/aa/:id", (req, res, next) => {
+  // console.log(req.app.set('static',"전역변수설정"));
+  console.log(req.params);
+  res.render("aa", { title: "TITLE제목" });
 });
 
 router.post("/upload", upload.single("image"), (req, res, next) => {
