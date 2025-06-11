@@ -6,6 +6,7 @@ const nunjucks = require("nunjucks");
 const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
 require("dotenv").config();
+const cors = require('cors');
 
 // models 폴더 안에 index.js 파일 호출해라
 const { sequelize, User } = require("./models");
@@ -30,17 +31,16 @@ sequelize
   });
 
 //함수 만들어서 즉시 함수 호출 실행..
-(async function (){
+(async function () {
   // await 를 top level 에서 사용 불가능 해서...
   const result = await User.findAll({
-    attributes:['name','age']
+    attributes: ["name", "age"],
   });
   console.log(result);
 })();
 
 // const result = User.findAll({});
 //   console.log(result);
-
 
 // User.create({
 //   name: "ㅂㅈㄷㄱ",
@@ -71,7 +71,14 @@ nunjucks.configure("views", {
   express: app,
   watch: true,
 });
+
+app.use(cors());
 /* 미들웨어 장착 끝 */
+
+const resRouter = require("./routes/ResRouter.js");
+const gisaRouter = require("./routes/GisaRouter.js");
+app.use("/res", resRouter);
+app.use("/gisa",gisaRouter);
 
 app.use((req, res, next) => {
   console.log("해당하는 라우터가 없다");
