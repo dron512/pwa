@@ -16,11 +16,6 @@ const app = express();
 app.set("port", process.env.PORT || 3001);
 app.set("view engine", "html");
 
-nunjucks.configure("views", {
-  express: app,
-  watch: true,
-});
-
 sequelize
   .sync({ force: false })
   .then(() => {
@@ -77,11 +72,18 @@ app.use(cors());
 
 const resRouter = require("./routes/ResRouter.js");
 const gisaRouter = require("./routes/GisaRouter.js");
+const payRouter = require("./routes/PayRouter.js");
+
+app.get("/", (req, res, next) => {
+  res.send("index 호출");
+});
+
 app.use("/res", resRouter);
 app.use("/gisa",gisaRouter);
+app.use("/pay",payRouter);
 
 app.use((req, res, next) => {
-  console.log("해당하는 라우터가 없다");
+  console.log("해당하는 라우터가 없다"+req.path);
   const error = new Error("해당하는 페이지가 없습니다.");
   next(error); // 에러 미들웨어로 가라
 });
@@ -89,7 +91,6 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   console.log("에러 미들웨어 동작");
   console.error(err);
-  console.error(err.message);
   res.send(err.toString() + "<a href='/'>첫페이지로</a>");
 });
 

@@ -1,45 +1,194 @@
-{% extends 'layout.html' %} {% block content %}
+{% extends 'layout.html' %}
+{% block content %}
 <h1>기사</h1>
-<div>
-  {% for item in data %} 예약한 사람 {{loop.index}}
-  <div>
-    <ul>
-      <li>고객명 {{ item.name }}</li>
-      <li>고객전화번호 {{ item.tel }}</li>
-      <li>고객이메일 {{ item.email }}</li>
-      <li>제빙기 청소할 주소 {{ item.addr }}</li>
-    </ul>
-    <button class="pick" type="button" data-item-res="{{item.res_no}}">
-      내가함
-    </button>
+
+<div class="tab-container">
+  <div class="tab-buttons">
+    <button class="tab-button active" data-tab="completed">예약완료</button>
+    <button class="tab-button" data-tab="other">진행중인 예약</button>
   </div>
-  {% endfor %}
+
+  <div class="tab-content">
+    <!-- 예약완료 탭 -->
+    <div class="tab-pane active" id="completed">
+      <h2>예약완료 목록</h2>
+      <div class="reservation-list">
+        {% for item in completedData %}
+        <div class="reservation-item">
+          <h3>예약 #{{loop.index}}</h3>
+          <ul>
+            <li>고객명: {{ item.name }}</li>
+            <li>고객전화번호: {{ item.tel }}</li>
+            <li>고객이메일: {{ item.email }}</li>
+            <li>제빙기 청소할 주소: {{ item.addr }}</li>
+            <li>상태: {{ item.status }}</li>
+          </ul>
+          <button class="pick" type="button" data-item-res="{{item.res_no}}">
+            내가함
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 진행중인 예약 탭 -->
+    <div class="tab-pane" id="other">
+      <h2>진행중인 예약 목록</h2>
+      <div class="reservation-list">
+        {% for item in otherData %}
+        <div class="reservation-item">
+          <h3>예약 #{{loop.index}}</h3>
+          <ul>
+            <li>고객명: {{ item.name }}</li>
+            <li>고객전화번호: {{ item.tel }}</li>
+            <li>고객이메일: {{ item.email }}</li>
+            <li>제빙기 청소할 주소: {{ item.addr }}</li>
+            <li>상태: {{ item.status }}</li>
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
-{% endblock %} {% block script %}
+
+<style>
+.tab-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tab-button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+.reservation-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.reservation-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.reservation-item h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.reservation-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.reservation-item li {
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.pick {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.pick:hover {
+  background-color: #218838;
+}
+</style>
+{% endblock %}
+
+{% block script %}
 <script>
+  // 탭 전환 기능
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // 모든 탭 버튼과 패널에서 active 클래스 제거
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabPanes.forEach(pane => pane.classList.remove('active'));
+
+      // 클릭된 버튼과 해당하는 패널에 active 클래스 추가
+      button.classList.add('active');
+      const tabId = button.dataset.tab;
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // 내가함 버튼 이벤트 처리
   const pickArray = document.querySelectorAll(".pick");
   pickArray.forEach((pick) => {
     pick.addEventListener("click", async () => {
       console.log(pick.dataset.itemRes + "배송할예정");
 
-      console.log(pick.parentElement.querySelector('ul>li').innerHTML);
+      const name = pick.parentElement.querySelector('ul>li:nth-child(1)').textContent.replace('고객명:', '').trim();
+      const tel = pick.parentElement.querySelector('ul>li:nth-child(2)').textContent.replace('고객전화번호:', '').trim();
+      const email = pick.parentElement.querySelector('ul>li:nth-child(3)').textContent.replace('고객이메일:', '').trim();
+      const addr = pick.parentElement.querySelector('ul>li:nth-child(4)').textContent.replace('제빙기 청소할 주소:', '').trim();
 
-      const result = await axios.post("http://localhost:4001/gisa", {
-        resno: pick.dataset.itemRes,
-        name: "박명회",
-        tel: "010-9946-6266",
-        email: "dron512@naver.com",
-        addr: "43120, 대구 군위군 군위읍 경북대로 3560-1, 123123",
-        date: "2025-06-11",
-        time: "오전 10시 ~ 오후 1시",
-        model: "ㅅ삼성",
-        capacity: "1",
-        service: "청소",
-        cycle: "이번 한 번만",
-        add: "필터 교체",
-        remark: "ㅋㅋㅋㅋ\n",
-        deposit: 2,
-      });
+      try {
+        const result = await axios.post("http://localhost:4001/gisa", {
+          resno: pick.dataset.itemRes,
+          name: name,
+          tel: tel,
+          email: email,
+          addr: addr,
+          date: "2025-06-11",
+          time: "오전 10시 ~ 오후 1시",
+          model: "ㅅ삼성",
+          capacity: "1",
+          service: "청소",
+          cycle: "이번 한 번만",
+          add: "필터 교체",
+          remark: "ㅋㅋㅋㅋ\n",
+          deposit: 2,
+        });
+
+        if (result.data.success) {
+          alert(result.data.message);
+          location.reload(); // 페이지 새로고침
+        } else {
+          alert('오류가 발생했습니다: ' + result.data.error);
+        }
+      } catch (error) {
+        console.error('요청 실패:', error);
+        alert('요청 처리 중 오류가 발생했습니다.');
+      }
     });
   });
 </script>
