@@ -36,6 +36,11 @@
             {% endif %}
             <li><strong>보증금:</strong> {{item.deposit}}만원</li>
           </ul>
+          {% if item.status === '결제대기' %}
+          <div class="reservation-actions">
+            <button class="btn-payment" onclick='goToPayment("{{item.res_no}}")'>결제하기</button>
+          </div>
+          {% endif %}
         </div>
         {% endfor %}
       {% else %}
@@ -363,6 +368,25 @@
   color: #6c757d;
 }
 
+.reservation-actions {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.btn-payment {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-payment:hover {
+  background-color: #218838;
+}
+
 @media (max-width: 768px) {
   .reservation-list {
     grid-template-columns: 1fr;
@@ -409,6 +433,7 @@ document.getElementById('reservationForm').addEventListener('submit', async func
 
   try {
     const response = await axios.post('/res', data);
+    console.log(response);
     if (response.data.success) {
       alert('예약이 완료되었습니다.');
       closeModal();
@@ -425,5 +450,9 @@ document.getElementById('reservationForm').addEventListener('submit', async func
 // 날짜 선택 제한 (오늘 이후만 선택 가능)
 const today = new Date().toISOString().split('T')[0];
 document.getElementById('date').min = today;
+
+function goToPayment(resNo) {
+  window.location.href = `/pay/${resNo}`;
+}
 </script>
 {% endblock %}
