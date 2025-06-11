@@ -24,23 +24,22 @@
 
       console.log(pick.parentElement.querySelector('ul>li').innerHTML);
 
-    //   const result = await axios.post("http://localhost:4001/gisa", {
-    //     resno: pick.dataset.itemRes,
-    //     name: "박명회",
-    //     tel: "010-9946-6266",
-    //     email: "dron512@naver.com",
-    //     addr: "43120, 대구 군위군 군위읍 경북대로 3560-1, 123123",
-    //     date: "2025-06-11",
-    //     time: "오전 10시 ~ 오후 1시",
-    //     model: "ㅅ삼성",
-    //     capacity: "1",
-    //     service: "청소",
-    //     cycle: "이번 한 번만",
-    //     add: "필터 교체",
-    //     remark: "ㅋㅋㅋㅋ\n",
-    //     deposit: 2,
-    //   });
-    //   console.log(result);
+      const result = await axios.post("http://localhost:4001/gisa", {
+        resno: pick.dataset.itemRes,
+        name: "박명회",
+        tel: "010-9946-6266",
+        email: "dron512@naver.com",
+        addr: "43120, 대구 군위군 군위읍 경북대로 3560-1, 123123",
+        date: "2025-06-11",
+        time: "오전 10시 ~ 오후 1시",
+        model: "ㅅ삼성",
+        capacity: "1",
+        service: "청소",
+        cycle: "이번 한 번만",
+        add: "필터 교체",
+        remark: "ㅋㅋㅋㅋ\n",
+        deposit: 2,
+      });
     });
   });
 </script>
