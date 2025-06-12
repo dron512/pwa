@@ -61,11 +61,6 @@ app.use(
   })
 );
 app.set("port", 4001);
-app.set("view engine", "html");
-nunjucks.configure("views", {
-  express: app,
-  watch: true,
-});
 
 app.use(cors());
 /* 미들웨어 장착 끝 */
