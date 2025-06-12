@@ -114,41 +114,41 @@ router.post("/confirm", async function (req, res) {
 
         // 알림 구독 정보가 있으면 push_subscribe에 upsert
         if (phone && endpoint && p256dh && auth) {
-          await supabase
-            .from('push_subscribe')
-            .upsert([
-              { phone, endpoint, p256dh, auth, updated_at: new Date() }
-            ], { onConflict: ['phone'] });
+            await supabase
+                .from('push_subscribe')
+                .upsert([
+                    { phone, endpoint, p256dh, auth, updated_at: new Date() }
+                ], { onConflict: ['phone'] });
         }
 
+        console.log(phone);
+
         // 결제 완료 알림 푸시
-        if (phone) {
-          const { data: subData, error: subError } = await supabase
+        const { data: subData, error: subError } = await supabase
             .from('push_subscribe')
             .select('*')
-            // .eq('phone', phone)
-            // .single();
-          if (subData && subData.endpoint && subData.p256dh && subData.auth) {
+        // .eq('phone', phone)
+        // .single();
+        if (subData && subData.endpoint && subData.p256dh && subData.auth) {
             const pushSubscription = {
-              endpoint: subData.endpoint,
-              keys: {
-                p256dh: subData.p256dh,
-                auth: subData.auth
-              }
+                endpoint: subData.endpoint,
+                keys: {
+                    p256dh: subData.p256dh,
+                    auth: subData.auth
+                }
             };
             try {
-              await webpush.sendNotification(
-                pushSubscription,
-                JSON.stringify({
-                  title: '청소신청 알림',
-                  body: '새로운 청소신청이 되었습니다',
-                  url: '/'
-                })
-              );
+                await webpush.sendNotification(
+                    pushSubscription,
+                    JSON.stringify({
+                        title: '청소신청 알림',
+                        body: '새로운 청소신청이 되었습니다',
+                        url: '/'
+                    })
+                );
             } catch (e) {
-              console.error('푸시 알림 전송 실패:', e);
+                console.error('푸시 알림 전송 실패:', e);
             }
-          }
         }
 
         // 성공 응답
