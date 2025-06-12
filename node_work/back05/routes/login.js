@@ -23,6 +23,19 @@ router.post('/', async (req, res) => {
     }
     // 로그인 성공: 세션에 저장
     req.session.cleaner = { id: data.id, name: data.name, phone: data.phone };
+    // 알림 자동 신청 (임시값)
+    await supabase
+      .from('push_subscribe')
+      .upsert([
+        {
+          phone: data.phone,
+          endpoint: 'dummy-endpoint',
+          p256dh: 'dummy-p256dh',
+          auth: 'dummy-auth',
+          updated_at: new Date()
+        }
+      ], { onConflict: ['phone'] });
+      // onConflict 는 핸드폰이 중복인지 아닌지 체크 하면 컬럼
     res.redirect('/');
   } catch (e) {
     res.render('login', { error: '서버 오류: ' + e.message });
