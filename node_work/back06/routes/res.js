@@ -7,4 +7,9 @@ router.get('/', async function(req, res, next) {
   res.render('reservation',{data});
 })
 
+router.post('/', async function(req, res, next) {
+  console.log(req.body);
+  res.send('success');
+})
+
 module.exports = router;
