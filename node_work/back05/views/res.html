@@ -1,50 +1,63 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>예약</h1>
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-4">예약</h1>
+  <h2 class="text-lg text-gray-600 mb-8">현재 예약시 바로 기사 배정이 되지만 추후 결제대기로 바뀔 수 있습니다.</h2>
 
-<h2>현재 예약시 바로 기사 배정이 되지만 추후 결제대기로 바뀔 수 있습니다.</h2>
-
-<div class="container">
   <!-- 예약 내역 섹션 -->
-  <div class="reservation-history">
-    <div class="header-with-button">
-      <h2>나의 예약 내역</h2>
-      <button class="new-reservation-btn" onclick="openModal()">새 예약하기</button>
+  <div class="mb-10">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-semibold">나의 예약 내역</h2>
+      <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" onclick="openModal()">
+        새 예약하기
+      </button>
     </div>
-    <div class="reservation-list">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {% if reservations and reservations.length > 0 %}
         {% for item in reservations %}
-        <div class="reservation-item">
-          <div class="reservation-header">
-            <h3>예약 #{{loop.index}}</h3>
-            <span class="status-badge {{item.status}}">{{item.status}}</span>
+        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold text-gray-800">예약 #{{loop.index}}</h3>
+            <span class="px-3 py-1 rounded-full text-sm font-medium
+              {% if item.status === '예약완료' %}bg-green-500 text-white
+              {% elif item.status === '결제대기' %}bg-yellow-400 text-black
+              {% elif item.status === '결제완료' %}bg-blue-500 text-white
+              {% elif item.status === '취소요청' %}bg-red-500 text-white
+              {% elif item.status === '취소완료' %}bg-gray-500 text-white
+              {% elif item.status === '청소완료' %}bg-blue-600 text-white
+              {% endif %}">
+              {{item.status}}
+            </span>
           </div>
-          <ul>
-            <li><strong>예약일:</strong> {{item.date}}</li>
-            <li><strong>시간:</strong> {{item.time}}</li>
-            <li><strong>주소:</strong> {{item.addr}}</li>
-            <li><strong>모델:</strong> {{item.model}}</li>
-            <li><strong>용량:</strong> {{item.capacity}}</li>
-            <li><strong>서비스:</strong> {{item.service}}</li>
-            <li><strong>주기:</strong> {{item.cycle}}</li>
+          <ul class="space-y-2">
+            <li class="text-gray-600"><span class="font-medium text-gray-800">예약일:</span> {{item.date}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">시간:</span> {{item.time}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">주소:</span> {{item.addr}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">모델:</span> {{item.model}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">용량:</span> {{item.capacity}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">서비스:</span> {{item.service}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">주기:</span> {{item.cycle}}</li>
             {% if item.add %}
-            <li><strong>추가사항:</strong> {{item.add}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">추가사항:</span> {{item.add}}</li>
             {% endif %}
             {% if item.remark %}
-            <li><strong>비고:</strong> {{item.remark}}</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">비고:</span> {{item.remark}}</li>
             {% endif %}
-            <li><strong>보증금:</strong> {{item.deposit}}만원</li>
+            <li class="text-gray-600"><span class="font-medium text-gray-800">보증금:</span> {{item.deposit}}만원</li>
           </ul>
           {% if item.status === '결제대기' %}
-          <div class="reservation-actions">
-            <button class="btn-payment" onclick='goToPayment("{{item.res_no}}")'>결제하기</button>
+          <div class="mt-4 text-right">
+            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors" 
+                    onclick='goToPayment("{{item.res_no}}")'>
+              결제하기
+            </button>
           </div>
           {% endif %}
         </div>
         {% endfor %}
       {% else %}
-        <div class="no-reservations">
+        <div class="col-span-full bg-gray-50 rounded-lg p-10 text-center text-gray-500">
           <p>아직 예약 내역이 없습니다.</p>
         </div>
       {% endif %}
@@ -53,49 +66,49 @@
 </div>
 
 <!-- 예약 모달 -->
-<div id="reservationModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>새 예약하기</h2>
-      <span class="close" onclick="closeModal()">&times;</span>
+<div id="reservationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+  <div class="bg-white rounded-lg shadow-xl max-w-2xl mx-auto my-8 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center p-6 border-b">
+      <h2 class="text-2xl font-semibold">새 예약하기</h2>
+      <button class="text-gray-500 hover:text-gray-700 text-2xl" onclick="closeModal()">&times;</button>
     </div>
-    <div class="modal-body">
-      <form id="reservationForm" class="needs-validation" novalidate>
-        <div class="form-group">
-          <label for="name">이름</label>
-          <input type="text" class="form-control" id="name" name="name" value="박명회" required>
+    <div class="p-6">
+      <form id="reservationForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="name">이름</label>
+          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="name" name="name" value="박명회" required>
         </div>
-        <div class="form-group">
-          <label for="tel">전화번호</label>
-          <input type="tel" class="form-control" id="tel" name="tel" value="010-9946-6266" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="tel">전화번호</label>
+          <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="tel" name="tel" value="010-9946-6266" required>
         </div>
-        <div class="form-group">
-          <label for="email">이메일</label>
-          <input type="email" class="form-control" id="email" name="email" value="dron512@naver.com" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="email">이메일</label>
+          <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="email" name="email" value="dron512@naver.com" required>
         </div>
-        <div class="form-group">
-          <label for="addr">주소</label>
-          <input type="text" class="form-control" id="addr" name="addr" value="43120, 대구 군위군 군위읍 경북대로 3560-1, 123123" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="addr">주소</label>
+          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="addr" name="addr" value="43120, 대구 군위군 군위읍 경북대로 3560-1, 123123" required>
         </div>
-        <div class="form-group">
-          <label for="date">예약일</label>
-          <input type="date" class="form-control" id="date" name="date" value="2025-06-11" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="date">예약일</label>
+          <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="date" name="date" value="2025-06-20" required>
         </div>
-        <div class="form-group">
-          <label for="time">시간</label>
-          <select class="form-control" id="time" name="time" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="time">시간</label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-md" id="time" name="time" required>
             <option value="">시간 선택</option>
             <option value="오전 10시 ~ 오후 1시" selected>오전 10시 ~ 오후 1시</option>
             <option value="오후 2시 ~ 오후 5시">오후 2시 ~ 오후 5시</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="model">모델</label>
-          <input type="text" class="form-control" id="model" name="model" value="ㅅ삼성" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="model">모델</label>
+          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="model" name="model" value="ㅅ삼성" required>
         </div>
-        <div class="form-group">
-          <label for="capacity">용량</label>
-          <select class="form-control" id="capacity" name="capacity" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="capacity">용량</label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-md" id="capacity" name="capacity" required>
             <option value="">용량 선택</option>
             <option value="1" selected>1톤</option>
             <option value="2">2톤</option>
@@ -104,18 +117,18 @@
             <option value="5">5톤</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="service">서비스</label>
-          <select class="form-control" id="service" name="service" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="service">서비스</label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-md" id="service" name="service" required>
             <option value="">서비스 선택</option>
             <option value="청소" selected>청소</option>
             <option value="수리">수리</option>
             <option value="청소+수리">청소+수리</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="cycle">주기</label>
-          <select class="form-control" id="cycle" name="cycle" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="cycle">주기</label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-md" id="cycle" name="cycle" required>
             <option value="">주기 선택</option>
             <option value="이번 한 번만" selected>이번 한 번만</option>
             <option value="월 1회">월 1회</option>
@@ -123,292 +136,41 @@
             <option value="월 3회">월 3회</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="add">추가사항</label>
-          <input type="text" class="form-control" id="add" name="add" value="필터 교체" placeholder="필터 교체, 부품 교체 등">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="add">추가사항</label>
+          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="add" name="add" value="필터 교체" placeholder="필터 교체, 부품 교체 등">
         </div>
-        <div class="form-group">
-          <label for="remark">비고</label>
-          <textarea class="form-control" id="remark" name="remark" rows="3">ㅋㅋㅋㅋ</textarea>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="remark">비고</label>
+          <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md" id="remark" name="remark" rows="3">ㅋㅋㅋㅋ</textarea>
         </div>
-        <div class="form-group">
-          <label for="deposit">보증금 (만원)</label>
-          <input type="number" class="form-control" id="deposit" name="deposit" value="2" required>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="deposit">보증금 (만원)</label>
+          <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="deposit" name="deposit" value="2" required>
         </div>
-        <div class="form-actions">
-          <button type="button" class="btn-cancel" onclick="closeModal()">취소</button>
-          <button type="submit" class="btn-submit">예약하기</button>
+        <div class="flex justify-end space-x-3 mt-6">
+          <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors" onclick="closeModal()">
+            취소
+          </button>
+          <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors">
+            예약하기
+          </button>
         </div>
       </form>
     </div>
   </div>
 </div>
-
-<style>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.header-with-button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.new-reservation-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.new-reservation-btn:hover {
-  background-color: #0056b3;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1000;
-}
-
-.modal-content {
-  position: relative;
-  background-color: #fff;
-  margin: 50px auto;
-  padding: 0;
-  width: 90%;
-  max-width: 600px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-header {
-  padding: 15px 20px;
-  border-bottom: 1px solid #dee2e6;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.close {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #666;
-  cursor: pointer;
-}
-
-.close:hover {
-  color: #000;
-}
-
-.modal-body {
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.form-control {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.btn-cancel {
-  padding: 8px 16px;
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-submit {
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-cancel:hover {
-  background-color: #5a6268;
-}
-
-.btn-submit:hover {
-  background-color: #218838;
-}
-
-.reservation-history {
-  margin-bottom: 40px;
-}
-
-.reservation-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.reservation-item {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.reservation-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.reservation-header h3 {
-  margin: 0;
-  color: #333;
-}
-
-.status-badge {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.9em;
-  font-weight: bold;
-}
-
-.status-badge.예약완료 {
-  background-color: #28a745;
-  color: white;
-}
-
-.status-badge.결제대기 {
-  background-color: #ffc107;
-  color: #000;
-}
-
-.status-badge.결제완료 {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.status-badge.취소요청 {
-  background-color: #dc3545;
-  color: white;
-}
-
-.status-badge.취소완료 {
-  background-color: #6c757d;
-  color: white;
-}
-
-.status-badge.청소완료 {
-  background-color: #007bff;
-  color: white;
-}
-
-.reservation-item ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.reservation-item li {
-  margin-bottom: 8px;
-  color: #666;
-}
-
-.reservation-item li strong {
-  color: #333;
-  margin-right: 8px;
-}
-
-.no-reservations {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 40px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  color: #6c757d;
-}
-
-.reservation-actions {
-  margin-top: 15px;
-  text-align: right;
-}
-
-.btn-payment {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.btn-payment:hover {
-  background-color: #218838;
-}
-
-@media (max-width: 768px) {
-  .reservation-list {
-    grid-template-columns: 1fr;
-  }
-  
-  .modal-content {
-    width: 95%;
-    margin: 20px auto;
-  }
-}
-</style>
 {% endblock %}
 
 {% block script %}
 <script>
 function openModal() {
-  document.getElementById('reservationModal').style.display = 'block';
+  document.getElementById('reservationModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-  document.getElementById('reservationModal').style.display = 'none';
+  document.getElementById('reservationModal').classList.add('hidden');
   document.body.style.overflow = 'auto';
 }
 

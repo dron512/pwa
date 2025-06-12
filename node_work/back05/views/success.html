@@ -3,87 +3,79 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
-    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>토스페이먼츠 샘플 프로젝트</title>
+    <title>결제완료</title>
   </head>
-
-  <body>
-    <div class="box_section" style="width: 600px">
-      <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
-      <h2>결제를 완료했어요</h2>
-
-      <div class="p-grid typography--p" style="margin-top: 50px">
-        <div class="p-grid-col text--left"><b>결제금액</b></div>
-        <div class="p-grid-col text--right" id="amount"></div>
+  <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center py-12">
+    <div id="result-message" class="w-full max-w-xl mb-4"></div>
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-xl flex flex-col items-center mb-8">
+      <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" class="mb-4" />
+      <h2 class="text-2xl font-bold text-blue-700 mb-6">결제를 완료했어요</h2>
+      <div class="w-full space-y-4 mb-6">
+        <div class="flex justify-between text-lg">
+          <span class="font-semibold text-gray-600">결제금액</span>
+          <span id="amount" class="text-gray-900 font-bold"></span>
+        </div>
+        <div class="flex justify-between text-lg">
+          <span class="font-semibold text-gray-600">주문번호</span>
+          <span id="orderId" class="text-gray-900"></span>
+        </div>
+        <div class="flex justify-between text-lg">
+          <span class="font-semibold text-gray-600">paymentKey</span>
+          <span id="paymentKey" class="text-gray-900 break-all w-48 text-right"></span>
+        </div>
       </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>주문번호</b></div>
-        <div class="p-grid-col text--right" id="orderId"></div>
-      </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>paymentKey</b></div>
-        <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"></div>
-      </div>
-      <div class="p-grid" style="margin-top: 30px">
-        <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/v2/payment-widget/integration';">연동 문서</button>
-        <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
+      <div class="mt-6">
+        <a href="/res" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors">
+          예약 내역 보기
+        </a>
       </div>
     </div>
-
-    <div class="box_section" style="width: 600px; text-align: left">
-      <b>Response Data :</b>
-      <div id="response" style="white-space: initial"></div>
-    </div>
-
     <script>
-      // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
-      // 클라이언트에서 결제 금액을 조작하는 행위를 방지할 수 있습니다.
       const urlParams = new URLSearchParams(window.location.search);
+      document.getElementById("orderId").textContent = urlParams.get("orderId") || "-";
+      document.getElementById("amount").textContent = (urlParams.get("amount") || "-") + "원";
+      document.getElementById("paymentKey").textContent = urlParams.get("paymentKey") || "-";
 
-      // 서버로 결제 승인에 필요한 결제 정보를 보내세요.
-      async function confirm() {
-        var requestData = {
-          paymentKey: urlParams.get("paymentKey"),
-          orderId: urlParams.get("orderId"),
-          amount: urlParams.get("amount"),
-        };
-
-        const response = await fetch("http://localhost:4001/pay/confirm", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-          // TODO: 결제 실패 비즈니스 로직을 구현하세요.
-          console.log(json);
-          window.location.href = `/fail?message=${json.message}&code=${json.code}`;
+      // 결제 승인 처리
+      async function confirmPayment() {
+        const orderId = urlParams.get("orderId");
+        const amount = urlParams.get("amount");
+        if (!orderId || !amount) return;
+        try {
+          const res = await fetch("/pay/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderId, amount })
+          });
+          const data = await res.json();
+          if (data.success) {
+            document.getElementById("result-message").innerHTML = `
+              <div class='flex items-center gap-2 text-green-600 bg-green-50 border border-green-200 rounded-lg px-4 py-3 mb-2'>
+                <svg class='w-6 h-6' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7'></path></svg>
+                <span class='font-semibold'>결제가 성공적으로 완료되었습니다.</span>
+              </div>
+            `;
+          } else {
+            document.getElementById("result-message").innerHTML = `
+              <div class='flex items-center gap-2 text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3 mb-2'>
+                <svg class='w-6 h-6' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M6 18L18 6M6 6l12 12'></path></svg>
+                <span class='font-semibold'>결제 승인 처리에 실패했습니다.</span>
+              </div>
+            `;
+          }
+        } catch (e) {
+          document.getElementById("result-message").innerHTML = `
+            <div class='flex items-center gap-2 text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3 mb-2'>
+              <svg class='w-6 h-6' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M6 18L18 6M6 6l12 12'></path></svg>
+              <span class='font-semibold'>서버 오류가 발생했습니다.</span>
+            </div>
+          `;
         }
-
-        // TODO: 결제 성공 비즈니스 로직을 구현하세요.
-        // console.log(json);
-        return json;
       }
-      confirm().then(function (data) {
-        document.getElementById("response").innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`;
-      })
-      .catch(e=>{
-        console.log(e);
-      });
-
-      const paymentKeyElement = document.getElementById("paymentKey");
-      const orderIdElement = document.getElementById("orderId");
-      const amountElement = document.getElementById("amount");
-
-      orderIdElement.textContent = urlParams.get("orderId");
-      amountElement.textContent = urlParams.get("amount") + "원";
-      paymentKeyElement.textContent = urlParams.get("paymentKey");
+      confirmPayment();
     </script>
   </body>
 </html>

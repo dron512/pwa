@@ -3,199 +3,91 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
-    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>결제하기</title>
     <!-- 토스페이먼츠 SDK 추가 -->
     <script src="https://js.tosspayments.com/v2/standard"></script>
   </head>
-
-  <body>
-    <!-- 주문서 영역 -->
-    <div class="wrapper">
-      <div class="box_section" style="padding: 40px 30px 50px 30px; margin-top: 30px; margin-bottom: 50px">
-        <!-- 예약 정보 표시 -->
-        <div class="reservation-info" style="margin-bottom: 30px;">
-          <h2>예약 정보</h2>
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="label">예약자명:</span>
-              <span class="value">{{reservation.name}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">연락처:</span>
-              <span class="value">{{reservation.tel}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">이메일:</span>
-              <span class="value">{{reservation.email}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">주소:</span>
-              <span class="value">{{reservation.addr}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">예약일:</span>
-              <span class="value">{{reservation.date}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">시간:</span>
-              <span class="value">{{reservation.time}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">모델:</span>
-              <span class="value">{{reservation.model}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">용량:</span>
-              <span class="value">{{reservation.capacity}}톤</span>
-            </div>
-            <div class="info-item">
-              <span class="label">서비스:</span>
-              <span class="value">{{reservation.service}}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">주기:</span>
-              <span class="value">{{reservation.cycle}}</span>
-            </div>
+  <body class="bg-gray-100 min-h-screen">
+    <div class="max-w-2xl mx-auto py-12 px-4">
+      <!-- 예약 정보 카드 -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 mb-10">
+        <h2 class="text-3xl font-bold text-center mb-8 tracking-tight text-gray-800">예약 정보</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+          <div class="flex flex-col gap-2">
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">예약자명</span><span class="ml-2 text-gray-900">: {{reservation.name}}</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">이메일</span><span class="ml-2 text-gray-900">: {{reservation.email}}</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">예약일</span><span class="ml-2 text-gray-900">: {{reservation.date}}</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">모델</span><span class="ml-2 text-gray-900">: {{reservation.model}}</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">서비스</span><span class="ml-2 text-gray-900">: {{reservation.service}}</span></div>
             {% if reservation.add %}
-            <div class="info-item">
-              <span class="label">추가사항:</span>
-              <span class="value">{{reservation.add}}</span>
-            </div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">추가사항</span><span class="ml-2 text-gray-900">: {{reservation.add}}</span></div>
             {% endif %}
+          </div>
+          <div class="flex flex-col gap-2">
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">연락처</span><span class="ml-2 text-gray-900">: {{reservation.tel}}</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">주소</span><span class="ml-2 text-gray-900">: {{reservation.addr}}</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">시간</span><span class="ml-2 text-gray-900">: {{reservation.time}}</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">용량</span><span class="ml-2 text-gray-900">: {{reservation.capacity}}톤</span></div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">주기</span><span class="ml-2 text-gray-900">: {{reservation.cycle}}</span></div>
             {% if reservation.remark %}
-            <div class="info-item">
-              <span class="label">비고:</span>
-              <span class="value">{{reservation.remark}}</span>
-            </div>
+            <div class="flex"><span class="font-semibold text-gray-600 w-24">비고</span><span class="ml-2 text-gray-900">: {{reservation.remark}}</span></div>
             {% endif %}
           </div>
-        </div>
-
-        <!-- 결제 금액 표시 -->
-        <div class="payment-amount" style="margin-bottom: 30px;">
-          <h2>결제 금액</h2>
-          <div class="amount-info">
-            <span class="label">보증금:</span>
-            <span class="value">{{reservation.deposit}}만원</span>
-          </div>
-        </div>
-
-        <!-- 결제 UI -->
-        <div id="payment-method"></div>
-        <!-- 이용약관 UI -->
-        <div id="agreement"></div>
-        <!-- 쿠폰 체크박스 -->
-        <div style="padding-left: 25px">
-          <div class="checkable typography--p">
-            <label for="coupon-box" class="checkable__label typography--regular"
-              ><input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true" /><span class="checkable__label-text">5,000원 쿠폰 적용</span></label
-            >
-          </div>
-        </div>
-        <!-- 결제하기 버튼 -->
-        <div class="result wrapper">
-          <button class="button" id="payment-button" style="margin-top: 30px">
-            결제하기
-          </button>
         </div>
       </div>
+      <!-- 결제 금액 카드 -->
+      <div class="bg-gray-50 rounded-2xl shadow-lg p-8 mb-10 flex flex-col items-center">
+        <h2 class="text-2xl font-bold mb-4 text-gray-700">결제 금액</h2>
+        <div class="flex items-center gap-4 text-xl font-semibold text-gray-800">
+          <span>보증금</span>
+          <span class="text-3xl text-blue-600 font-bold">{{reservation.deposit}}만원</span>
+        </div>
+      </div>
+      <!-- 결제 UI -->
+      <div id="payment-method" class="mb-6"></div>
+      <!-- 이용약관 UI -->
+      <div id="agreement" class="mb-6"></div>
+      <!-- 쿠폰 체크박스 -->
+      <div class="pl-2 mb-8">
+        <label class="flex items-center gap-2 cursor-pointer select-none">
+          <input id="coupon-box" type="checkbox" class="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" checked>
+          <span class="text-gray-700 text-base">5,000원 쿠폰 적용</span>
+        </label>
+      </div>
+      <!-- 결제하기 버튼 -->
+      <div class="flex justify-center">
+        <button id="payment-button" class="bg-blue-600 text-white px-10 py-4 rounded-xl text-lg font-bold shadow-md hover:bg-blue-700 transition-colors">
+          결제하기
+        </button>
+      </div>
     </div>
-
-    <style>
-      .reservation-info {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-      }
-      
-      .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 15px;
-        margin-top: 15px;
-      }
-      
-      .info-item {
-        display: flex;
-        gap: 10px;
-      }
-      
-      .label {
-        font-weight: bold;
-        color: #495057;
-        min-width: 80px;
-      }
-      
-      .value {
-        color: #212529;
-      }
-      
-      .payment-amount {
-        background-color: #e9ecef;
-        padding: 20px;
-        border-radius: 8px;
-      }
-      
-      .amount-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 15px;
-        font-size: 1.2em;
-      }
-    </style>
-
     <script>
       main();
-
       async function main() {
         const button = document.getElementById("payment-button");
         const coupon = document.getElementById("coupon-box");
         const amount = {
           currency: "KRW",
-          value: parseInt("{{server_amount}}"), // 문자열을 숫자로 변환
+          value: parseInt("{{server_amount}}"),
         };
-
         const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
-        const customerKey = "{{reservation.email}}"; // 예약자 이메일을 customerKey로 사용
+        const customerKey = "{{reservation.email}}";
         const tossPayments = TossPayments(clientKey);
-        
-        const widgets = tossPayments.widgets({
-          customerKey,
-        });
-
+        const widgets = tossPayments.widgets({ customerKey });
         await widgets.setAmount(amount);
-
-        await widgets.renderPaymentMethods({
-          selector: "#payment-method",
-          variantKey: "DEFAULT",
-        });
-
-        await widgets.renderAgreement({ 
-          selector: "#agreement", 
-          variantKey: "AGREEMENT" 
-        });
-
-        // 쿠폰 이벤트 리스너
+        await widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" });
+        await widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" });
         coupon.addEventListener("change", async function () {
           if (coupon.checked) {
-            await widgets.setAmount({
-              currency: "KRW",
-              value: amount.value - 5000,
-            });
+            await widgets.setAmount({ currency: "KRW", value: amount.value - 5000 });
             return;
           }
           await widgets.setAmount(amount);
         });
-
-        // 전화번호에서 하이픈 제거하는 함수
-        function formatPhoneNumber(phone) {
-          return phone.replace(/-/g, '');
-        }
-
+        function formatPhoneNumber(phone) { return phone.replace(/-/g, ''); }
         button.addEventListener("click", async function () {
           await widgets.requestPayment({
             orderId: "{{reservation.res_no}}",
@@ -204,7 +96,7 @@
             failUrl: window.location.origin + "/pay/fail",
             customerEmail: "{{reservation.email}}",
             customerName: "{{reservation.name}}",
-            customerMobilePhone: formatPhoneNumber("{{reservation.tel}}"), // 하이픈 제거
+            customerMobilePhone: formatPhoneNumber("{{reservation.tel}}"),
           });
         });
       }
