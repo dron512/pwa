@@ -121,6 +121,7 @@ router.post("/confirm", async function (req, res) {
                 ], { onConflict: ['phone'] });
         }
 
+        console.log("phone");
         console.log(phone);
 
         // 결제 완료 알림 푸시
@@ -129,26 +130,29 @@ router.post("/confirm", async function (req, res) {
             .select('*')
         // .eq('phone', phone)
         // .single();
-        if (subData && subData.endpoint && subData.p256dh && subData.auth) {
-            const pushSubscription = {
-                endpoint: subData.endpoint,
-                keys: {
-                    p256dh: subData.p256dh,
-                    auth: subData.auth
-                }
-            };
-            try {
-                await webpush.sendNotification(
-                    pushSubscription,
-                    JSON.stringify({
-                        title: '청소신청 알림',
-                        body: '새로운 청소신청이 되었습니다',
-                        url: '/'
-                    })
-                );
-            } catch (e) {
-                console.error('푸시 알림 전송 실패:', e);
+
+        console.log("subData");
+        console.log(subData);
+
+        const pushSubscription = {
+            endpoint: subData.endpoint,
+            keys: {
+                p256dh: subData.p256dh,
+                auth: subData.auth
             }
+        };
+        
+        try {
+            await webpush.sendNotification(
+                pushSubscription,
+                JSON.stringify({
+                    title: '청소신청 알림',
+                    body: '새로운 청소신청이 되었습니다',
+                    url: '/'
+                })
+            );
+        } catch (e) {
+            console.error('푸시 알림 전송 실패:', e);
         }
 
         // 성공 응답
