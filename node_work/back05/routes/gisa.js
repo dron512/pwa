@@ -52,8 +52,6 @@ router.route("")
     return res.status(500).send('데이터 조회 중 오류가 발생했습니다.');
   }
 
-  console.log(req.session.cleaner);
-
   // gisa.html로 세 데이터 모두 전달 + 로그인된 기사명
   return res.render("gisa", { 
     completedData,
