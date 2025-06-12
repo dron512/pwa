@@ -126,8 +126,8 @@ router.post("/confirm", async function (req, res) {
           const { data: subData, error: subError } = await supabase
             .from('push_subscribe')
             .select('*')
-            .eq('phone', phone)
-            .single();
+            // .eq('phone', phone)
+            // .single();
           if (subData && subData.endpoint && subData.p256dh && subData.auth) {
             const pushSubscription = {
               endpoint: subData.endpoint,
