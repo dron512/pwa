@@ -100,8 +100,9 @@ app.use("/alram", alarmRouter);
 
 app.use((req, res, next) => {
   console.log("해당하는 라우터가 없다"+req.path);
-  const error = new Error("해당하는 페이지가 없습니다.");
-  next(error); // 에러 미들웨어로 가라
+  res.send("해당하는 페이지가 없습니다.");
+  // const error = new Error("해당하는 페이지가 없습니다.");
+  // next(error); // 에러 미들웨어로 가라
 });
 
 app.use((err, req, res, next) => {

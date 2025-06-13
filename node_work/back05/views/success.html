@@ -79,6 +79,7 @@
         const orderId = urlParams.get("orderId");
         const amount = urlParams.get("amount");
         const phone = urlParams.get("phone");
+        console.log('결제 승인 요청 - phone:', phone);
         if (!orderId || !amount) return;
 
         // Push 구독 정보 준비
@@ -94,6 +95,7 @@
             p256dh: subscription.getKey('p256dh') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : '',
             auth: subscription.getKey('auth') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) : ''
           };
+          console.log('푸시 구독 정보:', pushData);
         }
 
         try {
@@ -104,10 +106,10 @@
               orderId,
               amount,
               ...pushData,
-              phone: phone || ''
             })
           });
           const data = await res.json();
+          console.log('결제 승인 응답:', data);
           if (data.success) {
             document.getElementById("result-message").innerHTML = `
               <div class='flex items-center gap-2 text-green-600 bg-green-50 border border-green-200 rounded-lg px-4 py-3 mb-2'>

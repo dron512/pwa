@@ -3,7 +3,7 @@
 <div class="container mx-auto px-4 py-12">
   <h1 class="text-3xl font-bold mb-8">청소기사 로그인</h1>
   <div class="bg-white rounded-lg shadow p-8 max-w-md mx-auto">
-    <form action="/login" method="POST" class="space-y-6">
+    <form id="loginForm" action="/login" method="POST" class="space-y-6">
       <div>
         <label class="block font-medium mb-1">연락처</label>
         <input type="text" name="phone" required class="w-full border rounded px-3 py-2" placeholder="010-0000-0000" value="010-1234-5678">
@@ -16,4 +16,89 @@
     </form>
   </div>
 </div>
+
+<script>
+  // service-worker 등록 및 push 구독
+  let _pushSubscription = null;
+  (async function() {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      try {
+        const reg = await navigator.serviceWorker.register('/service-worker.js');
+        let subscription = await reg.pushManager.getSubscription();
+        if (!subscription) {
+          const vapidPublicKey = 'BMq3F00aFd-uR2uUHuzf5i57BfVC9KcPJmvSr90CjYn8cgvz8oqXBBqKfuv9O-gaOot6Eqzl-ujlkUaIXgAdqZ4';
+          const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+          subscription = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: convertedVapidKey
+          });
+        }
+        window._pushSubscription = subscription;
+        _pushSubscription = subscription;
+      } catch (e) {
+        console.warn('푸시 구독 실패:', e);
+      }
+    }
+  })();
+
+  function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+
+  // 폼 제출 시 푸시 구독 정보 포함
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const phone = formData.get('phone');
+    
+    // Push 구독 정보 준비
+    let subscription = _pushSubscription;
+    if (!subscription && 'serviceWorker' in navigator && 'PushManager' in window) {
+      const reg = await navigator.serviceWorker.ready;
+      subscription = await reg.pushManager.getSubscription();
+    }
+    
+    let pushData = {};
+    if (subscription) {
+      pushData = {
+        endpoint: subscription.endpoint,
+        p256dh: subscription.getKey('p256dh') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : '',
+        auth: subscription.getKey('auth') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) : ''
+      };
+    }
+
+    // 로그인 요청
+    try {
+      const res = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phone: formData.get('phone'),
+          password: formData.get('password'),
+          ...pushData
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = '/admin';  // 로그인 성공 시 admin 페이지로 이동
+      } else {
+        alert(data.message || '로그인에 실패했습니다.');
+      }
+    } catch (e) {
+      console.error('로그인 요청 실패:', e);
+      alert('로그인 중 오류가 발생했습니다.');
+    }
+  });
+</script>
 {% endblock %} 

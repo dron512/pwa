@@ -89,6 +89,8 @@ router.get("/:resno", async function (req, res) {
 
 // 결제 승인 라우터 복구
 router.post("/confirm", async function (req, res) {
+    console.log('결제 승인 라우터 동작');
+    console.log(req.body);
     try {
         const { orderId, amount, phone, endpoint, p256dh, auth } = req.body;
         // 예약 정보 업데이트
@@ -112,63 +114,75 @@ router.post("/confirm", async function (req, res) {
             });
         }
 
-        // 알림 구독 정보가 있으면 push_subscribe에 upsert
-        if (phone && endpoint && p256dh && auth) {
-            const { error: upsertError } = await supabase
-                .from('push_subscribe')
-                .upsert([
-                    { phone, endpoint, p256dh, auth, updated_at: new Date() }
-                ], { onConflict: ['phone'] });
+        // 예약 정보에서 tel 가져오기
+        const { data: reservation, error: resError } = await supabase
+            .from('ice_res')
+            .select('tel')
+            .eq('res_no', orderId)
+            .single();
 
-            if (upsertError) {
-                console.error('푸시 구독 정보 저장 실패:', upsertError);
-            } else {
-                // 저장 후 바로 조회
-                const { data: savedData, error: selectError } = await supabase
-                    .from('push_subscribe')
-                    .select('*')
-                    .eq('phone', phone)
-                    .single();
-
-                if (selectError) {
-                    console.error('푸시 구독 정보 조회 실패:', selectError);
-                } else {
-                    console.log('저장된 푸시 구독 정보:', savedData);
+        const { error: upsertError } = await supabase
+            .from('push_subscribe')
+            .upsert([
+                {
+                    phone: reservation.tel,
+                    endpoint,
+                    p256dh,
+                    auth,
+                    updated_at: new Date()
                 }
+            ], { onConflict: ['phone'] });
+
+        if (upsertError) {
+            console.error('푸시 구독 정보 저장 실패:', upsertError);
+        } else {
+            // 저장 후 바로 조회
+            const { data: savedData, error: selectError } = await supabase
+                .from('push_subscribe')
+                .select('*')
+                .eq('phone', reservation.tel)
+                .single();
+
+            if (selectError) {
+                console.error('푸시 구독 정보 조회 실패:', selectError);
+            } else {
+                console.log('저장된 푸시 구독 정보:', savedData);
             }
         }
 
         // 결제 완료 알림 푸시
         const { data: subData, error: subError } = await supabase
             .from('push_subscribe')
-            .select('*')
-            .eq('phone', phone)
-            .single();
+            .select('*');
 
         if (subError) {
             console.error('푸시 구독 정보 조회 실패:', subError);
-        } else if (subData) {
-            console.log("푸시 알림 전송 시도:", subData);
-            const pushSubscription = {
-                endpoint: subData.endpoint,
-                keys: {
-                    p256dh: subData.p256dh,
-                    auth: subData.auth
+        } else if (subData && subData.length > 0) {
+            console.log("푸시 알림 전송 시도 - 구독자 수:", subData.length);
+
+            // 모든 구독자에게 알림 전송
+            for (const subscriber of subData) {
+                const pushSubscription = {
+                    endpoint: subscriber.endpoint,
+                    keys: {
+                        p256dh: subscriber.p256dh,
+                        auth: subscriber.auth
+                    }
+                };
+
+                try {
+                    await webpush.sendNotification(
+                        pushSubscription,
+                        JSON.stringify({
+                            title: '청소신청 알림',
+                            body: '새로운 청소신청이 되었습니다',
+                            url: '/'
+                        })
+                    );
+                    console.log('푸시 알림 전송 성공');
+                } catch (e) {
+                    console.error('푸시 알림 전송 실패:', e);
                 }
-            };
-            
-            try {
-                await webpush.sendNotification(
-                    pushSubscription,
-                    JSON.stringify({
-                        title: '청소신청 알림',
-                        body: '새로운 청소신청이 되었습니다',
-                        url: '/'
-                    })
-                );
-                console.log('푸시 알림 전송 성공');
-            } catch (e) {
-                console.error('푸시 알림 전송 실패:', e);
             }
         } else {
             console.log('푸시 구독 정보가 없어 알림을 보내지 않습니다.');
