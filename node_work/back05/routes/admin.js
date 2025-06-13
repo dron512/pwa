@@ -2,8 +2,16 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supa.js');
 
-router.get('/', (req, res) => {
-  res.render('admin');
+router.get('/', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('cleaner').select('*');
+    if (error) {
+      return res.status(400).send('청소기사 조회 실패: ' + error.message);
+    }
+    res.render('admin', { cleaners: data });
+  } catch (e) {
+    res.status(500).send('서버 오류: ' + e.message);
+  }
 });
 
 router.post('/', async (req, res) => {

@@ -85,6 +85,7 @@ const gisaRouter = require("./routes/gisa.js");
 const payRouter = require("./routes/pay.js");
 const adminRouter = require("./routes/admin.js");
 const loginRouter = require("./routes/login.js");
+const alarmRouter = require('./routes/alarm');
 
 app.get("/", (req, res, next) => {
   res.render("index");
@@ -95,6 +96,7 @@ app.use("/gisa",gisaRouter);
 app.use("/pay",payRouter);
 app.use("/admin", adminRouter);
 app.use("/login", loginRouter);
+app.use("/alram", alarmRouter);
 
 app.use((req, res, next) => {
   console.log("해당하는 라우터가 없다"+req.path);

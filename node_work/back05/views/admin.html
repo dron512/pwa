@@ -23,6 +23,35 @@
       </div>
       <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">청소기사 등록</button>
     </form>
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">등록된 청소기사 목록</h2>
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b">이름</th>
+            <th class="py-2 px-4 border-b">전화번호</th>
+            <th class="py-2 px-4 border-b">이메일</th>
+            <th class="py-2 px-4 border-b">주소</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if cleaners and cleaners.length > 0 %}
+            {% for cleaner in cleaners %}
+              <tr>
+                <td class="py-2 px-4 border-b">{{ cleaner.name }}</td>
+                <td class="py-2 px-4 border-b">{{ cleaner.phone }}</td>
+                <td class="py-2 px-4 border-b">{{ cleaner.email }}</td>
+                <td class="py-2 px-4 border-b">{{ cleaner.address }}</td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="4" class="py-2 px-4 border-b text-center">등록된 청소기사가 없습니다.</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 {% endblock %} 
