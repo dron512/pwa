@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var resRouter = require('./routes/reservation');
 var payRouter = require('./routes/pay');
+var cleanerRouter = require('./routes/cleaner');
 
 var app = express();
 
@@ -31,5 +32,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/reservation', resRouter);
 app.use('/pay', payRouter);
+app.use('/cleaner', cleanerRouter);
 
 module.exports = app;
