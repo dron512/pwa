@@ -21,11 +21,13 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
+    "got": "^11.8.0",
     "morgan": "^1.10.0",
     "multer": "^2.0.0",
     "mysql2": "^3.14.1",
     "nunjucks": "^3.2.4",
     "sequelize": "^6.37.7",
-    "sequelize-cli": "^6.6.3"
+    "sequelize-cli": "^6.6.3",
+    "web-push": "^3.6.7"
   }
 }

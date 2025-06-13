@@ -4,14 +4,27 @@
     <title>{{title}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     {% block style %}
     {% endblock %}
 </head>
-<body>
+<body class="bg-gray-50">
+    <!-- 네비게이션 메뉴 -->
+    <nav class="w-full bg-white shadow mb-8">
+      <div class="max-w-4xl mx-auto px-4 flex items-center h-16 gap-4">
+        <a href="/" class="text-blue-600 font-bold text-lg hover:underline">홈</a>
+        <a href="/res" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">예약하기</a>
+        <a href="/gisa" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">기사</a>
+        <a href="/admin" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">관리자</a>
+        <a href="/login" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">로그인</a>
+      </div>
+    </nav>
     {% block content %}
     {% endblock %}
     {% block script %}
     {% endblock %}
+    <script src="/app.js"></script>
 </body>
 </html>
