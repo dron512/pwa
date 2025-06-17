@@ -50,6 +50,12 @@ nunjucks.configure("views", {
   watch: true,
 });
 
+app.use((req,res,next)=>{
+  console.log('여기오냐');
+  res.locals.user = req.session.user;
+  next();
+})
+
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/reservation', resRouter);

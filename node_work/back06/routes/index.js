@@ -10,7 +10,7 @@ router.get('/', async function (req, res, next) {
   const result = await supabase.from('ice_res').select();
   console.log(result);
 
-  res.render('index', {title: 'Express', user: req.session.user});
+  res.render('index', {title: 'Express'});
 });
 
 module.exports = router;
