@@ -15,11 +15,11 @@
      style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1; background-color: #3B4252;">
     <div class="container-fluid justify-content-center">
         <ul class="nav">
-            <li class="nav-item " >
+            <li class="nav-item" >
                 <a class="nav-link text-white" href="/">처음으로</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" aria-current="page" href="/users">회원</a>
+                <a class="nav-link text-white" href="/admin">관리자</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="/reservation">예약</a>
@@ -27,6 +27,16 @@
             <li class="nav-item">
                 <a class="nav-link text-white" href="/cleaner">청소기사</a>
             </li>
+            {% if user %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/login/logout">로그아웃</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/login">로그인</a>
+            </li>
+            {% endif%}
+
         </ul>
     </div>
 </nav>

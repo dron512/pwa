@@ -4,7 +4,7 @@
   <h1 class="text-3xl font-bold mb-8">관리자 페이지</h1>
   <div class="bg-white rounded-lg shadow p-8 mb-8">
     <h2 class="text-xl font-semibold mb-4">청소기사 등록</h2>
-    <form action="/admin" method="POST" class="space-y-4 max-w-lg">
+    <form action="/admin" method="POST" enctype="multipart/form-data" class="space-y-4 max-w-lg">
       <div>
         <label class="block font-medium mb-1">이름 <span class="text-red-500">*</span></label>
         <input type="text" name="name" required class="w-full border rounded px-3 py-2" placeholder="이름 입력" value="홍길동">
@@ -21,6 +21,11 @@
         <label class="block font-medium mb-1">주소</label>
         <input type="text" name="address" class="w-full border rounded px-3 py-2" placeholder="주소 입력" value="서울특별시 중구 세종대로 110">
       </div>
+      <div>
+        <label class="block font-medium mb-1">프로필 사진</label>
+        <input type="file" name="photo" accept="image/*" class="w-full border rounded px-3 py-2">
+        <p class="text-sm text-gray-500 mt-1">JPG, PNG 형식의 이미지 파일만 업로드 가능합니다.</p>
+      </div>
       <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">청소기사 등록</button>
     </form>
     <div class="mt-8">
@@ -28,6 +33,7 @@
       <table class="min-w-full bg-white border border-gray-300">
         <thead>
           <tr>
+            <th class="py-2 px-4 border-b">사진</th>
             <th class="py-2 px-4 border-b">이름</th>
             <th class="py-2 px-4 border-b">전화번호</th>
             <th class="py-2 px-4 border-b">이메일</th>
@@ -38,6 +44,15 @@
           {% if cleaners and cleaners.length > 0 %}
             {% for cleaner in cleaners %}
               <tr>
+                <td class="py-2 px-4 border-b">
+                  {% if cleaner.photo_url %}
+                    <img src="{{ cleaner.photo_url }}" alt="{{ cleaner.name }}" class="w-16 h-16 object-cover rounded-full">
+                  {% else %}
+                    <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                      <span class="text-gray-500">No Image</span>
+                    </div>
+                  {% endif %}
+                </td>
                 <td class="py-2 px-4 border-b">{{ cleaner.name }}</td>
                 <td class="py-2 px-4 border-b">{{ cleaner.phone }}</td>
                 <td class="py-2 px-4 border-b">{{ cleaner.email }}</td>
@@ -46,7 +61,7 @@
             {% endfor %}
           {% else %}
             <tr>
-              <td colspan="4" class="py-2 px-4 border-b text-center">등록된 청소기사가 없습니다.</td>
+              <td colspan="5" class="py-2 px-4 border-b text-center">등록된 청소기사가 없습니다.</td>
             </tr>
           {% endif %}
         </tbody>
