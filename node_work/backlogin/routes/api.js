@@ -3,6 +3,10 @@ const router = express.Router();
 const supabase = require('../database/db');
 const bcrypt = require('bcrypt');
 
+const client_id = process.env.KAKAO_CLIENT_ID;
+const redirect_uri = process.env.KAKAO_REDIRECT_URI;
+const client_secret = process.env.KAKAO_CLIENT_SECRET;
+
 router.post('/login', async (req, res) => {
   const {id, password} = req.body;
 
@@ -54,6 +58,10 @@ router.post('/logout', async (req, res) => {
       res.json({status: false});
     }
   );
+})
+
+router.get('/kakaologin',(req,res)=>{
+  res.redirect(`https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`);
 })
 
 module.exports = router;

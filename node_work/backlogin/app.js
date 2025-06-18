@@ -2,6 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const cors = require('cors');
+const axios = require('axios');
+require('dotenv').config();
 
 const port = process.env.PORT || 4003;
 const app = express();
@@ -28,6 +30,47 @@ app.use(expressSession({
 }));
 
 app.use('/api', require('./routes/api'));
+app.get('/oauth/login', async (req, res) => {
+  const {code} = req.query;
+  try {
+    const tokenRes = await axios.post(
+      'https://kauth.kakao.com/oauth/token',
+      null,
+      {
+        params: {
+          grant_type: 'authorization_code',
+          client_id: process.env.KAKAO_CLIENT_ID,
+          redirect_uri: process.env.KAKAO_REDIRECT_URI,
+          code,
+          client_secret: process.env.KAKAO_CLIENT_SECRET,
+        },
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      }
+    );
+    const userRes = await axios.get('https://kapi.kakao.com/v2/user/me',{
+      headers: { Authorization : `Bearer ${tokenRes.data.access_token}` }
+    })
+    const {nickname,profile_image,thumbnail_image} = userRes.data.properties;
+    const email = userRes.data.kakao_account.email;
+
+    console.log(nickname);
+    console.log(email);
+    console.log(profile_image);
+    console.log(thumbnail_image);
+
+    req.session.user = {
+      nickname,
+      id: email,
+      addr:"대구 달서ㄱ",
+      profile_image,
+      thumbnail_image,
+    };
+    res.redirect('http://localhost:5173/login/success');
+  }catch(err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
