@@ -63,61 +63,65 @@ router.post('/', async (req, res) => {
 
 router.post('/complete', async (req, res) => {
   console.log('청소완료 처리 요청');
-  console.log(req.body);
-  console.log(req.session.user);
+  console.log('req.body',req.body);
+  console.log('req.session.user',req.session.user);
   
   if (!req.session.user) {
     return res.json({status: 'fail', message: '로그인이 필요합니다.'});
   }
 
   try {
+    //res_no 예약번호 memo 간단한 완료글자 files 배열로 파일에내용이 문자열인 base64
     const { res_no, memo, files } = req.body;
-    
+
     // 파일들을 Supabase Storage에 업로드
     const uploadedFilePaths = [];
-    
+
+    // 파일배열이 있으면..
     if (files && files.length > 0) {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
+        // clean-현재시간-래덤한숫자9자리.gif
         const fileName = `clean-${Date.now()}-${Math.round(Math.random() * 1E9)}.${file.type.split('/')[1]}`;
-        
+
         // Base64 데이터를 Buffer로 변환
+        // 문자열을 binary 0,1 값으로 변경
+        // 파일 2가지 타입으로 -> 문자열타입 파일, 01101010101010010101 binary파일
         const base64Data = file.data.split(',')[1];
         const buffer = Buffer.from(base64Data, 'base64');
-        
+
         // Supabase Storage에 업로드
         const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('cleaner-images')
-          .upload(fileName, buffer, {
+          .from('icecarebucket')
+          .upload(`cleaner/${fileName}`, buffer, {
             contentType: file.type,
             cacheControl: '3600'
           });
-        
+
         if (uploadError) {
           console.error('파일 업로드 오류:', uploadError);
           return res.json({status: 'error', message: '파일 업로드 중 오류가 발생했습니다.'});
         }
-        
+
         // 공개 URL 생성
         const { data: urlData } = supabase.storage
-          .from('cleaner-images')
-          .getPublicUrl(fileName);
-        
+          .from('icecarebucket')
+          .getPublicUrl(`cleaner/${fileName}`);
+
         uploadedFilePaths.push(urlData.publicUrl);
       }
     }
-    
-    // 청소 완료 데이터를 데이터베이스에 저장
+
+    // 청소 기사 테이블 수정 데이터를 데이터베이스에 저장
     const {data: completeData, error: completeError} = await supabase
-      .from('ice_clean_complete')
-      .insert([{
-        cleaner_id: req.session.user.id,
-        res_no: res_no,
-        memo: memo,
-        images: uploadedFilePaths,
-        completed_at: new Date().toISOString(),
-        cleaner_name: req.session.user.name
+      .from('ice_clean')
+      .update([{
+        memo: memo,      // 메모
+        photo: uploadedFilePaths, // public image 주소
+        delivered_at: new Date().toISOString(),
+        clean_status: '완료',
       }])
+      .eq('res_no', res_no)
       .select();
 
     if (completeError) {
