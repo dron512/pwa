@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
 
 router.post('/complete', async (req, res) => {
   console.log('청소완료 처리 요청');
-  console.log('req.body',req.body);
+  // console.log('req.body',req.body);
   console.log('req.session.user',req.session.user);
   
   if (!req.session.user) {
@@ -117,7 +117,7 @@ router.post('/complete', async (req, res) => {
       .from('ice_clean')
       .update([{
         memo: memo,      // 메모
-        photo: uploadedFilePaths, // public image 주소
+        photo: uploadedFilePaths.join(','), // public image 주소 ['aa','bb']-> 'aa,bb'
         delivered_at: new Date().toISOString(),
         clean_status: '완료',
       }])
