@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const cors = require('cors');
 const axios = require('axios');
+const supabase = require('./database/db');
 require('dotenv').config();
 
 const port = process.env.PORT || 4003;
@@ -53,10 +54,8 @@ app.get('/oauth/login', async (req, res) => {
     const {nickname,profile_image,thumbnail_image} = userRes.data.properties;
     const email = userRes.data.kakao_account.email;
 
-    console.log(nickname);
-    console.log(email);
-    console.log(profile_image);
-    console.log(thumbnail_image);
+    // supabase.from('member').insert([{
+    // }]);
 
     req.session.user = {
       nickname,

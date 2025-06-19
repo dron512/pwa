@@ -8,13 +8,14 @@
         phone: document.getElementById('phone').value,
         password: document.getElementById('password').value
       })
+      location.href="/";
     })
 </script>
 {% endblock %}
 {% block content %}
 <h1>loginPage</h1>
 <div class="container">
-    <h1>로그인</h1>
+    <h1>청소기사로그인</h1>
     <form action="/login" method="post">
         <div>
             <label for="phone">연락처</label>

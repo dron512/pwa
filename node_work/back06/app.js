@@ -51,7 +51,6 @@ nunjucks.configure("views", {
 });
 
 app.use((req,res,next)=>{
-  console.log('여기오냐');
   res.locals.user = req.session.user;
   next();
 })

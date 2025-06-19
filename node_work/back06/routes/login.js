@@ -22,8 +22,6 @@ router.get('/', async function (req, res, next) {
 router.post('/', async function (req, res, next) {
   const {phone, password} = req.body;
 
-  console.log(phone)
-
   const {data, error} = await supabase.from('cleaner')
     .select('*')
     .eq('phone', phone)
