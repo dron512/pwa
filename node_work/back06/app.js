@@ -3,6 +3,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var logger = require('morgan');
+var webpush = require('web-push');
+
+webpush.setVapidDetails(
+  'https://port-0-pwa-m913h1zh8f5530cc.sel4.cloudtype.app',
+  'BJRGY_r6i1_vwSzES5wLKBw7qsN3E63JjaZ9Qju_OmDwH-iggCpygnNiZNjQPHIQJpdPez5TxTElBMzn4w8WkAE',
+  'h2hZhmStK9vHNTpoDO_8hYGe8nHATOCSbSQ8HMOOe70'
+)
 
 require("dotenv").config();  // .env
 const cors = require('cors');
