@@ -4,6 +4,17 @@
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.complete-row:hover {
+  background-color: #f8f9fa !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.complete-row {
+  transition: all 0.2s ease;
+}
 </style>
 {% endblock %}
 {% block content %}
@@ -99,7 +110,7 @@
             </thead>
             <tbody>
             {% for item in completeReservationData %}
-            <tr>
+            <tr class="complete-row" style="cursor: pointer;" data-res-no="{{item.res_no}}">
                 <th scope="row">{{loop.index}}</th>
                 <td>{{item.email}}</td>
                 <td>{{item.name}}</td>
@@ -146,6 +157,56 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
         <button type="button" class="btn btn-success" id="submitComplete">완료 처리</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 청소완료 상세보기 모달 -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailModalLabel">청소완료 상세정보</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6>예약 정보</h6>
+            <table class="table table-sm">
+              <tbody>
+                <tr><td><strong>예약번호:</strong></td><td id="detailResNo">-</td></tr>
+                <tr><td><strong>고객명:</strong></td><td id="detailName">-</td></tr>
+                <tr><td><strong>이메일:</strong></td><td id="detailEmail">-</td></tr>
+                <tr><td><strong>전화번호:</strong></td><td id="detailTel">-</td></tr>
+                <tr><td><strong>서비스:</strong></td><td id="detailService">-</td></tr>
+                <tr><td><strong>가격:</strong></td><td id="detailPrice">-</td></tr>
+                <tr><td><strong>주소:</strong></td><td id="detailAddress">-</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h6>청소 정보</h6>
+            <table class="table table-sm">
+              <tbody>
+                <tr><td><strong>청소기사:</strong></td><td id="detailCleaner">-</td></tr>
+                <tr><td><strong>완료일시:</strong></td><td id="detailCompletedAt">-</td></tr>
+                <tr><td><strong>메모:</strong></td><td id="detailMemo">-</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="mt-4">
+          <h6>청소 완료 사진</h6>
+          <div id="detailImages" class="row">
+            <!-- 이미지들이 여기에 표시됩니다 -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
       </div>
     </div>
   </div>
@@ -300,6 +361,103 @@
     document.getElementById('completeForm').reset();
     document.getElementById('filePreview').innerHTML = '';
     document.getElementById('resNoInput').value = '';
+  });
+
+  // 청소완료 행 클릭 시 상세보기 모달 열기
+  document.querySelectorAll('.complete-row').forEach(el => {
+    el.addEventListener('click', async function() {
+      const resNo = this.dataset.resNo;
+      
+      try {
+        // 상세 정보 가져오기
+        const response = await axios.get(`/cleaner/complete/${resNo}`);
+        
+        if (response.data.status === 'success') {
+          const data = response.data.data;
+          const reservation = data.reservation;
+          const clean = data.clean;
+          
+          // 예약 정보 표시
+          document.getElementById('detailResNo').textContent = reservation.res_no || '-';
+          document.getElementById('detailName').textContent = reservation.name || '-';
+          document.getElementById('detailEmail').textContent = reservation.email || '-';
+          document.getElementById('detailTel').textContent = reservation.tel || '-';
+          document.getElementById('detailService').textContent = reservation.service || '-';
+          document.getElementById('detailPrice').textContent = (reservation.payment_amount ? reservation.payment_amount + '원' : '-');
+          document.getElementById('detailAddress').textContent = reservation.address || '-';
+          
+          // 청소 정보 표시
+          document.getElementById('detailCleaner').textContent = clean.recipient_name || '-';
+          document.getElementById('detailCompletedAt').textContent = clean.delivered_at ? new Date(clean.delivered_at).toLocaleString('ko-KR') : '-';
+          document.getElementById('detailMemo').textContent = clean.memo || '-';
+          
+          // 이미지 표시
+          const imageContainer = document.getElementById('detailImages');
+          imageContainer.innerHTML = '';
+          
+          if (clean.images && clean.images.length > 0) {
+            clean.images.forEach(imageUrl => {
+              const col = document.createElement('div');
+              col.className = 'col-md-3 col-sm-4 col-6 mb-3';
+              
+              const img = document.createElement('img');
+              img.src = imageUrl;
+              img.className = 'img-fluid';
+              img.style.width = '100%';
+              img.style.height = '200px';
+              img.style.objectFit = 'cover';
+              img.style.borderRadius = '8px';
+              img.style.border = '1px solid #ddd';
+              img.style.cursor = 'pointer';
+              
+              // 이미지 클릭 시 확대보기
+              img.addEventListener('click', function() {
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '9999';
+                modal.style.cursor = 'pointer';
+                
+                const enlargedImg = document.createElement('img');
+                enlargedImg.src = imageUrl;
+                enlargedImg.style.maxWidth = '90%';
+                enlargedImg.style.maxHeight = '90%';
+                enlargedImg.style.objectFit = 'contain';
+                
+                modal.appendChild(enlargedImg);
+                document.body.appendChild(modal);
+                
+                modal.addEventListener('click', function() {
+                  document.body.removeChild(modal);
+                });
+              });
+              
+              col.appendChild(img);
+              imageContainer.appendChild(col);
+            });
+          } else {
+            imageContainer.innerHTML = '<div class="col-12"><p class="text-muted">업로드된 이미지가 없습니다.</p></div>';
+          }
+          
+          // 모달 열기
+          const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+          detailModal.show();
+          
+        } else {
+          alert('데이터를 불러오는 중 오류가 발생했습니다.');
+        }
+      } catch (error) {
+        console.error('상세 정보 조회 오류:', error);
+        alert('상세 정보를 불러오는 중 오류가 발생했습니다.');
+      }
+    });
   });
 </script>
 {% endblock %}

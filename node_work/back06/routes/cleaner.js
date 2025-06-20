@@ -148,4 +148,54 @@ router.post('/complete', async (req, res) => {
   }
 });
 
+// 청소완료 상세 정보 가져오기
+router.get('/complete/:resNo', async (req, res) => {
+  const { resNo } = req.params;
+  
+  try {
+    // 예약 정보와 청소 완료 정보를 함께 가져오기
+    const { data: reservationData, error: resError } = await supabase
+      .from('ice_res')
+      .select('*')
+      .eq('res_no', resNo)
+      .single();
+
+    if (resError) {
+      console.error('예약 정보 조회 오류:', resError);
+      return res.json({status: 'error', message: '예약 정보를 찾을 수 없습니다.'});
+    }
+
+    const { data: cleanData, error: cleanError } = await supabase
+      .from('ice_clean')
+      .select('*')
+      .eq('res_no', resNo)
+      .single();
+
+    if (cleanError) {
+      console.error('청소 정보 조회 오류:', cleanError);
+      return res.json({status: 'error', message: '청소 정보를 찾을 수 없습니다.'});
+    }
+
+    // 이미지 URL들을 배열로 변환
+    let images = [];
+    if (cleanData.photo) {
+      images = cleanData.photo.split(',').filter(url => url.trim() !== '');
+    }
+
+    const result = {
+      reservation: reservationData,
+      clean: {
+        ...cleanData,
+        images: images
+      }
+    };
+
+    return res.json({status: 'success', data: result});
+
+  } catch (error) {
+    console.error('상세 정보 조회 오류:', error);
+    return res.json({status: 'error', message: '서버 오류가 발생했습니다.'});
+  }
+});
+
 module.exports = router;
