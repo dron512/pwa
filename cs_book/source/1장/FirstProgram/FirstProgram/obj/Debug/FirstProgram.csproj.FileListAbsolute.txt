@@ -1,0 +1,9 @@
+C:\ITCookbook\FirstProgram\FirstProgram\bin\Debug\FirstProgram.exe.config
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\bin\Debug\FirstProgram.exe.config
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\bin\Debug\FirstProgram.exe
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\bin\Debug\FirstProgram.pdb
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\obj\Debug\FirstProgram.csproj.AssemblyReference.cache
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\obj\Debug\FirstProgram.exe.config
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\obj\Debug\FirstProgram.csproj.CoreCompileInputs.cache
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\obj\Debug\FirstProgram.exe
+E:\pwa\cs_book\source\1장\FirstProgram\FirstProgram\obj\Debug\FirstProgram.pdb

@@ -1,0 +1,9 @@
+C:\ITCookbook\코드\1장\ErrorCheck\bin\Debug\ErrorCheck.exe.config
+E:\pwa\cs_book\source\1장\ErrorCheck\obj\Debug\ErrorCheck.csproj.AssemblyReference.cache
+E:\pwa\cs_book\source\1장\ErrorCheck\obj\Debug\ErrorCheck.exe.config
+E:\pwa\cs_book\source\1장\ErrorCheck\obj\Debug\ErrorCheck.csproj.CoreCompileInputs.cache
+E:\pwa\cs_book\source\1장\ErrorCheck\bin\Debug\ErrorCheck.exe.config
+E:\pwa\cs_book\source\1장\ErrorCheck\bin\Debug\ErrorCheck.exe
+E:\pwa\cs_book\source\1장\ErrorCheck\bin\Debug\ErrorCheck.pdb
+E:\pwa\cs_book\source\1장\ErrorCheck\obj\Debug\ErrorCheck.exe
+E:\pwa\cs_book\source\1장\ErrorCheck\obj\Debug\ErrorCheck.pdb

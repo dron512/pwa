@@ -1,0 +1,9 @@
+C:\ITCookbook\코드\11장\GeneralDataSearch\bin\Debug\GeneralDataSearch.exe.config
+C:\ITCookbook\코드\11장\GeneralDataSearch\obj\Debug\GeneralDataSearch.csprojResolveAssemblyReference.cache
+C:\ITCookbook\코드\11장\GeneralDataSearch\bin\Debug\GeneralDataSearch.exe
+C:\ITCookbook\코드\11장\GeneralDataSearch\bin\Debug\GeneralDataSearch.pdb
+C:\ITCookbook\코드\11장\GeneralDataSearch\obj\Debug\GeneralDataSearch.exe
+C:\ITCookbook\코드\11장\GeneralDataSearch\obj\Debug\GeneralDataSearch.pdb
+E:\2015년\03_원고진행\01_C#\피드백\완전원고 중\source\12장\GeneralDataSearch\bin\Debug\GeneralDataSearch.exe.config
+E:\2015년\03_원고진행\01_C#\피드백\완전원고 중\source\12장\GeneralDataSearch\obj\Debug\GeneralDataSearch.exe
+E:\2015년\03_원고진행\01_C#\피드백\완전원고 중\source\12장\GeneralDataSearch\obj\Debug\GeneralDataSearch.pdb

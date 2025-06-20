@@ -1,0 +1,1 @@
+C:\ITCookbook\ConstructorOfStruct\bin\Debug\ConstructorOfStruct.exe.config

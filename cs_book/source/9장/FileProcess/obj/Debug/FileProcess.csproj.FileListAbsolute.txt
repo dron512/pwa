@@ -1,0 +1,5 @@
+C:\ITCookbook\FileProcess\bin\Debug\FileProcess.exe.config
+C:\ITCookbook\FileProcess\bin\Debug\FileProcess.exe
+C:\ITCookbook\FileProcess\bin\Debug\FileProcess.pdb
+C:\ITCookbook\FileProcess\obj\Debug\FileProcess.exe
+C:\ITCookbook\FileProcess\obj\Debug\FileProcess.pdb

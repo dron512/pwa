@@ -1,0 +1,9 @@
+C:\ITCookbook\윈폼\DataBindForm\bin\Debug\DataBindForm.exe.config
+C:\ITCookbook\윈폼\DataBindForm\bin\Debug\DataBindForm.exe
+C:\ITCookbook\윈폼\DataBindForm\bin\Debug\DataBindForm.pdb
+C:\ITCookbook\윈폼\DataBindForm\obj\Debug\DataBindForm.csprojResolveAssemblyReference.cache
+C:\ITCookbook\윈폼\DataBindForm\obj\Debug\DataBindForm.Form1.resources
+C:\ITCookbook\윈폼\DataBindForm\obj\Debug\DataBindForm.Properties.Resources.resources
+C:\ITCookbook\윈폼\DataBindForm\obj\Debug\DataBindForm.csproj.GenerateResource.Cache
+C:\ITCookbook\윈폼\DataBindForm\obj\Debug\DataBindForm.exe
+C:\ITCookbook\윈폼\DataBindForm\obj\Debug\DataBindForm.pdb

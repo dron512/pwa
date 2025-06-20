@@ -1,0 +1,9 @@
+C:\ITCookbook\윈폼\DialogForm\bin\Debug\DialogForm.exe.config
+C:\ITCookbook\윈폼\DialogForm\bin\Debug\DialogForm.exe
+C:\ITCookbook\윈폼\DialogForm\bin\Debug\DialogForm.pdb
+C:\ITCookbook\윈폼\DialogForm\obj\Debug\DialogForm.csprojResolveAssemblyReference.cache
+C:\ITCookbook\윈폼\DialogForm\obj\Debug\DialogForm.Form1.resources
+C:\ITCookbook\윈폼\DialogForm\obj\Debug\DialogForm.Properties.Resources.resources
+C:\ITCookbook\윈폼\DialogForm\obj\Debug\DialogForm.csproj.GenerateResource.Cache
+C:\ITCookbook\윈폼\DialogForm\obj\Debug\DialogForm.exe
+C:\ITCookbook\윈폼\DialogForm\obj\Debug\DialogForm.pdb

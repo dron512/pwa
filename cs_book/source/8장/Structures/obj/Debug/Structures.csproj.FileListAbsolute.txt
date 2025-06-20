@@ -1,0 +1,5 @@
+C:\ITCookbook\코드\11장\Structures\bin\Debug\Structures.exe.config
+C:\ITCookbook\코드\11장\Structures\bin\Debug\Structures.exe
+C:\ITCookbook\코드\11장\Structures\bin\Debug\Structures.pdb
+C:\ITCookbook\코드\11장\Structures\obj\Debug\Structures.exe
+C:\ITCookbook\코드\11장\Structures\obj\Debug\Structures.pdb

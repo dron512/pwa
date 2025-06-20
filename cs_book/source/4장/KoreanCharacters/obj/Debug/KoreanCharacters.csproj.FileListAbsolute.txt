@@ -1,0 +1,5 @@
+C:\ITCookbook\KoreanCharacters\bin\Debug\KoreanCharacters.exe.config
+C:\ITCookbook\KoreanCharacters\bin\Debug\KoreanCharacters.exe
+C:\ITCookbook\KoreanCharacters\bin\Debug\KoreanCharacters.pdb
+C:\ITCookbook\KoreanCharacters\obj\Debug\KoreanCharacters.exe
+C:\ITCookbook\KoreanCharacters\obj\Debug\KoreanCharacters.pdb

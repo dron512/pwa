@@ -1,0 +1,1 @@
+C:\ITCookbook\StringConnection\StringConnection\bin\Debug\StringConnection.exe.config

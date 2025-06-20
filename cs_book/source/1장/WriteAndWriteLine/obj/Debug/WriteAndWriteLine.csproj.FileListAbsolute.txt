@@ -1,0 +1,1 @@
+C:\ITCookbook\코드\1장\WriteAndWriteLine\bin\Debug\WriteAndWriteLine.exe.config

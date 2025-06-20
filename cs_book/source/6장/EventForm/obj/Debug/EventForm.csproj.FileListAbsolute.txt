@@ -1,0 +1,8 @@
+C:\ITCookbook\윈폼\EventForm\bin\Debug\EventForm.exe.config
+C:\ITCookbook\윈폼\EventForm\bin\Debug\EventForm.exe
+C:\ITCookbook\윈폼\EventForm\bin\Debug\EventForm.pdb
+C:\ITCookbook\윈폼\EventForm\obj\Debug\EventForm.Form1.resources
+C:\ITCookbook\윈폼\EventForm\obj\Debug\EventForm.Properties.Resources.resources
+C:\ITCookbook\윈폼\EventForm\obj\Debug\EventForm.csproj.GenerateResource.Cache
+C:\ITCookbook\윈폼\EventForm\obj\Debug\EventForm.exe
+C:\ITCookbook\윈폼\EventForm\obj\Debug\EventForm.pdb

@@ -1,0 +1,5 @@
+C:\ITCookbook\ConditionWithKeyInput\ConditionWithKeyInput\bin\Debug\ConditionWithKeyInput.exe.config
+C:\ITCookbook\ConditionWithKeyInput\ConditionWithKeyInput\bin\Debug\ConditionWithKeyInput.exe
+C:\ITCookbook\ConditionWithKeyInput\ConditionWithKeyInput\bin\Debug\ConditionWithKeyInput.pdb
+C:\ITCookbook\ConditionWithKeyInput\ConditionWithKeyInput\obj\Debug\ConditionWithKeyInput.exe
+C:\ITCookbook\ConditionWithKeyInput\ConditionWithKeyInput\obj\Debug\ConditionWithKeyInput.pdb

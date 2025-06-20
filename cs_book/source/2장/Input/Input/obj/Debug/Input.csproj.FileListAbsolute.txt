@@ -1,0 +1,5 @@
+C:\ITCookbook\Input\Input\bin\Debug\Input.exe.config
+C:\ITCookbook\Input\Input\bin\Debug\Input.exe
+C:\ITCookbook\Input\Input\bin\Debug\Input.pdb
+C:\ITCookbook\Input\Input\obj\Debug\Input.exe
+C:\ITCookbook\Input\Input\obj\Debug\Input.pdb

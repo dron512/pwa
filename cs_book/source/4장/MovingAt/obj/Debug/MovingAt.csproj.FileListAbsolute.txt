@@ -1,0 +1,5 @@
+C:\ITCookbook\MovingAt\bin\Debug\MovingAt.exe.config
+C:\ITCookbook\MovingAt\bin\Debug\MovingAt.exe
+C:\ITCookbook\MovingAt\bin\Debug\MovingAt.pdb
+C:\ITCookbook\MovingAt\obj\Debug\MovingAt.exe
+C:\ITCookbook\MovingAt\obj\Debug\MovingAt.pdb

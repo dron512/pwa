@@ -1,0 +1,8 @@
+C:\ITCookbook\윈폼\LableForm\bin\Debug\LableForm.exe.config
+C:\ITCookbook\윈폼\LableForm\bin\Debug\LableForm.exe
+C:\ITCookbook\윈폼\LableForm\bin\Debug\LableForm.pdb
+C:\ITCookbook\윈폼\LableForm\obj\Debug\LableForm.csprojResolveAssemblyReference.cache
+C:\ITCookbook\윈폼\LableForm\obj\Debug\LableForm.Properties.Resources.resources
+C:\ITCookbook\윈폼\LableForm\obj\Debug\LableForm.csproj.GenerateResource.Cache
+C:\ITCookbook\윈폼\LableForm\obj\Debug\LableForm.exe
+C:\ITCookbook\윈폼\LableForm\obj\Debug\LableForm.pdb

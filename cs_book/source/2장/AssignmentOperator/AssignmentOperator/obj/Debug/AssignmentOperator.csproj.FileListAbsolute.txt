@@ -1,0 +1,5 @@
+C:\ITCookbook\AssignmentOperator\AssignmentOperator\bin\Debug\AssignmentOperator.exe.config
+C:\ITCookbook\AssignmentOperator\AssignmentOperator\bin\Debug\AssignmentOperator.exe
+C:\ITCookbook\AssignmentOperator\AssignmentOperator\bin\Debug\AssignmentOperator.pdb
+C:\ITCookbook\AssignmentOperator\AssignmentOperator\obj\Debug\AssignmentOperator.exe
+C:\ITCookbook\AssignmentOperator\AssignmentOperator\obj\Debug\AssignmentOperator.pdb

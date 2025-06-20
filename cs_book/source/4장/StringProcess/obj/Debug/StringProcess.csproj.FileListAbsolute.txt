@@ -1,0 +1,5 @@
+C:\ITCookbook\StringProcess\bin\Debug\StringProcess.exe.config
+C:\ITCookbook\StringProcess\bin\Debug\StringProcess.exe
+C:\ITCookbook\StringProcess\bin\Debug\StringProcess.pdb
+C:\ITCookbook\StringProcess\obj\Debug\StringProcess.exe
+C:\ITCookbook\StringProcess\obj\Debug\StringProcess.pdb

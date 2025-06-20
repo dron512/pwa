@@ -1,0 +1,9 @@
+C:\ITCookbook\윈폼\NewForm\bin\Debug\NewForm.exe.config
+C:\ITCookbook\윈폼\NewForm\bin\Debug\NewForm.exe
+C:\ITCookbook\윈폼\NewForm\bin\Debug\NewForm.pdb
+C:\ITCookbook\윈폼\NewForm\obj\Debug\NewForm.csprojResolveAssemblyReference.cache
+C:\ITCookbook\윈폼\NewForm\obj\Debug\NewForm.Form1.resources
+C:\ITCookbook\윈폼\NewForm\obj\Debug\NewForm.Properties.Resources.resources
+C:\ITCookbook\윈폼\NewForm\obj\Debug\NewForm.csproj.GenerateResource.Cache
+C:\ITCookbook\윈폼\NewForm\obj\Debug\NewForm.exe
+C:\ITCookbook\윈폼\NewForm\obj\Debug\NewForm.pdb

@@ -1,0 +1,1 @@
+C:\ITCookbook\SortWithDelegate\bin\Debug\SortWithDelegate.exe.config

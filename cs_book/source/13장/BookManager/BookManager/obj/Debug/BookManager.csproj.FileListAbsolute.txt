@@ -1,0 +1,11 @@
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\bin\Debug\BookManager.exe.config
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\bin\Debug\BookManager.exe
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\bin\Debug\BookManager.pdb
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.csprojResolveAssemblyReference.cache
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.Form1.resources
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.Form2.resources
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.Form3.resources
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.Properties.Resources.resources
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.csproj.GenerateResource.Cache
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.exe
+c:\users\juvniattta\documents\visual studio 2015\Projects\BookManager\BookManager\obj\Debug\BookManager.pdb

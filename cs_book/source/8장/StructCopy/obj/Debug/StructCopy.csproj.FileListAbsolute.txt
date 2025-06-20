@@ -1,0 +1,1 @@
+C:\ITCookbook\StructCopy\bin\Debug\StructCopy.exe.config

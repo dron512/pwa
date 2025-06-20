@@ -1,0 +1,5 @@
+C:\ITCookbook\SwitchWithoutBreak\SwitchWithoutBreak\bin\Debug\SwitchWithoutBreak.exe.config
+C:\ITCookbook\SwitchWithoutBreak\SwitchWithoutBreak\bin\Debug\SwitchWithoutBreak.exe
+C:\ITCookbook\SwitchWithoutBreak\SwitchWithoutBreak\bin\Debug\SwitchWithoutBreak.pdb
+C:\ITCookbook\SwitchWithoutBreak\SwitchWithoutBreak\obj\Debug\SwitchWithoutBreak.exe
+C:\ITCookbook\SwitchWithoutBreak\SwitchWithoutBreak\obj\Debug\SwitchWithoutBreak.pdb

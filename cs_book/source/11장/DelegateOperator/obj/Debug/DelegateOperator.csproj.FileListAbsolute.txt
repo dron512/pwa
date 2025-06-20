@@ -1,0 +1,1 @@
+C:\ITCookbook\DelegateOperator\bin\Debug\DelegateOperator.exe.config

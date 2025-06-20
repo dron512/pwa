@@ -1,0 +1,5 @@
+C:\ITCookbook\BoolBasic\BoolBasic\bin\Debug\BoolBasic.exe.config
+C:\ITCookbook\BoolBasic\BoolBasic\bin\Debug\BoolBasic.exe
+C:\ITCookbook\BoolBasic\BoolBasic\bin\Debug\BoolBasic.pdb
+C:\ITCookbook\BoolBasic\BoolBasic\obj\Debug\BoolBasic.exe
+C:\ITCookbook\BoolBasic\BoolBasic\obj\Debug\BoolBasic.pdb

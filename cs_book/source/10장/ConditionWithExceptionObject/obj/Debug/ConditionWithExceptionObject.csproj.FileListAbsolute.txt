@@ -1,0 +1,1 @@
+C:\ITCookbook\ConditionWithExceptionObject\bin\Debug\ConditionWithExceptionObject.exe.config

@@ -1,0 +1,1 @@
+C:\ITCookbook\ThrowWithBox\bin\Debug\ThrowWithBox.exe.config

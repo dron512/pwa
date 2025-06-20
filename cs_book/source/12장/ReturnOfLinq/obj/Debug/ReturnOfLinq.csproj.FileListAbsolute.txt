@@ -1,0 +1,1 @@
+C:\ITCookbook\코드\11장\ReturnOfLinq\bin\Debug\ReturnOfLinq.exe.config

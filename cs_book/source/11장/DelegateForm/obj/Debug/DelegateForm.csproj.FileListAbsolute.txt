@@ -1,0 +1,1 @@
+C:\ITCookbook\윈폼\DelegateForm\bin\Debug\DelegateForm.exe.config

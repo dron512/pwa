@@ -1,0 +1,6 @@
+C:\ITCookbook\코드\11장\Generics\bin\Debug\Generics.exe.config
+C:\ITCookbook\코드\11장\Generics\bin\Debug\Generics.exe
+C:\ITCookbook\코드\11장\Generics\bin\Debug\Generics.pdb
+C:\ITCookbook\코드\11장\Generics\obj\Debug\Generics.csprojResolveAssemblyReference.cache
+C:\ITCookbook\코드\11장\Generics\obj\Debug\Generics.exe
+C:\ITCookbook\코드\11장\Generics\obj\Debug\Generics.pdb

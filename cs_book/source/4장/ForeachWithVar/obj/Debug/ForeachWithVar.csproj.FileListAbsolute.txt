@@ -1,0 +1,5 @@
+C:\ITCookbook\ForeachWithVar\bin\Debug\ForeachWithVar.exe.config
+C:\ITCookbook\ForeachWithVar\bin\Debug\ForeachWithVar.exe
+C:\ITCookbook\ForeachWithVar\bin\Debug\ForeachWithVar.pdb
+C:\ITCookbook\ForeachWithVar\obj\Debug\ForeachWithVar.exe
+C:\ITCookbook\ForeachWithVar\obj\Debug\ForeachWithVar.pdb
