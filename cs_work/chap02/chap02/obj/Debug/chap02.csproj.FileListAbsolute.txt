@@ -1,0 +1,8 @@
+E:\pwa\cs_work\chap02\chap02\bin\Debug\chap02.exe.config
+E:\pwa\cs_work\chap02\chap02\bin\Debug\chap02.exe
+E:\pwa\cs_work\chap02\chap02\bin\Debug\chap02.pdb
+E:\pwa\cs_work\chap02\chap02\obj\Debug\chap02.csproj.AssemblyReference.cache
+E:\pwa\cs_work\chap02\chap02\obj\Debug\chap02.csproj.CoreCompileInputs.cache
+E:\pwa\cs_work\chap02\chap02\obj\Debug\chap02.exe
+E:\pwa\cs_work\chap02\chap02\obj\Debug\chap02.pdb
+E:\pwa\cs_work\chap02\chap02\obj\Debug\chap02.exe.config

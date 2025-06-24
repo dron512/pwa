@@ -1,0 +1,15 @@
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\bin\Debug\net8.0\ConsoleApp_chap02.exe
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\bin\Debug\net8.0\ConsoleApp_chap02.deps.json
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\bin\Debug\net8.0\ConsoleApp_chap02.runtimeconfig.json
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\bin\Debug\net8.0\ConsoleApp_chap02.dll
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\bin\Debug\net8.0\ConsoleApp_chap02.pdb
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.GeneratedMSBuildEditorConfig.editorconfig
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.AssemblyInfoInputs.cache
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.AssemblyInfo.cs
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.csproj.CoreCompileInputs.cache
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.sourcelink.json
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.dll
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\refint\ConsoleApp_chap02.dll
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.pdb
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ConsoleApp_chap02.genruntimeconfig.cache
+E:\pwa\cs_work\ConsoleApp_chap02\ConsoleApp_chap02\obj\Debug\net8.0\ref\ConsoleApp_chap02.dll

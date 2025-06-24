@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\pwa\\cs_work\\chap02\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F68E5769-7B4E-425E-989E-97469CE0FFE2}|win02\\win02.csproj|e:\\pwa\\cs_work\\chap02\\win02\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F68E5769-7B4E-425E-989E-97469CE0FFE2}|win02\\win02.csproj|solutionrelative:win02\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F68E5769-7B4E-425E-989E-97469CE0FFE2}|win02\\win02.csproj|e:\\pwa\\cs_work\\chap02\\win02\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F68E5769-7B4E-425E-989E-97469CE0FFE2}|win02\\win02.csproj|solutionrelative:win02\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F68E5769-7B4E-425E-989E-97469CE0FFE2}|win02\\win02.csproj|e:\\pwa\\cs_work\\chap02\\win02\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F68E5769-7B4E-425E-989E-97469CE0FFE2}|win02\\win02.csproj|solutionrelative:win02\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D152D608-93D5-47F1-821B-3154D0DAD980}|chap02\\chap02.csproj|e:\\pwa\\cs_work\\chap02\\chap02\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D152D608-93D5-47F1-821B-3154D0DAD980}|chap02\\chap02.csproj|solutionrelative:chap02\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\chap02\\win02\\Form1.cs",
+              "RelativeDocumentMoniker": "win02\\Form1.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\chap02\\win02\\Form1.cs",
+              "RelativeToolTip": "win02\\Form1.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAowCIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T01:46:55.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\chap02\\win02\\Form1.cs",
+              "RelativeDocumentMoniker": "win02\\Form1.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\chap02\\win02\\Form1.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "win02\\Form1.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T01:40:35.89Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\chap02\\win02\\Program.cs",
+              "RelativeDocumentMoniker": "win02\\Program.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\chap02\\win02\\Program.cs",
+              "RelativeToolTip": "win02\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T01:40:40.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\chap02\\chap02\\Program.cs",
+              "RelativeDocumentMoniker": "chap02\\Program.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\chap02\\chap02\\Program.cs",
+              "RelativeToolTip": "chap02\\Program.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAIwDQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T00:50:04.485Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

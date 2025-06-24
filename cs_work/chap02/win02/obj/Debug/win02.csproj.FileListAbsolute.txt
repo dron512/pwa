@@ -1,0 +1,11 @@
+E:\pwa\cs_work\chap02\win02\bin\Debug\win02.exe.config
+E:\pwa\cs_work\chap02\win02\bin\Debug\win02.exe
+E:\pwa\cs_work\chap02\win02\bin\Debug\win02.pdb
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.csproj.AssemblyReference.cache
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.Properties.Resources.resources
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.csproj.GenerateResource.cache
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.csproj.CoreCompileInputs.cache
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.exe
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.pdb
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.exe.config
+E:\pwa\cs_work\chap02\win02\obj\Debug\win02.Form1.resources

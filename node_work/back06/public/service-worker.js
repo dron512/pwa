@@ -2,15 +2,20 @@
 // pwa -> self
 // 브라우저 -> window
 // node -> global
+
+// pwa 오프라인동작
+// install 캐시데이터
 self.addEventListener('install', event => {
   console.log('[Service Worker] Installed');
   self.skipWaiting(); // 설치 후 즉시 활성화
 });
 
+// 오랜된 캐시 삭제
 self.addEventListener('activate', event => {
-  console.log('[Service Worker] Activated');
+  // console.log('[Service Worker] Activated');
 });
 
+// 캐시먼저 네트워크먼저
 self.addEventListener('fetch', event => {
   // 기본 네트워크 요청 처리
   event.respondWith(fetch(event.request));
