@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "E:\\pwa\\cs_work\\chap03\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B205D4C2-EA93-4114-A3D3-542B7D7DC46C}|WindowsFormsApp1\\WindowsFormsApp1.csproj|e:\\pwa\\cs_work\\chap03\\windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B205D4C2-EA93-4114-A3D3-542B7D7DC46C}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B205D4C2-EA93-4114-A3D3-542B7D7DC46C}|WindowsFormsApp1\\WindowsFormsApp1.csproj|e:\\pwa\\cs_work\\chap03\\windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B205D4C2-EA93-4114-A3D3-542B7D7DC46C}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CB41DB7B-0AD9-42A3-9C1C-9148322410B9}|conapp01\\conapp01.csproj|e:\\pwa\\cs_work\\chap03\\conapp01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CB41DB7B-0AD9-42A3-9C1C-9148322410B9}|conapp01\\conapp01.csproj|solutionrelative:conapp01\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -19,12 +27,37 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\chap03\\WindowsFormsApp1\\Form1.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\Form1.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\chap03\\WindowsFormsApp1\\Form1.cs",
+              "RelativeToolTip": "WindowsFormsApp1\\Form1.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAADgvy4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T01:55:50.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\chap03\\WindowsFormsApp1\\Form1.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp1\\Form1.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\chap03\\WindowsFormsApp1\\Form1.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "WindowsFormsApp1\\Form1.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-25T01:49:17.036Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\pwa\\cs_work\\chap03\\conapp01\\Program.cs",
               "RelativeDocumentMoniker": "conapp01\\Program.cs",
               "ToolTip": "E:\\pwa\\cs_work\\chap03\\conapp01\\Program.cs",
               "RelativeToolTip": "conapp01\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-25T00:48:15.633Z",
               "EditorCaption": ""
