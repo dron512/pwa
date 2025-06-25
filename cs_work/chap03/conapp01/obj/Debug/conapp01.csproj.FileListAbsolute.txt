@@ -1,0 +1,7 @@
+E:\pwa\cs_work\chap03\conapp01\bin\Debug\conapp01.exe.config
+E:\pwa\cs_work\chap03\conapp01\bin\Debug\conapp01.exe
+E:\pwa\cs_work\chap03\conapp01\bin\Debug\conapp01.pdb
+E:\pwa\cs_work\chap03\conapp01\obj\Debug\conapp01.csproj.AssemblyReference.cache
+E:\pwa\cs_work\chap03\conapp01\obj\Debug\conapp01.csproj.CoreCompileInputs.cache
+E:\pwa\cs_work\chap03\conapp01\obj\Debug\conapp01.exe
+E:\pwa\cs_work\chap03\conapp01\obj\Debug\conapp01.pdb
