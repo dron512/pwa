@@ -1,0 +1,8 @@
+E:\pwa\cs_work\ex0626\ConsoleApp\bin\Debug\ConsoleApp.exe.config
+E:\pwa\cs_work\ex0626\ConsoleApp\bin\Debug\ConsoleApp.exe
+E:\pwa\cs_work\ex0626\ConsoleApp\bin\Debug\ConsoleApp.pdb
+E:\pwa\cs_work\ex0626\ConsoleApp\obj\Debug\ConsoleApp.csproj.AssemblyReference.cache
+E:\pwa\cs_work\ex0626\ConsoleApp\obj\Debug\ConsoleApp.csproj.CoreCompileInputs.cache
+E:\pwa\cs_work\ex0626\ConsoleApp\obj\Debug\ConsoleApp.exe
+E:\pwa\cs_work\ex0626\ConsoleApp\obj\Debug\ConsoleApp.pdb
+E:\pwa\cs_work\ex0626\ConsoleApp\obj\Debug\ConsoleApp.exe.config

@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\pwa\\cs_work\\ex0626\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|e:\\pwa\\cs_work\\ex0626\\winform\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|solutionrelative:winform\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|e:\\pwa\\cs_work\\ex0626\\winform\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|solutionrelative:winform\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Winform||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|e:\\pwa\\cs_work\\ex0626\\winform\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|solutionrelative:winform\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|e:\\pwa\\cs_work\\ex0626\\winform\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|solutionrelative:winform\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{45D1D8E4-38CD-4D02-95B9-B5057D200493}|Winform\\Winform.csproj|e:\\pwa\\cs_work\\ex0626\\winform\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 210,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\ex0626\\Winform\\Program.cs",
+              "RelativeDocumentMoniker": "Winform\\Program.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\ex0626\\Winform\\Program.cs",
+              "RelativeToolTip": "Winform\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvwgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-26T02:08:07.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Winform",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\ex0626\\Winform\\Winform.csproj",
+              "RelativeDocumentMoniker": "Winform\\Winform.csproj",
+              "ToolTip": "E:\\pwa\\cs_work\\ex0626\\Winform\\Winform.csproj",
+              "RelativeToolTip": "Winform\\Winform.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-26T02:01:02.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\ex0626\\Winform\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Winform\\Form1.Designer.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\ex0626\\Winform\\Form1.Designer.cs",
+              "RelativeToolTip": "Winform\\Form1.Designer.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAIwCIAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-26T01:52:17.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\ex0626\\Winform\\Form1.cs",
+              "RelativeDocumentMoniker": "Winform\\Form1.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\ex0626\\Winform\\Form1.cs",
+              "RelativeToolTip": "Winform\\Form1.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAuwCIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-26T01:47:26.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "E:\\pwa\\cs_work\\ex0626\\Winform\\Form1.cs",
+              "RelativeDocumentMoniker": "Winform\\Form1.cs",
+              "ToolTip": "E:\\pwa\\cs_work\\ex0626\\Winform\\Form1.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "Winform\\Form1.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-26T01:39:48.206Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
