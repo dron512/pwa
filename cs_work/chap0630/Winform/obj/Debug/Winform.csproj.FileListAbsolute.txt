@@ -9,3 +9,5 @@ E:\pwa\cs_work\chap0630\Winform\obj\Debug\Winform.exe
 E:\pwa\cs_work\chap0630\Winform\obj\Debug\Winform.pdb
 E:\pwa\cs_work\chap0630\Winform\obj\Debug\Winform.exe.config
 E:\pwa\cs_work\chap0630\Winform\obj\Debug\Winform.Form1.resources
+E:\pwa\cs_work\chap0630\Winform\bin\Debug\MaterialSkin.dll
+E:\pwa\cs_work\chap0630\Winform\obj\Debug\Winform.csproj.Up2Date

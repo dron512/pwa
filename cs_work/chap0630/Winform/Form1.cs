@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialSkin;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,21 @@ using System.Windows.Forms;
 
 namespace Winform
 {
-    public partial class Form1 : Form
+    public partial class Form1 : MaterialSkin.Controls.MaterialForm
     {
         public Form1()
         {
             InitializeComponent();
+
+            //var skinManager = MaterialSkinManager.Instance;
+            //skinManager.AddFormToManage(this);
+            //skinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            //skinManager.ColorScheme = new ColorScheme(
+            //    Primary.Blue600, Primary.Blue700,
+            //    Primary.Blue200, Accent.Orange700,
+            //    TextShade.WHITE
+            //);
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -98,6 +109,11 @@ namespace Winform
                 // 예외가 발생하든 안 하든 항상 실행되는 코드
                 MessageBox.Show("점수 계산이 완료되었습니다.");
             }
+        }
+
+        private void materialProgressBar1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
