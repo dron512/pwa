@@ -1,9 +1,11 @@
+from flask import Flask, render_template, request
+
 import base64
 import io
-from flask import Flask, render_template, request
 from matplotlib import pyplot as plt
 import matplotlib 
 matplotlib.use('Agg')  # Tkinter 대신 Agg 사용
+
 from myclassfi import kn
 
 app = Flask(__name__)
