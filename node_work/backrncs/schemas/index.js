@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongo_url = "mongodb+srv://parkmyounghoi:3gJZt7ZkjQAGduNv@cluster0.n7xpd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongo_url = "mongodb+srv://parkmyounghoi:asd@cluster0.n7xpd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // console.log("mongo_url: ", mongo_url);
 
