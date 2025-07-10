@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const mongo_url = "mongodb+srv://parkmyounghoi:asd@cluster0.n7xpd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+require('dotenv').config(); // process.env env 설정한 내용이 가져온다.
+
+const mongo_url = process.env.MONGO_URL;
 
 // console.log("mongo_url: ", mongo_url);
 
