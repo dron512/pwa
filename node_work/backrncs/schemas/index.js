@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-require('dotenv').config(); // process.env env 설정한 내용이 가져온다.
+// 중복 제거
+// require('dotenv').config(); // process.env env 설정한 내용이 가져온다.
 
 const mongo_url = process.env.MONGO_URL;
 
