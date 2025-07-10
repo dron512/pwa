@@ -28,6 +28,7 @@ router.put('/:id', async (req, res, next) => {
   try {
     const {id} = req.params;
     const {nickname, email, password} = req.body;
+    console.log(nickname, email, password);
     const updated = User.findByIdAndUpdate(
       id,
       {nickname, email, password},
