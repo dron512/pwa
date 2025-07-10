@@ -29,7 +29,7 @@ router.put('/:id', async (req, res, next) => {
     const {id} = req.params;
     const {nickname, email, password} = req.body;
     console.log(nickname, email, password);
-    const updated = User.findByIdAndUpdate(
+    const updated = await User.findByIdAndUpdate(
       id,
       {nickname, email, password},
       {new: true, runValidators: true}
