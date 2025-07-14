@@ -29,11 +29,12 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({error: 'password does not match'});
     }
-
+  // payload 는 데이터 보이는 거
     const token = jwt.sign({
         userId: user._id,
         nickName: user.nickname,
       },
+      // 비밀번호 유효한지 검사하기 위해
       "secret"
       , {expiresIn: "1h"}
     )
