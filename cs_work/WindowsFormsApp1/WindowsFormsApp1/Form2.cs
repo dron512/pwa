@@ -1,0 +1,316 @@
+﻿using Bunifu.UI.WinForms;
+using Bunifu.UI.WinForms.BunifuButton;
+using MaterialSkin.Controls;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class form2 : MaterialForm
+    {
+        private Panel contentPanel;
+
+        public form2()
+        {
+            InitializeComponent();
+            InitializeDashboardUI();
+        }
+        private void InitializeDashboardUI()
+        {
+            // 상단 타이틀
+            Label titleLabel = new Label
+            {
+                Text = "📊 대시보드",
+                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Top,
+                Height = 60
+            };
+
+            // 왼쪽 메뉴 패널
+            Panel sideMenu = new Panel
+            {
+                Dock = DockStyle.Left,
+                Width = 200,
+                BackColor = Color.SteelBlue
+            };
+
+            // 오른쪽 콘텐츠 패널
+            contentPanel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.WhiteSmoke
+            };
+
+            // 컨트롤 추가 순서 변경 (중요!)
+            this.Controls.Add(contentPanel);
+            this.Controls.Add(sideMenu);
+            this.Controls.Add(titleLabel); // 타이틀은 맨 마지막에 추가
+
+            Button btnHome = new Button
+            {
+                Text = "홈",
+                Dock = DockStyle.Top,
+                Height = 50,
+                FlatStyle = FlatStyle.Flat,
+                ForeColor = Color.White,
+                BackColor = Color.SteelBlue
+            };
+
+            Button btnMyPage = new Button
+            {
+                Text = "마이페이지",
+                Dock = DockStyle.Top,
+                Height = 50,
+                FlatStyle = FlatStyle.Flat,
+                ForeColor = Color.White,
+                BackColor = Color.SteelBlue
+            };
+
+            // 이벤트 핸들러 수정
+            btnHome.Click += (s, e) =>
+            {
+                MessageBox.Show("홈 버튼 클릭됨"); // 디버깅용
+                ShowPanel(new HomePanel());
+            };
+
+            btnMyPage.Click += (s, e) =>
+            {
+                MessageBox.Show("마이페이지 버튼 클릭됨"); // 디버깅용
+                ShowPanel(new MyPagePanel());
+            };
+
+            sideMenu.Controls.Add(btnMyPage);
+            sideMenu.Controls.Add(btnHome);
+
+            // 초기화면 Home
+            ShowPanel(new HomePanel());
+        }
+
+        private void ShowPanel(Control panel)
+        {
+            MessageBox.Show($"패널 전환: {panel.GetType().Name}"); // 디버깅용 (콘솔 대신 메시지박스)
+            contentPanel.Controls.Clear();
+            panel.Dock = DockStyle.Fill;
+            contentPanel.Controls.Add(panel);
+            panel.BringToFront(); // 패널을 최상위로 가져오기
+            panel.Visible = true; // 패널 표시 확인
+            contentPanel.Refresh(); // 패널 갱신
+        }
+    }
+
+    // 홈 화면
+    public class HomePanel : Panel
+    {
+        private ListView todoListView;
+        private DataGridView postsGrid;
+
+        public HomePanel()
+        {
+            this.BackColor = Color.White;
+            this.Dock = DockStyle.Fill;
+            this.Padding = new Padding(20);
+
+            Label title = new Label
+            {
+                Text = "🏠 홈 화면입니다.",
+                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(0, 0)
+            };
+            this.Controls.Add(title);
+
+            // 📌 할일 목록 라벨
+            Label todoLabel = new Label
+            {
+                Text = "✔ 할일 목록",
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(0, 40)
+            };
+            this.Controls.Add(todoLabel);
+
+            // ✔ 할일 목록 ListView
+            todoListView = new ListView
+            {
+                Location = new Point(0, 70),
+                Width = 720,
+                Height = 200,
+                View = View.Details,
+                FullRowSelect = true,
+                GridLines = true,
+                Font = new Font("Segoe UI", 10),
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle
+            };
+            todoListView.Columns.Add("ID", 50);
+            todoListView.Columns.Add("Title", 550);
+            todoListView.Columns.Add("완료", 100);
+            this.Controls.Add(todoListView);
+
+            // 📌 게시글 목록 라벨
+            Label postLabel = new Label
+            {
+                Text = "📰 게시글 목록",
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(0, 280)
+            };
+            this.Controls.Add(postLabel);
+
+            // 📰 게시글 DataGridView
+            postsGrid = new DataGridView
+            {
+                Location = new Point(0, 310),
+                Width = 720,
+                Height = 250,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                ReadOnly = true,
+                AllowUserToAddRows = false,
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            // 데이터그리드 스타일 개선
+            postsGrid.EnableHeadersVisualStyles = false;
+            postsGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(33, 150, 243);
+            postsGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            postsGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            postsGrid.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            postsGrid.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            postsGrid.DefaultCellStyle.SelectionForeColor = Color.Black;
+            postsGrid.RowTemplate.Height = 30;
+
+            this.Controls.Add(postsGrid);
+
+            // 데이터 불러오기
+            LoadDataAsync();
+        }
+
+        private async Task LoadDataAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string todoResponse = await client.GetStringAsync("https://jsonplaceholder.typicode.com/todos");
+                    var todos = JsonConvert.DeserializeObject<Todo[]>(todoResponse);
+
+                    foreach (var todo in todos.Take(10))
+                    {
+                        ListViewItem item = new ListViewItem(todo.id.ToString());
+                        item.SubItems.Add(todo.title);
+                        item.SubItems.Add(todo.completed ? "✔" : "✘");
+                        todoListView.Items.Add(item);
+                    }
+
+                    string postResponse = await client.GetStringAsync("https://jsonplaceholder.typicode.com/posts");
+                    var posts = JsonConvert.DeserializeObject<Post[]>(postResponse);
+                    postsGrid.DataSource = posts.Take(10).ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("데이터 불러오기 실패:\n" + ex.Message);
+                }
+            }
+        }
+
+        // JSON 모델
+        private class Todo
+        {
+            public int userId { get; set; }
+            public int id { get; set; }
+            public string title { get; set; }
+            public bool completed { get; set; }
+        }
+
+        private class Post
+        {
+            public int userId { get; set; }
+            public int id { get; set; }
+            public string title { get; set; }
+            public string body { get; set; }
+        }
+    }
+
+    // 마이페이지 화면
+    public class MyPagePanel : Panel
+    {
+        private Label nicknameLabel;
+        private Label emailLabel;
+
+        public MyPagePanel()
+        {
+            this.BackColor = Color.White;
+            this.Dock = DockStyle.Fill;
+            this.Padding = new Padding(20);
+
+            Label titleLabel = new Label
+            {
+                Text = "👤 마이페이지 화면입니다.",
+                Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(20, 20)
+            };
+            this.Controls.Add(titleLabel);
+
+            nicknameLabel = new Label
+            {
+                Text = "닉네임: ...",
+                Font = new Font("Segoe UI", 14, FontStyle.Regular),
+                AutoSize = true,
+                Location = new Point(40, 70)
+            };
+            this.Controls.Add(nicknameLabel);
+
+            emailLabel = new Label
+            {
+                Text = "이메일: ...",
+                Font = new Font("Segoe UI", 14, FontStyle.Regular),
+                AutoSize = true,
+                Location = new Point(40, 110)
+            };
+            this.Controls.Add(emailLabel);
+
+            LoadUserInfoAsync();
+        }
+
+        private async void LoadUserInfoAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3030/auth/me");
+                request.Headers.Add("Authorization", $"Bearer {Form1._jwtToken}");
+
+                var response = await client.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show("내 정보: " + result);
+                    nicknameLabel.Text = "닉네임: " + JsonConvert.DeserializeObject<UserInfo>(result).nickname;
+                    emailLabel.Text = "이메일: " + JsonConvert.DeserializeObject<UserInfo>(result).email;
+                }
+                else
+                {
+                    MessageBox.Show("토큰 인증 실패: " + response.StatusCode);
+                }
+            }
+        }
+
+        private class UserInfo
+        {
+            public string nickname { get; set; }
+            public string email { get; set; }
+        }
+    }
+
+}

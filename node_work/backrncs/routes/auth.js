@@ -4,6 +4,30 @@ const User = require('../schemas/users');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
+router.get('/me', (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({message: '토큰 없음'});
+
+  try {
+    const decoded = jwt.verify(token, "secret");
+    req.user = decoded;
+    console.log(req.user);
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(401).json({message: '토큰 무효'});
+  }
+}, async (req, res, next) => {
+  try {
+    const user = await User.findOne({_id:req.user.userId})
+    console.log(user);
+    return res.json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
 router.post('/register', async (req, res, next) => {
   try {
     const {nickname, email, password} = req.body;
@@ -29,7 +53,7 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({error: 'password does not match'});
     }
-  // payload 는 데이터 보이는 거
+    // payload 는 데이터 보이는 거
     const token = jwt.sign({
         userId: user._id,
         nickName: user.nickname,
