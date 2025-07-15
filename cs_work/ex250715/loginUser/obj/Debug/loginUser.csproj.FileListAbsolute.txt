@@ -1,0 +1,13 @@
+E:\pwa\cs_work\ex250715\loginUser\bin\Debug\loginUser.exe.config
+E:\pwa\cs_work\ex250715\loginUser\bin\Debug\loginUser.exe
+E:\pwa\cs_work\ex250715\loginUser\bin\Debug\loginUser.pdb
+E:\pwa\cs_work\ex250715\loginUser\bin\Debug\MaterialSkin.dll
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.csproj.AssemblyReference.cache
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.Form1.resources
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.Properties.Resources.resources
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.csproj.GenerateResource.cache
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.csproj.CoreCompileInputs.cache
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.csproj.Up2Date
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.exe
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.pdb
+E:\pwa\cs_work\ex250715\loginUser\obj\Debug\loginUser.exe.config
